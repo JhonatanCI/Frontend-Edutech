@@ -1,6 +1,7 @@
 
 import NavBar from './components/NavBar';
 import HeroTitle from './components/HeroTitle';
+import SearchBar from './components/SearchBar';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       }
       subheading="Adéntrate en nuestros mundos de conocimiento, con más de 200 cursos, certificaciones, especializaciones y maestrías."
       />
+      <SearchBar/>
 
     </>
   );
