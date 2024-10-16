@@ -2,6 +2,7 @@
 import NavBar from './components/NavBar';
 import HeroTitle from './components/HeroTitle';
 import SearchBar from './components/SearchBar';
+import PopularTags from './components/PopularTags';
 
 
 function App() {
@@ -11,14 +12,24 @@ function App() {
     <>
       <NavBar />
       <HeroTitle
-      heading={
-        <>
-          ¿Qué mundo <br /> quieres explorar?
-        </>
-      }
-      subheading="Adéntrate en nuestros mundos de conocimiento, con más de 200 cursos, certificaciones, especializaciones y maestrías."
+        heading={
+          <>
+            ¿Qué mundo <br /> quieres explorar?
+          </>
+        }
+        subheading="Adéntrate en nuestros mundos de conocimiento, con más de 200 cursos, certificaciones, especializaciones y maestrías."
       />
-      <SearchBar/>
+      <SearchBar />
+      <PopularTags
+        tags={[
+          'Negocios',
+          'Liderazgo',
+          'Inteligencia Artificial',
+          'Diseño de Experiencia',
+          'Tecnología',
+          'Salud',
+        ]}
+      />
 
     </>
   );
