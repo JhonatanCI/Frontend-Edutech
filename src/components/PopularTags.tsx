@@ -6,9 +6,9 @@ interface PopularTagsProps {
 
 const PopularTags: React.FC<PopularTagsProps> = ({ tags }) => {
     return (
-        <div  className="flex flex-col mt-4 space-x-4">
+        <div  className="flex flex-col mt-4 ">
             <h2
-                className="text-gray font-normal font-inter pl-4 ">
+                className="text-gray font-normal font-inter  ">
                 Búsquedas populares</h2>
             <div className="flex justify-left mt-4 space-x-4">
                 {tags.map((tag, index) => (
