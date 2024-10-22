@@ -14,6 +14,7 @@ const ProgramSection: React.FC = () => {
           </>
         }
         subheading="Explora CoursePlace, con nuestras maestrías, especializaciones, certificaciones y cursos estarás listo para convertirte en el profesional del futuro."
+        variant='secondary'
       />
       
 
