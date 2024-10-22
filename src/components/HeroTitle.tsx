@@ -9,7 +9,7 @@ const HeroTitle: React.FC<HeroTitleProps> = ({ heading, subheading }) => {
     return (
       <div >
         <h1 className="text-white text-7xl font-calsans leading-snug ">{heading}</h1>
-        <p className="text-textGray mt-4 text-xl">{subheading}</p>
+        <p className="text-textGray text-xl">{subheading}</p>
       </div>
     );
   };
