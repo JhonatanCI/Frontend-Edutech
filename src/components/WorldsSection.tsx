@@ -6,7 +6,7 @@ import Button from './Button';
 
 const WorldsSection: React.FC = () => {
   return (
-    <div className="px-16 pb-16 bg-black text-center flex flex-col">
+    <div className="px-16 py-16 bg-white text-center flex flex-col">
       <HeroTitle
         heading={
           <>
@@ -14,6 +14,7 @@ const WorldsSection: React.FC = () => {
           </>
         }
         subheading="Explora los diferentes mundos que tenemos. Aquí podrás llevar tu conocimiento a otro nivel."
+        variant='secondary'
       />
       <div className='pb-16 pt-8 flex justify-center'>
         <Button variant="primary" size="medium" > Descubrir Todos  </Button>
@@ -21,7 +22,7 @@ const WorldsSection: React.FC = () => {
 
 
       {/* Cards Grid */}
-      <div className="container mx-auto grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 px-16">
+      <div className="container mx-auto flex gap-8 px-16">
         <WorldCard
           image={aiImage}
           title="Inteligencia Artificial"
@@ -29,19 +30,19 @@ const WorldsSection: React.FC = () => {
           buttonText="Saber más"
         />
         <WorldCard
-          image="/path/to/data-science-image.jpg"
+          image={aiImage}
           title="Ciencia de Datos"
           description="Descripción del mundo, contando sobre los principales detalles de esta. Máximo unas 3 líneas."
           buttonText="Saber más"
         />
         <WorldCard
-          image="/path/to/leadership-image.jpg"
+          image={aiImage}
           title="Liderazgo"
           description="Descripción del mundo, contando sobre los principales detalles de esta. Máximo unas 3 líneas."
           buttonText="Saber más"
         />
         <WorldCard
-          image="/path/to/innovation-image.jpg"
+          image={aiImage}
           title="Innovación"
           description="Descripción del mundo, contando sobre los principales detalles de esta. Máximo unas 3 líneas."
           buttonText="Saber más"

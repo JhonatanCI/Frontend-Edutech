@@ -13,14 +13,14 @@ const HeroTitle: React.FC<HeroTitleProps> = ({ heading, subheading, variant = 'p
     secondary: 'text-black',
   };
 
-  const baseStylesSubHeading = 'text-xl ';
+  const baseStylesSubHeading = 'text-xl';
   const variantStylesSubHeading = {
     primary: 'text-textGray',
     secondary: 'text-black',
   };
 
   const combinedStylesHeader = `${baseStylesHeader} ${variantStylesHeader[variant]}`;
-  const combinedStylesSubHeading = `${baseStylesSubHeading} ${variantStylesSubHeading[variant]}`;
+  const combinedStylesSubHeading = `${baseStylesSubHeading} ${variantStylesSubHeading[variant]} bg-red`;
   
   return (
     <div >

@@ -7,8 +7,8 @@ module.exports = {
     extend: {
       colors: {
         primaryBlue: {
-          DEFAULT: '#166FF5', 
-          dark: '#1259C4' ,
+          DEFAULT: '#865CF0', 
+          dark: '#6d4bc1' ,
         },
         secondaryTeal: {
           DEFAULT: '#06DDB1', 
@@ -39,5 +39,19 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.scroll-invisible': {
+          /* Oculta el scroll en navegadores WebKit */
+          '-webkit-scrollbar': 'none',
+          /* Internet Explorer 10+ */
+          '-ms-overflow-style': 'none',
+          /* Firefox */
+          'scrollbar-width': 'none',
+        },
+      });
+    },
+
+  ],
 };
