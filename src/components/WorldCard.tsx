@@ -12,7 +12,7 @@ const WorldCard: React.FC<CardProps> = ({ image, title, description, buttonText 
     <div className="w-80 bg-black border border-textGray text-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
       {/* Card Image */}
       <div className='p-6 flex justify-center'>
-      <img src={image} alt={title} className="w-full h-48 object-cover border border-textGray" />
+        <img src={image} alt={title} className="w-full h-48 object-cover border border-textGray" />
       </div>
       
       

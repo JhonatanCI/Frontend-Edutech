@@ -20,7 +20,7 @@
 
 nav{
   border-bottom: 0.5px solid var(--Gray, #D8D8D8);
-  background: var(--Black, #080808);
+  background: var(--Black, #000000);
 }
 
 

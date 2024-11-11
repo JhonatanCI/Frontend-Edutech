@@ -12,7 +12,7 @@ const ProgramCard: React.FC<CardProps> = ({ image, title, description, buttonTex
     <div className="w-96 bg-white border border-textGray text-black rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
       {/* Card Image */}
       <div className=' px-6 pt-4 flex justify-center'>
-      <img src={image} alt={title} className="w-full h-48 object-cover border border-textGray" />
+        <img src={image} alt={title} className="w-full h-48 object-cover border border-textGray" />
       </div>
       
       
