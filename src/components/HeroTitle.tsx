@@ -3,7 +3,7 @@ import React from 'react';
 interface HeroTitleProps {
   heading: JSX.Element | string;
   subheading: string;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'tertiary';
 }
 
 const HeroTitle: React.FC<HeroTitleProps> = ({ heading, subheading, variant = 'primary' }) => {
@@ -11,16 +11,18 @@ const HeroTitle: React.FC<HeroTitleProps> = ({ heading, subheading, variant = 'p
   const variantStylesHeader = {
     primary: 'text-white',
     secondary: 'text-black',
+    tertiary: 'text-black'
   };
 
   const baseStylesSubHeading = 'text-xl';
   const variantStylesSubHeading = {
     primary: 'text-textGray',
     secondary: 'text-black',
+    tertiary: 'text-black max-w-lg'
   };
 
   const combinedStylesHeader = `${baseStylesHeader} ${variantStylesHeader[variant]}`;
-  const combinedStylesSubHeading = `${baseStylesSubHeading} ${variantStylesSubHeading[variant]} bg-red`;
+  const combinedStylesSubHeading = `${baseStylesSubHeading} ${variantStylesSubHeading[variant]}`;
   
   return (
     <div >
