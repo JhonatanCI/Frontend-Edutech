@@ -7,18 +7,18 @@ interface HeroTitleProps {
 }
 
 const HeroTitle: React.FC<HeroTitleProps> = ({ heading, subheading, variant = 'primary' }) => {
-  const baseStylesHeader = 'text-7xl font-calsans leading-snug ';
+  const baseStylesHeader = 'text-7xl font-calsans';
   const variantStylesHeader = {
-    primary: 'text-white',
-    secondary: 'text-black',
-    tertiary: 'text-black'
+    primary: 'text-white leading-snug',
+    secondary: 'text-black leading-none',
+    tertiary: 'text-black leading-none'
   };
 
   const baseStylesSubHeading = 'text-xl';
   const variantStylesSubHeading = {
-    primary: 'text-textGray',
-    secondary: 'text-black',
-    tertiary: 'text-black max-w-lg'
+    primary: 'text-textGray ',
+    secondary: 'text-black pt-4',
+    tertiary: 'text-black max-w-lg pt-4'
   };
 
   const combinedStylesHeader = `${baseStylesHeader} ${variantStylesHeader[variant]}`;
