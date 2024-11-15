@@ -7,6 +7,7 @@ interface CardProps {
   buttonText: string;
 }
 
+
 const WorldCard: React.FC<CardProps> = ({ image, title, description, buttonText }) => {
   return (
     <div className="w-80 bg-white border border-textGray text-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
