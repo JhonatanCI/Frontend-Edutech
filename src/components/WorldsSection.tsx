@@ -3,10 +3,12 @@ import WorldCard from './WorldCard';
 import HeroTitle from './HeroTitle';
 import aiImage from '../assets/ai.jpg';
 import Button from './Button';
-import { defaultWorlds } from '../consts/consts.d';
+
+import { useWorlds } from '../hooks/useWorlds';
 
 const WorldsSection: React.FC = () => {
 
+  const worlds = useWorlds()
 
   return (
     <div className="px-16 py-16 bg-white text-center flex flex-col">
@@ -26,7 +28,7 @@ const WorldsSection: React.FC = () => {
 
       {/* Cards Grid */}
       <div className="container mx-auto flex gap-8 px-16">
-        {defaultWorlds.map(world =>
+        {worlds.map(world =>
           <WorldCard key={world.id}
             image={aiImage}
             title={world.name}
