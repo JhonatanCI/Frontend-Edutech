@@ -1,8 +1,7 @@
 import React, { useRef } from 'react';
 import HeroTitle from './HeroTitle';
-import aiImage from '../assets/ai.jpg';
+import aiImage from "../assets/worlds_assets/artificial_inteligence.svg"
 import ProgramCard from './ProgramCard';
-
 
 import { defaultPrograms } from '../consts/consts.d';
 import { useScrollPrograms } from '../hooks/useScrollPrograms';
