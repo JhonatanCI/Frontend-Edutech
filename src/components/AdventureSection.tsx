@@ -18,8 +18,8 @@ const AdventureSection: React.FC = () => {
                                 ¿Qué estás esperando?"
                     variant='secondary'
                 />
-                <div className='w-1/3 pt-8'>
-                    <Button href="#" variant="primary" size="medium" > ¡Comienza ya!  </Button>
+                <div className='w-2/3 pt-8'>
+                    <Button href="#" variant="primary" size="medium" >¡Comienza ya!</Button>
                 </div>
                 
             </div>
