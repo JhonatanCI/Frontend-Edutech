@@ -1,4 +1,9 @@
 import { Program, World } from "./types";
+import dsImage from "../assets/worlds_assets/data_science.svg"
+import pmImage from "../assets/worlds_assets/project_management.svg"
+import aiImage from "../assets/worlds_assets/artificial_inteligence.svg"
+import innImage from "../assets/worlds_assets/innovation.svg"
+import wdImage from "../assets/worlds_assets/web_development.svg"
 
 export const defaultPrograms: Program[] = [
     {
@@ -37,7 +42,7 @@ export const defaultWorlds: World[] = [
     },
     {
         id: "b689fa3c-4237-4db2-9122-992c09d75662",
-        name: "Liderazgo",
+        name: "Innovación",
         description: "Descripción del mundo, contando sobre los principales detalles de esta. Máximo unas 3 líneas."
     },
     {
@@ -46,3 +51,12 @@ export const defaultWorlds: World[] = [
         description: "Descripción del mundo, contando sobre los principales detalles de esta. Máximo unas 3 líneas."
     },
 ];
+
+
+export const worldsImages = {
+    "Gerencia de Proyectos": pmImage,
+    "Ciencia de Datos": dsImage,
+    "Inteligencia Artificial": aiImage,
+    "Innovación": innImage,
+    "Desarrollo Web": wdImage
+}

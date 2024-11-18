@@ -1,10 +1,11 @@
 import React from 'react';
 import WorldCard from './WorldCard';
 import HeroTitle from './HeroTitle';
-import aiImage from '../assets/ai.jpg';
 import Button from './Button';
 
 import { useWorlds } from '../hooks/useWorlds';
+import { worldsImages } from '../consts/consts.d';
+import aiImage from "../assets/worlds_assets/artificial_inteligence.svg"
 
 const WorldsSection: React.FC = () => {
 
@@ -30,7 +31,7 @@ const WorldsSection: React.FC = () => {
       <div className="container mx-auto flex gap-8 px-16">
         {worlds.map(world =>
           <WorldCard key={world.id}
-            image={aiImage}
+            image={worldsImages[world.name as keyof typeof worldsImages] || aiImage}
             title={world.name}
             description={world.description}
             buttonText="Saber más"
