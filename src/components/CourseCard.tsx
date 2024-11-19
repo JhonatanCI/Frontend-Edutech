@@ -11,18 +11,17 @@ interface CardProps {
 
 }
 
-const Card: React.FC<CardProps> = ({ title, description, categories, credits, variant, variantStyle, isEditable }) => {
+const CourseCard: React.FC<CardProps> = ({ title, description, categories, credits, variant, variantStyle, isEditable }) => {
     // Dynamically adjust styles based on variant
     const containerClass =
         variant === "small"
             ? "w-[18rem] h-[12rem]"
             : variant === "medium"
-                ? "w-[37rem] h-[12rem]"
-                : "w-[56rem] h-[12rem]";
+                ? "w-[37rem] h-[12rem]" :"w-[56rem] h-[12rem]";
     const paddingClass =
-        variant === "large" ? "p-6" : "p-4";
+         variant === "large" ? "p-6" :"p-4";
     const creditsPaddingClass =
-        variant === "large" ? "bottom-6 right-6" : "bottom-4 right-4";
+         variant === "large" ? "bottom-6 right-6" :"bottom-4 right-4";
     const borderClass =
         variantStyle === "dashed"
             ? "border-2 border-dashed border-secondaryBlue"
@@ -32,15 +31,15 @@ const Card: React.FC<CardProps> = ({ title, description, categories, credits, va
 
     return (
         <div
-            className={`relative bg-white shadow-md rounded-lg border border-gray-200 ${borderClass} ${containerClass} ${paddingClass} transition-transform hover:scale-105`}
+            className={`flex flex-col relative bg-white shadow-md rounded-lg border border-gray-200 ${borderClass} ${containerClass} ${paddingClass} transition-transform hover:scale-105`}
         >
             {/* Editable Icon */}
             {isEditable && (
                 <button
                     className="absolute -top-6 -right-6 hover:scale-125"
-                   
+
                 >
-                   <img src="src/assets/editIcon.svg" alt="edit" />
+                    <img src="src/assets/editIcon.svg" alt="edit" />
                 </button>
             )}
             {/* Title */}
@@ -65,11 +64,11 @@ const Card: React.FC<CardProps> = ({ title, description, categories, credits, va
             <p className="text-sm text-black mb-4">{description}</p>
 
             {/* Credits */}
-            <div className={`absolute ${creditsPaddingClass} text-right text-gray-700 font-semibold text-sm`}>
+            <div className={`absolute ${creditsPaddingClass} text-right text-black font-regular  text-xs`}>
                 {credits} créditos
             </div>
         </div>
     );
 };
 
-export default Card;
+export default CourseCard;

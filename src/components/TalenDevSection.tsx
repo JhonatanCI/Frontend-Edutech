@@ -1,5 +1,6 @@
 import React from "react";
 import CourseCard from "./CourseCard";
+import PostGradCard from "./PostGradCard";
 
 const TalentDevSection: React.FC = () => {
     return (
@@ -58,6 +59,13 @@ const TalentDevSection: React.FC = () => {
                 categories={["Categoría 1", "Categoría 2"]}
                 credits={15}
                 variant="large"
+            />
+            {/* XLarge Card */}
+            <PostGradCard
+                title="Card Doctorado"
+                description="Descripción del doctorado contando sobre los principales detalles de esta."
+                categories={["Categoría 1", "Categoría 2"]}
+                credits={21}
             />
         </div>
     );
