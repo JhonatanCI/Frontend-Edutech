@@ -3,7 +3,7 @@ import Button from './Button';
 
 const NavBar: React.FC = () => {
   return (
-    <nav className="text-white font-inter shadow-md sticky top-0 z-50 w-full">
+    <nav className="text-white font-inter shadow-md fixed top-0 z-50 w-full">
       <div className="flex justify-between items-center p-4 ">
         {/* Logo Section */}
         <div className="pl-24 flex items-center">
