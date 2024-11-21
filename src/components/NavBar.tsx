@@ -1,5 +1,7 @@
 import React from 'react';
 import Button from './Button';
+import { HashLink as Link } from "react-router-hash-link";
+
 
 const NavBar: React.FC = () => {
   return (
@@ -10,23 +12,31 @@ const NavBar: React.FC = () => {
           {/* Logo */}
           <img src="src/assets/Icesi-EverGrow_logo.svg" alt="Icesi and EverGrow logo" className="h-8 mr-2" />
           {/* Navigation Links */}
-          <div className="hidden md:flex space-x-6 ">
-            <a href="#mundos" className="pl-8  hover:text-textGray ">Mundos</a>
-            <a href="#rutas" className="hover:text-textGray">Rutas de Aprendizaje</a>
-            <a href="#perfiles" className="hover:text-textGray">Perfiles</a>
-            <a href="#empresas" className="hover:text-textGray">Empresas</a>
+          <div className="hidden md:flex space-x-6 pl-8">
+            <Link to={"/#mundos"} smooth className=" hover:text-textGray">
+              Mundos
+            </Link>
+            <Link to={"/#desarrolla-tu-talento"} smooth className="custom-link hover:text-textGray">
+              Rutas de Aprendizaje
+            </Link>
+            <Link to={"/#programas"} smooth className="custom-link hover:text-textGray">
+              Programas
+            </Link>
+            <Link to={"/#aventura"} smooth className="custom-link hover:text-textGray">
+              Empresas
+            </Link>
           </div>
         </div>
 
-        
+
 
         {/* Right Section with Buttons */}
         <div className="pr-24 flex items-center space-x-4">
           <a href="#ingresar" className="hover:text-textGray">Ingresar</a>
           <a href="#contacto" className="hover:text-textGray">Contáctanos</a>
           <Button href="#" variant="primary" size="medium" > ¡Comienza ya!  </Button>
-          
-         
+
+
         </div>
       </div>
     </nav>

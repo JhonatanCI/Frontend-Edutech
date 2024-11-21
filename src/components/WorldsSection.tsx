@@ -12,7 +12,7 @@ const WorldsSection: React.FC = () => {
   const worlds = useWorlds()
 
   return (
-    <div className="px-16 py-16 bg-white text-center flex flex-col">
+    <div id="mundos" className="px-16 pt-24 pb-20 bg-white text-center flex flex-col">
       <HeroTitle
         heading={
           <>

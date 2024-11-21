@@ -24,7 +24,7 @@ const ProgramSection: React.FC = () => {
   };
 
   return (
-    <div className="px-16 py-16 bg-white text-left flex flex-col">
+    <div id='programas' className="px-16 pb-16 pt-28 bg-white text-left flex flex-col">
 
       <div className='px-16 flex justify-between'>
         <HeroTitle
