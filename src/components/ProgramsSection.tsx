@@ -3,11 +3,13 @@ import HeroTitle from './HeroTitle';
 import aiImage from "../assets/worlds_assets/artificial_inteligence.svg"
 import ProgramCard from './ProgramCard';
 
-import { defaultPrograms } from '../consts/consts.d';
 import { useScrollPrograms } from '../hooks/useScrollPrograms';
+import { usePrograms } from '../hooks/usePrograms';
 
 
 const ProgramSection: React.FC = () => {
+
+  const programs = usePrograms()
   const containerRef = useRef<HTMLDivElement>(null);
   const {isAtStart, isAtEnd} = useScrollPrograms(containerRef)
 
@@ -59,7 +61,7 @@ const ProgramSection: React.FC = () => {
       {/* Cards Scroll Nav */}
       <div className="flex overflow-x-auto scroll-invisible py-16 gap-8 px-16 items-center max-w-full" ref={containerRef}>
         <div className="flex gap-8">
-          {defaultPrograms.map(program =>
+          {programs.map(program =>
             <ProgramCard key={program.id}
               image={aiImage}
               title={program.name}
