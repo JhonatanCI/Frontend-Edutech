@@ -6,7 +6,7 @@ const HeroSection: React.FC = () => {
   return (
     <div className="relative w-full h-screen bg-[url('../assets/HeroBackground.png')] bg-cover bg-center flex flex-col items-center justify-center text-white">
 
-      <div className=" flex flex-col ">
+      <div className=" flex flex-col pt-20">
         {/* Title and Subheading */}
         <HeroTitle
           heading={
