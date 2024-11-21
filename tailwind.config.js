@@ -10,6 +10,9 @@ module.exports = {
           DEFAULT: '#865CF0', 
           dark: '#6d4bc1' ,
         },
+        secondaryBlue:{
+          DEFAULT: "#5454E9"
+        },
         secondaryTeal: {
           DEFAULT: '#06DDB1', 
         },
