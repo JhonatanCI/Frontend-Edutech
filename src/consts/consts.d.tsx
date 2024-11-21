@@ -1,9 +1,15 @@
 import { Program, World } from "./types";
-import dsImage from "../assets/worlds_assets/data_science.svg"
-import pmImage from "../assets/worlds_assets/project_management.svg"
-import aiImage from "../assets/worlds_assets/artificial_inteligence.svg"
-import innImage from "../assets/worlds_assets/innovation.svg"
-import wdImage from "../assets/worlds_assets/web_development.svg"
+
+import dsWorld from "../assets/worlds_assets/data_science.svg"
+import pmWorld from "../assets/worlds_assets/project_management.svg"
+import aiWorld from "../assets/worlds_assets/artificial_inteligence.svg"
+import innWorld from "../assets/worlds_assets/innovation.svg"
+import wdWorld from "../assets/worlds_assets/web_development.svg"
+
+import pmMaster from "../assets/programs_assets/project_management_master.svg"
+import cbMaster from "../assets/programs_assets/cibersecurity_master.svg"
+import dsMaster from "../assets/programs_assets/data_science_master.svg"
+import deMaster from "../assets/programs_assets/digital_experiences_master.svg"
 
 export const defaultPrograms: Program[] = [
     {
@@ -54,9 +60,25 @@ export const defaultWorlds: World[] = [
 
 
 export const worldsImages = {
-    "Gerencia de Proyectos": pmImage,
-    "Ciencia de Datos": dsImage,
-    "Inteligencia Artificial": aiImage,
-    "Innovación": innImage,
-    "Desarrollo Web": wdImage
+    "Gerencia de Proyectos": pmWorld,
+    "Ciencia de Datos": dsWorld,
+    "Inteligencia Artificial": aiWorld,
+    "Innovación": innWorld,
+    "Desarrollo Web": wdWorld
+}
+
+
+export const programsImages = {
+    "Maestría en Gerencia de Proyectos": pmMaster,
+    "Certificación en Formulación y Coordinación de Proyectos": aiWorld,
+    "Maestría en Ciencia de Datos": dsMaster,
+    "Especialización en Ciberseguridad": cbMaster,
+    "Maestría en Inteligencia Artificial Aplicada": aiWorld,
+    "Certificación en Experiencias Digitales": deMaster,
+    "Maestría en Transformación Digital": aiWorld,
+    "Especialización en Gestión de TI": aiWorld,
+    "Maestría en Innovación Tecnológica": aiWorld,
+    "Certificación en Gestión Ágil de Proyectos": aiWorld,
+    "Doctorado en Transformación Digital y Estrategias Empresariales": aiWorld,
+    "Doctorado en Inteligencia Artificial y Ciencia de Datos": aiWorld,
 }

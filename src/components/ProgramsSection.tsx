@@ -5,6 +5,7 @@ import ProgramCard from './ProgramCard';
 
 import { useScrollPrograms } from '../hooks/useScrollPrograms';
 import { usePrograms } from '../hooks/usePrograms';
+import { programsImages } from '../consts/consts.d';
 
 
 const ProgramSection: React.FC = () => {
@@ -63,7 +64,7 @@ const ProgramSection: React.FC = () => {
         <div className="flex gap-8">
           {programs.map(program =>
             <ProgramCard key={program.id}
-              image={aiImage}
+              image={programsImages[program.name as keyof typeof programsImages] || aiImage}
               title={program.name}
               description={program.description}
               buttonText="Saber más"
