@@ -17,7 +17,7 @@ const NavBar: React.FC = () => {
               Mundos
             </Link>
             <Link to={"/#desarrolla-tu-talento"} smooth className="custom-link hover:text-textGray">
-              Rutas de Aprendizaje
+              Desarrolla tu Talento
             </Link>
             <Link to={"/#programas"} smooth className="custom-link hover:text-textGray">
               Programas
