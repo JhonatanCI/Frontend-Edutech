@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { getAllPrograms } from "../services/academicPrograms";
 
-import { defaultPrograms } from "../consts/consts.d";
-import { Program } from "../consts/types";
+import defaultPrograms from "../consts/programs.d";
+import { Program } from "../consts/types.d";
 
 export const usePrograms = () => {
     const [programs, setPrograms] = useState(defaultPrograms)

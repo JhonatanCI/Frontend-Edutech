@@ -8,7 +8,7 @@ const NavBar: React.FC = () => {
     <nav className="text-white font-inter shadow-md fixed top-0 z-50 w-full">
       <div className="flex justify-between items-center p-4 ">
         {/* Logo Section */}
-        <div className="pl-24 flex items-center">
+        <div className="pl-16 flex items-center">
           {/* Logo */}
           <img src="src/assets/Icesi-EverGrow_logo.svg" alt="Icesi and EverGrow logo" className="h-8 mr-2" />
           {/* Navigation Links */}
@@ -31,12 +31,10 @@ const NavBar: React.FC = () => {
 
 
         {/* Right Section with Buttons */}
-        <div className="pr-24 flex items-center space-x-4">
+        <div className="pr-16 flex items-center space-x-4">
           <a href="#ingresar" className="hover:text-textGray">Ingresar</a>
           <a href="#contacto" className="hover:text-textGray">Contáctanos</a>
           <Button href="#" variant="primary" size="medium" > ¡Comienza ya!  </Button>
-
-
         </div>
       </div>
     </nav>

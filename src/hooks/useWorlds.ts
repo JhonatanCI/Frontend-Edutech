@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { getAllWorlds } from "../services/academicWorlds";
 
-import { defaultWorlds } from "../consts/consts.d";
-import { World } from "../consts/types";
+import { defaultWorlds } from "../consts/worlds.d";
+import { World } from "../consts/types.d";
 
 export const useWorlds = () => {
     const [worlds, setWorlds] = useState(defaultWorlds)
