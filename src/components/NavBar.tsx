@@ -23,7 +23,7 @@ const NavBar: React.FC = () => {
               Programas
             </Link>
             <Link to={"/#aventura"} smooth className="custom-link hover:text-textGray">
-              Empresas
+              Organizaciones
             </Link>
           </div>
         </div>
