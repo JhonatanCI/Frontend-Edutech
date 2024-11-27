@@ -6,7 +6,7 @@ import TalentCycleComponent from "./TalentCycleComponent";
 
 const TalentDevSection: React.FC = () => {
     return (
-        <section className="flex flex-col pl-32 pr-32 bg-white">
+        <section id="desarrolla-tu-talento" className="flex flex-col px-32 pt-8 bg-white">
 
             <div className="flex justify-between">
                 <div>

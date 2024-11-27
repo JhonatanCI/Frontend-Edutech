@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getAllWorlds } from "../services/academicWorlds";
 
 import { defaultWorlds } from "../consts/consts.d";
+import { World } from "../consts/types";
 
 export const useWorlds = () => {
     const [worlds, setWorlds] = useState(defaultWorlds)
@@ -9,7 +10,11 @@ export const useWorlds = () => {
     useEffect(() => {
         const fetchWorlds = async() => {
             try {
-                const worldsFetched = await getAllWorlds()
+                const response: World[] = await getAllWorlds()
+                const worldsFetched = response.map(world => ({
+                    ...world,
+                    image: `${import.meta.env.VITE_API_URL}${world.image}`
+                }));
                 setWorlds(worldsFetched)
             } catch (error) {
                 console.error("No se ha podido obtener los mundos")
