@@ -1,14 +1,17 @@
 import { useReducer } from "react"
 import { defaultCourses } from "../../consts/courses.d"
+import { defaultCertifications, defaultEspecializations, defaultMasters, defaultPHD } from "../../consts/devtalentconsts.d"
+import { DevTalentState, DevTalentAction } from "./DevTalentTypes"
+
 
 const initialState: DevTalentState = {
     item: 0,
     microlearning: defaultCourses,
     courses: defaultCourses,
-    certification: [],
-    especialization: [],
-    master: [],
-    phd: []
+    certification: defaultCertifications,
+    especialization: defaultEspecializations,
+    master: defaultMasters,
+    phd: defaultPHD
 }
 
 export enum ActionType {

@@ -17,7 +17,7 @@ const TalentCycleComponent: React.FC = () => {
     }, cycleDuration);
 
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, state]);
 
   const handleSwitch = (index: number) => {
     updateItemSelected(index);
@@ -26,7 +26,7 @@ const TalentCycleComponent: React.FC = () => {
   };
 
   return (
-    <div className="relative h-1/2 w-1/3 bg-white shadow-md rounded-lg p-4  mx-auto ">
+    <div className="bg-white shadow-md rounded-lg p-4 mx-auto ">
       <div className="space-y-4">
         {learningItems.map((item, index) => (
           <div
@@ -58,16 +58,7 @@ const TalentCycleComponent: React.FC = () => {
                 >
                   {item.description}
                 </p>
-                {/* Progress Bar for Active Item */}
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-gray-200 mt-2 rounded-full overflow-hidden">
-                  <div
-                    className="absolute top-0 left-0 h-full bg-green-500"
-                    style={{
-                      width: "100%",
-                      animation: `progressBar ${cycleDuration}ms linear`,
-                    }}
-                  />
-                </div>
+                
               </>
             )}
           </div>

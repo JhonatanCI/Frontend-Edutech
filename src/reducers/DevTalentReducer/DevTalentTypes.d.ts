@@ -1,14 +1,16 @@
-interface DevTalentState {
+import { Course, Program } from "../../consts/types"
+
+export interface DevTalentState {
     item: number,
     microlearning: any,
-    courses: any,
-    certification: any,
-    especialization: any,
-    master: any,
-    phd: any
+    courses: Course[],
+    certification: Program[],
+    especialization: Program[],
+    master: Program[],
+    phd: Program[]
 }
 
-interface DevTalentAction {
+export interface DevTalentAction {
     type: ActionType,
     payload: any
 }

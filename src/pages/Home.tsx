@@ -5,13 +5,17 @@ import ProgramSection from "../components/ProgramsSection"
 import AdventureSection from "../components/AdventureSection"
 import TalentDevSection from "../components/TalenDevSection"
 
+import DevTalentProvider from "../context/devTalentContext"
+
 export const Home = () => {
     return (
         <>
             <NavBar />
             <HeroSection />
             <WorldsSection />
-            <TalentDevSection/>
+            <DevTalentProvider>
+                <TalentDevSection/>
+            </DevTalentProvider>
             <ProgramSection />
             <AdventureSection />
         </>

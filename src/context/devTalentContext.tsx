@@ -1,5 +1,6 @@
 import { createContext, ReactNode } from "react";
 import DevTalentReducer from "../reducers/DevTalentReducer/DevTalentReducer";
+import { DevTalentState } from "../reducers/DevTalentReducer/DevTalentTypes";
 
 interface DevTalentProviderProps {
     children: ReactNode;
@@ -10,9 +11,9 @@ export interface DevTalentContextType {
     updateItemSelected: (itemSelected: number) => void;
 }
 
-export const DevTalentContext = createContext<DevTalentContextType | undefined>(undefined);
+const DevTalentContext = createContext<DevTalentContextType | undefined>(undefined);
 
-export const DevTalentProvider = ({ children }: DevTalentProviderProps) => {
+const DevTalentProvider = ({ children }: DevTalentProviderProps) => {
     const {state, updateItemSelected} = DevTalentReducer()
 
     return (
@@ -21,3 +22,6 @@ export const DevTalentProvider = ({ children }: DevTalentProviderProps) => {
         </DevTalentContext.Provider>
     );
 };
+
+export { DevTalentContext };
+export default DevTalentProvider;
