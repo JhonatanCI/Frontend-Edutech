@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import learningItems from "../consts/learningItems.d";
+import { useDevTalentContext } from "../hooks/useDevTalentContext";
 
 const TalentCycleComponent: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const {state, updateItemSelected} = useDevTalentContext()
   const cycleDuration = 15000; // 15 seconds
   const [isPaused, setIsPaused] = useState(false);
 
@@ -11,16 +12,15 @@ const TalentCycleComponent: React.FC = () => {
     if (isPaused) return;
 
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === learningItems.length - 1 ? 0 : prevIndex + 1
-      );
+      const nextIndex = state.item === learningItems.length - 1 ? 0 : state.item + 1;
+      updateItemSelected(nextIndex);
     }, cycleDuration);
 
     return () => clearInterval(interval);
   }, [isPaused]);
 
   const handleSwitch = (index: number) => {
-    setCurrentIndex(index);
+    updateItemSelected(index);
     setIsPaused(true);
     setTimeout(() => setIsPaused(false), cycleDuration); // Resume cycling
   };
@@ -33,7 +33,7 @@ const TalentCycleComponent: React.FC = () => {
             key={index}
             onClick={() => handleSwitch(index)}
             className={`relative flex flex-col items-start p-4 rounded-md cursor-pointer transition-all ${
-              index === currentIndex
+              index === state.item
                 ? "bg-green-50 text-green-700 shadow-lg scale-105"
                 : "text-textGray bg-white"
             }`}
@@ -42,18 +42,18 @@ const TalentCycleComponent: React.FC = () => {
               <span className="mr-3 text-lg">{item.icon}</span>
               <h4
                 className={`font-semibold ${
-                  index === currentIndex ? "text-green-700" : ""
+                  index === state.item ? "text-green-700" : ""
                 }`}
               >
                 {item.title}
               </h4>
             </div>
             {/* Show Description for Active Item Only */}
-            {index === currentIndex && (
+            {index === state.item && (
               <>
                 <p
                   className={`text-sm mt-2 transition-opacity duration-500 ${
-                    index === currentIndex ? "opacity-100" : "opacity-0"
+                    index === state.item ? "opacity-100" : "opacity-0"
                   }`}
                 >
                   {item.description}

@@ -1,4 +1,4 @@
-import { Program } from "./types.d";
+import { Program } from "./types";
 
 const defaultPrograms: Program[] = [
     {
