@@ -6,6 +6,7 @@ import AdventureSection from "../components/AdventureSection"
 import TalentDevSection from "../components/TalenDevSection"
 
 import DevTalentProvider from "../context/devTalentContext"
+import PartnerSection from "../components/PartnerSection"
 
 export const Home = () => {
     return (
@@ -17,6 +18,7 @@ export const Home = () => {
                 <TalentDevSection/>
             </DevTalentProvider>
             <ProgramSection />
+            <PartnerSection/>
             <AdventureSection />
         </>
     )
