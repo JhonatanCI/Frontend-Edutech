@@ -22,7 +22,7 @@ const NavBar: React.FC = () => {
             <Link to={"/#programas"} smooth className="custom-link hover:text-textGray">
               Programas
             </Link>
-            <Link to={"/#aventura"} smooth className="custom-link hover:text-textGray">
+            <Link to={"/#organizaciones"} smooth className="custom-link hover:text-textGray">
               Organizaciones
             </Link>
           </div>

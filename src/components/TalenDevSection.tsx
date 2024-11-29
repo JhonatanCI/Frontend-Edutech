@@ -11,7 +11,6 @@ const TalentDevSection: React.FC = () => {
     const { state } = useDevTalentContext();
 
     const renderCards = () => {
-
         switch(state.item){
             case 0: {
                 return state.courses?.map((course: Course) => (
