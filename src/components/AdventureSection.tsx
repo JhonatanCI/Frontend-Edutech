@@ -4,7 +4,7 @@ import HeroTitle from './HeroTitle';
 
 const AdventureSection: React.FC = () => {
     return (
-        <section id='aventura' className="flex items-center justify-center px-8 py-12 bg-white">
+        <section className="flex items-center justify-center px-8 py-12 bg-white">
 
             <div className="w-1/3 mt-24">
                 {/* Left side: Text content */}
