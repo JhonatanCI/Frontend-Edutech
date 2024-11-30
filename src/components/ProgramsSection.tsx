@@ -8,9 +8,9 @@ import { usePrograms } from '../hooks/usePrograms';
 
 const ProgramSection: React.FC = () => {
 
-  const programs = usePrograms()
+  const programs = usePrograms(0, 10);
   const containerRef = useRef<HTMLDivElement>(null);
-  const {isAtStart, isAtEnd} = useScrollPrograms(containerRef)
+  const {isAtStart, isAtEnd} = useScrollPrograms(containerRef);
 
   const handleScrollLeft = () => {
     if (containerRef.current) {

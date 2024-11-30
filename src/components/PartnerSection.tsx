@@ -7,7 +7,7 @@ import Marquee from "react-fast-marquee";
 const PartnerSection: React.FC = () => {
   return (
     <div id="organizaciones" className="flex flex-col items-center pt-28 pb-28 bg-white">
-      <HeroTitle heading={"Conoce nuestros socios"} subheading="" variant="secondary" />
+      <HeroTitle heading={"Conoce nuestros aliados"} subheading="" variant="secondary" />
       <div className="bg-white py-10 w-full">
         <Marquee gradient={false} speed={50} pauseOnHover={true}>
           {partners.map((partner, index) => (
