@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import learningItems from "../consts/learningItems.d";
-import { useDevTalentContext } from "../hooks/useDevTalentContext";
+import { useDevTalentContext } from "../hooks/useTalentDevContext";
 
 const TalentCycleComponent: React.FC = () => {
   const {state, updateItemSelected} = useDevTalentContext()

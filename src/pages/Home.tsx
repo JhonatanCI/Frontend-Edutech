@@ -5,7 +5,7 @@ import ProgramSection from "../components/ProgramsSection"
 import AdventureSection from "../components/AdventureSection"
 import TalentDevSection from "../components/TalentDevSection"
 
-import DevTalentProvider from "../context/devTalentContext"
+import TalentDevProvider from "../context/talentDevContext"
 import PartnerSection from "../components/PartnerSection"
 
 export const Home = () => {
@@ -14,9 +14,9 @@ export const Home = () => {
             <NavBar />
             <HeroSection />
             <WorldsSection />
-            <DevTalentProvider>
+            <TalentDevProvider>
                 <TalentDevSection/>
-            </DevTalentProvider>
+            </TalentDevProvider>
             <ProgramSection />
             <PartnerSection/>
             <AdventureSection />
