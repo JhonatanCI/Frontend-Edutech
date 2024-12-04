@@ -3,7 +3,7 @@ import WorldCard from './WorldCard';
 import HeroTitle from './HeroTitle';
 import Button from './Button';
 
-import { useWorlds } from '../hooks/useWorlds';
+import { useWorlds } from '../../hooks/useWorlds';
 
 const WorldsSection: React.FC = () => {
 

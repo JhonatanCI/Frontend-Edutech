@@ -2,7 +2,7 @@ import { TalentDevContextType } from "../context/talentDevContext";
 import { useContext } from "react";
 import { TalentDevContext } from "../context/talentDevContext";
 
-export const useDevTalentContext = (): TalentDevContextType => {
+export const useTalentDevContext = (): TalentDevContextType => {
     const context = useContext(TalentDevContext);
 
     if (!context) {

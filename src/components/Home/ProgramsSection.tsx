@@ -2,8 +2,8 @@ import React, { useRef } from 'react';
 import HeroTitle from './HeroTitle';
 import ProgramCard from './ProgramCard';
 
-import { useScrollPrograms } from '../hooks/useScrollPrograms';
-import { usePrograms } from '../hooks/usePrograms';
+import { useScrollPrograms } from '../../hooks/useScrollPrograms';
+import { usePrograms } from '../../hooks/usePrograms';
 
 
 const ProgramSection: React.FC = () => {

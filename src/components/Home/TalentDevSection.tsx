@@ -1,14 +1,13 @@
 import React from "react";
 import CourseCard from "./CourseCard";
-
 import TalentSearchBar from "./TalentSearchBar";
 import TalentCycleComponent from "./TalentCycleComponent";
 
-import { useDevTalentContext } from "../hooks/useTalentDevContext";
-import { Course, Program } from "../consts/types";
+import { useTalentDevContext } from "../../hooks/useTalentDevContext";
+import { Course, Program } from "../../consts/types";
 
 const TalentDevSection: React.FC = () => {
-    const { state } = useDevTalentContext();
+    const { state } = useTalentDevContext();
 
     const categories = ["Categoria 1", "Categoria2"];
 

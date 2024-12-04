@@ -1,8 +1,8 @@
 import React from "react";
 import HeroTitle from "./HeroTitle";
-
-import { partners } from "../consts/partners.d";
 import Marquee from "react-fast-marquee";
+
+import { partners } from "../../consts/partners.d";
 
 const PartnerSection: React.FC = () => {
   return (

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import learningItems from "../consts/learningItems.d";
-import { useDevTalentContext } from "../hooks/useTalentDevContext";
+import learningItems from "../../consts/learningItems.d";
+import { useTalentDevContext } from "../../hooks/useTalentDevContext";
 
 const TalentCycleComponent: React.FC = () => {
-  const {state, updateItemSelected} = useDevTalentContext()
+  const {state, updateItemSelected} = useTalentDevContext()
   const cycleDuration = 15000; // 15 seconds
   const [isPaused, setIsPaused] = useState(false);
 
