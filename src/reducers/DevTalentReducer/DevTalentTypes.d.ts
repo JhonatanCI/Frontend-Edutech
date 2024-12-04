@@ -2,11 +2,11 @@ import { Course, Program } from "../../consts/types"
 
 export interface DevTalentState {
     item: number,
-    microlearning: any,
+    microlearnings: any,
     courses: Course[],
-    certification: Program[],
-    especialization: Program[],
-    master: Program[],
+    certifications: Program[],
+    especializations: Program[],
+    masters: Program[],
     phd: Program[]
 }
 

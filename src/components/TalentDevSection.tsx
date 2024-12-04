@@ -25,7 +25,7 @@ const TalentDevSection: React.FC = () => {
                 ));
             }
             case 1: {
-                return state.microlearning?.map((micro: Course) => (
+                return state.microlearnings?.map((micro: Course) => (
                     <CourseCard
                         key={micro.id}
                         title={micro.name}
@@ -37,7 +37,7 @@ const TalentDevSection: React.FC = () => {
                 ));
             }
             case 2: {
-                return state.certification?.map((certification: Program) => (
+                return state.certifications?.map((certification: Program) => (
                     <CourseCard
                         key={certification.id}
                         title={certification.name}
@@ -49,7 +49,7 @@ const TalentDevSection: React.FC = () => {
                 ));
             }
             case 3: {
-                return state.especialization?.map((especialization: Program) => (
+                return state.especializations?.map((especialization: Program) => (
                     <CourseCard
                         key={especialization.id}
                         title={especialization.name}
@@ -61,7 +61,7 @@ const TalentDevSection: React.FC = () => {
                 ));
             }
             case 4: {
-                return state.master?.map((master: Program) => (
+                return state.masters?.map((master: Program) => (
                     <CourseCard
                         key={master.id}
                         title={master.name}

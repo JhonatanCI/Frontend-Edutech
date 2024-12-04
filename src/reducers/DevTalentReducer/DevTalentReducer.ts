@@ -6,11 +6,11 @@ import { DevTalentState, DevTalentAction } from "./DevTalentTypes"
 
 const initialState: DevTalentState = {
     item: 0,
-    microlearning: defaultCourses,
+    microlearnings: defaultCourses,
     courses: defaultCourses,
-    certification: defaultCertifications,
-    especialization: defaultEspecializations,
-    master: defaultMasters,
+    certifications: defaultCertifications,
+    especializations: defaultEspecializations,
+    masters: defaultMasters,
     phd: defaultPHD
 }
 
