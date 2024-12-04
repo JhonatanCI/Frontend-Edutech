@@ -10,7 +10,6 @@ import { Course, Program } from "../consts/types";
 const TalentDevSection: React.FC = () => {
     const { state } = useDevTalentContext();
 
-    const credits = 2;
     const categories = ["Categoria 1", "Categoria2"];
 
     const renderCards = () => {
