@@ -2,7 +2,6 @@ import { createContext, ReactNode, useEffect } from "react";
 import TalentDevReducer from "../reducers/TalentDevReducer/TalentDevReducer";
 import { TalentDevState } from "../reducers/TalentDevReducer/TalentDevTypes";
 import { getGeneralResults } from "../services/search";
-import { Paginer } from "../utils/Paginer";
 
 interface TalentDevProviderProps {
     children: ReactNode;
@@ -22,8 +21,7 @@ const TalentDevProvider = ({ children }: TalentDevProviderProps) => {
         async function setInitialState() {
             try {
                 const response = await getGeneralResults();
-                const data = Paginer(response)
-                setItems(data)
+                setItems(response)
             } catch (error) {
                 console.error("No se pudo cargar los resultados de la sección Desarrolla tu Talento");
             }

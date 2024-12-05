@@ -5,7 +5,7 @@ export interface TalentDevState {
     microLearnings: any,
     courses: Course[],
     certifications: Program[],
-    especializations: Program[],
+    specializations: Program[],
     masters: Program[],
     phd: Program[]
 }

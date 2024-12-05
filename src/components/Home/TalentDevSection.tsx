@@ -47,11 +47,11 @@ const TalentDevSection: React.FC = () => {
                 ));
             }
             case 3: {
-                return state.especializations?.map((especialization: Program) => (
+                return state.specializations?.map((specialization: Program) => (
                     <CourseCard
-                        key={especialization.id}
-                        title={especialization.name}
-                        description={especialization.description}
+                        key={specialization.id}
+                        title={specialization.name}
+                        description={specialization.description}
                         categories={categories}
                         variant="large"
                     />
