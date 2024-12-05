@@ -21,48 +21,6 @@ const defaultCertifications: Program[] = [
     description: "Domina las estrategias de marketing en redes sociales y SEO.",
     credits: 9,
     categories: ["Categoría 1", "Categoría 2"]
-  },
-  {
-    id: "a7ce5b83-5781-4648-ac4f-b0bd1c0868d1",
-    name: "Certificación en Seguridad Informática",
-    description: "Conceptos básicos de ciberseguridad y protección de datos.",
-    credits: 12,
-    categories: ["Categoría 1", "Categoría 2"]
-  },
-  {
-    id: "7fab2d11-e492-4013-99c7-e1df406d0294",
-    name: "Certificación en Gestión de Proyectos",
-    description: "Introducción a metodologías ágiles y PMBOK.",
-    credits: 10,
-    categories: ["Categoría 1", "Categoría 2"]
-  },
-  {
-    id: "b3610706-cafa-482a-b4c1-68f3526c2fd6",
-    name: "Certificación en Diseño Gráfico",
-    description: "Principios de diseño visual y herramientas como Photoshop.",
-    credits: 11,
-    categories: ["Categoría 1", "Categoría 2"]
-  },
-  {
-    id: "6e9fa9e4-b15f-48e5-8fbe-7fa19a0fd5c4",
-    name: "Certificación en Inteligencia Artificial",
-    description: "Fundamentos de machine learning y redes neuronales.",
-    credits: 15,
-    categories: ["Categoría 1", "Categoría 2"]
-  },
-  {
-    id: "670d13e5-90db-4f72-b8aa-f705b029242d",
-    name: "Certificación en UX/UI Design",
-    description: "Diseño centrado en el usuario y prototipado interactivo.",
-    credits: 8,
-    categories: ["Categoría 1", "Categoría 2"]
-  },
-  {
-    id: "1a703698-3b71-449f-9fee-d9294c40d80a",
-    name: "Certificación en Escritura Creativa",
-    description: "Técnicas para desarrollar narrativa y estructura de textos.",
-    credits: 10,
-    categories: ["Categoría 1", "Categoría 2"]
   }
 ];
 
