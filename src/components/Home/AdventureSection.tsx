@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from './Button';
+import Button from '../Commons/Button';
 import HeroTitle from './HeroTitle';
 
 const AdventureSection: React.FC = () => {

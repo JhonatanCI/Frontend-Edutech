@@ -1,4 +1,4 @@
-import NavBar from "../components/Home/NavBar"
+import NavBar from "../components/Commons/NavBar"
 import HeroSection from "../components/Home/HeroSection"
 import WorldsSection from "../components/Home/WorldsSection"
 import ProgramSection from "../components/Home/ProgramsSection"

@@ -1,7 +1,7 @@
 import React from 'react';
 import WorldCard from './WorldCard';
 import HeroTitle from './HeroTitle';
-import Button from './Button';
+import Button from '../Commons/Button';
 
 import { useWorlds } from '../../hooks/useWorlds';
 
