@@ -4,7 +4,7 @@ import TalentSearchBar from "./TalentSearchBar";
 import TalentCycleComponent from "./TalentCycleComponent";
 
 import { useTalentDevContext } from "../../hooks/useTalentDevContext";
-import { Course, Program } from "../../consts/types";
+import { Course, MicroLearning, Program } from "../../consts/types";
 
 const TalentDevSection: React.FC = () => {
     const { state } = useTalentDevContext();
@@ -14,7 +14,7 @@ const TalentDevSection: React.FC = () => {
     const renderCards = () => {
         switch(state.item){
             case 0: {
-                return state.microLearnings?.map((micro: Course) => (
+                return state.microLearnings?.map((micro: MicroLearning) => (
                     <CourseCard
                         key={micro.id}
                         title={micro.name}

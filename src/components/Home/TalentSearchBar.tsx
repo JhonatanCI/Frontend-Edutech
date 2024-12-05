@@ -2,10 +2,12 @@ import React, {useState} from 'react';
 import { useDebounce } from 'react-use';
 
 import { getResults } from '../../services/search';
-
+import { useTalentDevContext } from '../../hooks/useTalentDevContext';
 
 
 const TalentSearchBar: React.FC = () => {
+
+  const { updateItems, reset } = useTalentDevContext();
 
   const [val, setVal] = useState('');
   const [debouncedValue, setDebouncedValue] = useState('');
@@ -13,8 +15,12 @@ const TalentSearchBar: React.FC = () => {
   useDebounce(
     () => {
       const fetchData = async () => {
-        //const data = await getResults(debouncedValue);
-        console.log(debouncedValue);
+        if(debouncedValue !== ""){
+          const data = await getResults(debouncedValue);
+          updateItems(data)
+        } else {
+          reset()
+        }
       };
       fetchData();
     },

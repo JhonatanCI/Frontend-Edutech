@@ -1,8 +1,9 @@
-import { Course, Program, Result } from "../../consts/types"
+import { Course, MicroLearning, Program, Result } from "../../consts/types"
 
 export interface TalentDevState {
+    initialValue: Result,
     item: number,
-    microLearnings: any,
+    microLearnings: MicroLearning[],
     courses: Course[],
     certifications: Program[],
     specializations: Program[],
