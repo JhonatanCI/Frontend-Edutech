@@ -14,7 +14,7 @@ const WorldsSection: React.FC = () => {
       <HeroTitle
         heading={
           <>
-            Nuestros Mundos
+            Nuestros mundos
           </>
         }
         subheading="Explora los diferentes mundos que tenemos. Aquí podrás llevar tu conocimiento a otro nivel."

@@ -14,7 +14,7 @@ const PopularTags: React.FC<PopularTagsProps> = ({ tags }) => {
         {tags.map((tag, index) => (
           <button
             key={index}
-            className="bg-white text-black font-medium text-xs font-inter px-6 py-2 rounded-sm hover:bg-gray"
+            className="bg-gray-200 text-gray-500 font-medium text-xs font-inter px-6 py-2 rounded-2xl hover:bg-gray"
           >
             {tag}
           </button>
