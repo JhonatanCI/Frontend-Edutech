@@ -1,12 +1,12 @@
-import NavBar from "../components/NavBar"
-import HeroSection from "../components/HeroSection"
-import WorldsSection from "../components/WorldsSection"
-import ProgramSection from "../components/ProgramsSection"
-import AdventureSection from "../components/AdventureSection"
-import TalentDevSection from "../components/TalenDevSection"
+import NavBar from "../components/Home/NavBar"
+import HeroSection from "../components/Home/HeroSection"
+import WorldsSection from "../components/Home/WorldsSection"
+import ProgramSection from "../components/Home/ProgramsSection"
+import AdventureSection from "../components/Home/AdventureSection"
+import TalentDevSection from "../components/Home/TalentDevSection"
+import PartnerSection from "../components/Home/PartnerSection"
 
-import DevTalentProvider from "../context/devTalentContext"
-import PartnerSection from "../components/PartnerSection"
+import TalentDevProvider from "../context/talentDevContext"
 
 export const Home = () => {
     return (
@@ -14,9 +14,9 @@ export const Home = () => {
             <NavBar />
             <HeroSection />
             <WorldsSection />
-            <DevTalentProvider>
+            <TalentDevProvider>
                 <TalentDevSection/>
-            </DevTalentProvider>
+            </TalentDevProvider>
             <ProgramSection />
             <PartnerSection/>
             <AdventureSection />

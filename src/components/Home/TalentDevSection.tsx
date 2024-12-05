@@ -1,73 +1,69 @@
 import React from "react";
 import CourseCard from "./CourseCard";
-
 import TalentSearchBar from "./TalentSearchBar";
 import TalentCycleComponent from "./TalentCycleComponent";
 
-import { useDevTalentContext } from "../hooks/useDevTalentContext";
-import { Course, Program } from "../consts/types";
+import { useTalentDevContext } from "../../hooks/useTalentDevContext";
+import { Course, MicroLearning, Program } from "../../consts/types";
 
 const TalentDevSection: React.FC = () => {
-    const { state } = useDevTalentContext();
+    const { state } = useTalentDevContext();
+
+    const categories = ["Categoria 1", "Categoria2"];
 
     const renderCards = () => {
         switch(state.item){
             case 0: {
-                return state.courses?.map((course: Course) => (
+                return state.microLearnings?.map((micro: MicroLearning) => (
                     <CourseCard
-                        key={course.id}
-                        title={course.name}
-                        description={course.description}
-                        categories={course.categories}
-                        credits={course.credits}
+                        key={micro.id}
+                        title={micro.name}
+                        description={micro.description}
+                        categories={categories}
                         variant="small"
                     />
                 ));
             }
             case 1: {
-                return state.microlearning?.map((micro: Course) => (
+                return state.courses?.map((course: Course) => (
                     <CourseCard
-                        key={micro.id}
-                        title={micro.name}
-                        description={micro.description}
-                        categories={micro.categories}
-                        credits={micro.credits}
+                        key={course.id}
+                        title={course.name}
+                        description={course.description}
+                        categories={categories}
                         variant="small"
                     />
                 ));
             }
             case 2: {
-                return state.certification?.map((certification: Program) => (
+                return state.certifications?.map((certification: Program) => (
                     <CourseCard
                         key={certification.id}
                         title={certification.name}
                         description={certification.description}
-                        categories={certification.categories}
-                        credits={certification.credits}
-                        variant="small"
-                    />
-                ));
-            }
-            case 3: {
-                return state.especialization?.map((especialization: Program) => (
-                    <CourseCard
-                        key={especialization.id}
-                        title={especialization.name}
-                        description={especialization.description}
-                        categories={especialization.categories}
-                        credits={especialization.credits}
+                        categories={categories}
                         variant="medium"
                     />
                 ));
             }
+            case 3: {
+                return state.specializations?.map((specialization: Program) => (
+                    <CourseCard
+                        key={specialization.id}
+                        title={specialization.name}
+                        description={specialization.description}
+                        categories={categories}
+                        variant="large"
+                    />
+                ));
+            }
             case 4: {
-                return state.master?.map((master: Program) => (
+                return state.masters?.map((master: Program) => (
                     <CourseCard
                         key={master.id}
                         title={master.name}
                         description={master.description}
-                        categories={master.categories}
-                        credits={master.credits}
+                        categories={categories}
                         variant="large"
                     />
                 ));
@@ -78,8 +74,7 @@ const TalentDevSection: React.FC = () => {
                         key={phd.id}
                         title={phd.name}
                         description={phd.description}
-                        categories={phd.categories}
-                        credits={phd.credits}
+                        categories={categories}
                         variant="large"
                     />
                 ));

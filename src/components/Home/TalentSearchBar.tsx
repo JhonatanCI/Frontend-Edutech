@@ -1,9 +1,49 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { useDebounce } from 'react-use';
+
+import { getResults } from '../../services/search';
+import { useTalentDevContext } from '../../hooks/useTalentDevContext';
+
 
 const TalentSearchBar: React.FC = () => {
+
+  const { updateItems, reset } = useTalentDevContext();
+
+  const [val, setVal] = useState('');
+  const [debouncedValue, setDebouncedValue] = useState('');
+
+  useDebounce(
+    () => {
+      const fetchData = async () => {
+        if(debouncedValue !== ""){
+          try {
+            const data = await getResults(debouncedValue);
+            updateItems(data)
+          } catch (error) {
+            console.error("No se pudo realizar la consulta")
+          }
+        } else {
+          reset()
+        }
+      };
+      fetchData();
+    },
+    1000,
+    [debouncedValue]
+  );
+
+  
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setVal(value);
+    setDebouncedValue(value);
+  };
+
   return (
     <div className="flex mt-6 w-full">
       <input
+        value={val}
+        onChange={handleChange}
         type="text"
         placeholder="Buscar mundos (e.j Negocios, Liderazgo)"
         className="flex-grow bg-white font-inter text-sm text-textGray px-4 py-2 h-[3rem] rounded-l-sm border border-gray-300 focus:outline-none focus:ring-0"

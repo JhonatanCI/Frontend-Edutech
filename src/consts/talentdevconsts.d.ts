@@ -66,7 +66,7 @@ const defaultCertifications: Program[] = [
   }
 ];
 
-const defaultEspecializations: Program[] = [
+const defaultSpecializations: Program[] = [
   {
     id: "esp-001",
     name: "Especialización en Big Data",
@@ -138,4 +138,4 @@ const defaultPHD: Program[] = [
   }
 ];
 
-export { defaultCertifications, defaultEspecializations, defaultMasters, defaultPHD };
+export { defaultCertifications, defaultSpecializations, defaultMasters, defaultPHD };

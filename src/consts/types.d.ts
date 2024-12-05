@@ -1,5 +1,22 @@
 export type UUID = `${string}-${string}-${string}-${string}-${string}`;
 
+
+export interface Result {
+  microLearnings: MicroLearning[],
+  courses: Course[],
+  certifications: Program[],
+  specializations: Program[],
+  masters: Program[],
+  phd: Program[],
+}
+
+export interface MicroLearning {
+  id: UUID,
+  name: string,
+  description: string,
+  categories: string[]
+}
+
 export interface Course {
   id: UUID,
   name: string,

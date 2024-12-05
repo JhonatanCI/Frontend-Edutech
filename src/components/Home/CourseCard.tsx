@@ -4,14 +4,13 @@ interface CardProps {
     title: string;
     description: string;
     categories: string[];
-    credits: number;
     variant: "small" | "medium" | "large"; // To handle size variations
     variantStyle?: "solid" | "dashed"; // New prop for border style
     isEditable?: boolean; // Determines if the pencil icon is shown
 
 }
 
-const CourseCard: React.FC<CardProps> = ({ title, description, categories, credits, variant, variantStyle, isEditable }) => {
+const CourseCard: React.FC<CardProps> = ({ title, description, categories, variant, variantStyle, isEditable }) => {
     // Clases dinámicas para controlar el tamaño en CSS Grid
     const gridClass =
         variant === "small"
@@ -21,7 +20,6 @@ const CourseCard: React.FC<CardProps> = ({ title, description, categories, credi
             : "col-span-3 row-span-1"; // Si existiera una variante "large"
     const heightClass = variant === "medium" ? "h-[12rem]" : "h-[12rem]";
     const paddingClass = variant === "large" ? "p-6" : "p-4";
-    const creditsPaddingClass = variant === "large" ? "bottom-6 right-6" : "bottom-4 right-4";
     const borderClass =
         variantStyle === "dashed"
             ? "border-2 border-dashed border-secondaryBlue"
@@ -59,11 +57,6 @@ const CourseCard: React.FC<CardProps> = ({ title, description, categories, credi
 
             {/* Description */}
             <p className="text-sm text-black mb-4">{description}</p>
-
-            {/* Credits */}
-            <div className={`absolute ${creditsPaddingClass} text-right text-black font-regular text-xs`}>
-                {credits} créditos
-            </div>
         </div>
     );
 };
