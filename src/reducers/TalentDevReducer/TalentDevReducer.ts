@@ -7,7 +7,7 @@ import talentDevReducer from "./Reducer"
 const initialState = talentDevInitialState
 const reducer = talentDevReducer
 
-const TalentDevReducer = () => {
+const useTalentDev = () => {
     const [state, dispatch] = useReducer(reducer, initialState)
 
     const updateItemSelected = (itemSelected: number) => dispatch({type: ActionType.UPDATE_ITEM, payload: itemSelected})
@@ -17,4 +17,4 @@ const TalentDevReducer = () => {
     return {state, updateItemSelected, setItems}
 }
 
-export default TalentDevReducer
+export default useTalentDev

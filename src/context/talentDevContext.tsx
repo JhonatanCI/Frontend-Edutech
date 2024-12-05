@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useEffect } from "react";
-import TalentDevReducer from "../reducers/TalentDevReducer/TalentDevReducer";
+import useTalentDev from "../reducers/TalentDevReducer/TalentDevReducer";
 import { TalentDevState } from "../reducers/TalentDevReducer/TalentDevTypes";
 import { getGeneralResults } from "../services/search";
 
@@ -15,7 +15,7 @@ export interface TalentDevContextType {
 const TalentDevContext = createContext<TalentDevContextType | undefined>(undefined);
 
 const TalentDevProvider = ({ children }: TalentDevProviderProps) => {
-    const {state, updateItemSelected, setItems} = TalentDevReducer();
+    const {state, updateItemSelected, setItems} = useTalentDev();
 
     useEffect(() => {
         async function setInitialState() {

@@ -8,7 +8,7 @@ export const talentDevInitialState: TalentDevState = {
     microLearnings: defaultCourses,
     courses: defaultCourses,
     certifications: defaultCertifications,
-    especializations: defaultSpecializations,
+    specializations: defaultSpecializations,
     masters: defaultMasters,
     phd: defaultPHD
 }
