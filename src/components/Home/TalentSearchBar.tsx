@@ -16,8 +16,12 @@ const TalentSearchBar: React.FC = () => {
     () => {
       const fetchData = async () => {
         if(debouncedValue !== ""){
-          const data = await getResults(debouncedValue);
-          updateItems(data)
+          try {
+            const data = await getResults(debouncedValue);
+            updateItems(data)
+          } catch (error) {
+            console.error("No se pudo realizar la consulta")
+          }
         } else {
           reset()
         }
