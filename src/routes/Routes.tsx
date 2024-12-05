@@ -2,7 +2,7 @@ import { Routes as Switch, Route } from "react-router-dom"
 import { Home } from "../pages/Home"
 import { NotFound } from "../pages/NotFound"
 
-export const Routes = () => {
+export const AppRoutes = () => {
     return (
         <Switch>
             <Route path="/" element={<Home/>} />
