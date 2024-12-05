@@ -11,7 +11,12 @@ interface CardProps {
 }
 
 const CourseCard: React.FC<CardProps> = ({ title, description, categories, variant, variantStyle, isEditable }) => {
-    // Clases dinámicas para controlar el tamaño en CSS Grid
+    
+    const handleClick = () => {
+        console.log("Se ha clickeado a ", title)
+    }
+
+
     const gridClass =
         variant === "small"
             ? "col-span-1 row-span-1"
@@ -29,7 +34,8 @@ const CourseCard: React.FC<CardProps> = ({ title, description, categories, varia
 
     return (
         <div
-            className={`flex flex-col relative bg-white shadow-md rounded-lg border border-gray-200 ${gridClass} ${borderClass} ${heightClass} ${paddingClass} transition-transform hover:scale-105`}
+            className={`flex flex-col relative bg-white shadow-md rounded-lg border border-gray-200 ${gridClass} ${borderClass} ${heightClass} ${paddingClass} transition-transform hover:scale-105 cursor-pointer`}
+            onClick={handleClick}
         >
             {/* Editable Icon */}
             {isEditable && (

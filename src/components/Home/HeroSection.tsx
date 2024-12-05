@@ -1,8 +1,12 @@
 import HeroTitle from './HeroTitle';
 import SearchBar from './SearchBar';
 import PopularTags from './PopularTags';
+import { useSelector } from 'react-redux';
+import { TagsState } from '../../redux/tagsSlice';
 
 const HeroSection: React.FC = () => {
+  const recentSearches = useSelector((state: { tags: TagsState }) => state.tags.tags);
+
   return (
     <div className="relative w-full h-screen bg-[url('../assets/HeroBackground.png')] bg-cover bg-center flex flex-col items-center justify-center text-white">
 
@@ -18,14 +22,7 @@ const HeroSection: React.FC = () => {
         />
         <SearchBar />
         <PopularTags
-          tags={[
-            'Negocios',
-            'Liderazgo',
-            'Inteligencia Artificial',
-            'Diseño de Experiencia',
-            'Tecnología',
-            'Salud',
-          ]}
+          tags={recentSearches.slice(-3)}
         />
       </div>
       
