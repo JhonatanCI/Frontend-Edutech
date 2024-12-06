@@ -5,7 +5,7 @@ import ProgramNavbar from "../components/ProgramView/ProgramNavBar";
 import defaultPrograms from "../consts/programs.d"
 
 export const ProgramView = () => {
-    const program = defaultPrograms.pop();
+    const program = defaultPrograms.slice(0, 1)[0] //Borar esto
     const {name} = useParams()
     console.log("Este es el nombre ",name)
 
