@@ -1,21 +1,23 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 interface CardProps {
-    title: string;
-    description: string;
-    categories: string[];
-    variant: "small" | "medium" | "large"; // To handle size variations
-    variantStyle?: "solid" | "dashed"; // New prop for border style
-    isEditable?: boolean; // Determines if the pencil icon is shown
-
+    title: string,
+    description: string,
+    categories: string[],
+    variant: "small" | "medium" | "large", // To handle size variations
+    variantStyle?: "solid" | "dashed", // New prop for border style
+    isEditable?: boolean, // Determines if the pencil icon is shown
+    path: string
 }
 
-const CourseCard: React.FC<CardProps> = ({ title, description, categories, variant, variantStyle, isEditable }) => {
+const CourseCard: React.FC<CardProps> = ({ title, description, categories, variant, variantStyle, isEditable, path }) => {
     
-    const handleClick = () => {
-        console.log("Se ha clickeado a ", title)
-    }
+    const navigateTo = useNavigate()
 
+    const handleClick = () => {
+        navigateTo(path)
+    }
 
     const gridClass =
         variant === "small"

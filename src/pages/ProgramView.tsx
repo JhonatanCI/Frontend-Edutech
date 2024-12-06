@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import NavBar from "../components/Commons/NavBar"
 import ProgramHeroSection from "../components/ProgramView/ProgramHeroSection"
 import ProgramNavbar from "../components/ProgramView/ProgramNavBar";
@@ -5,6 +6,8 @@ import defaultPrograms from "../consts/programs.d"
 
 export const ProgramView = () => {
     const program = defaultPrograms.pop();
+    const {name} = useParams()
+    console.log("Este es el nombre ",name)
 
     return (
         <div>
