@@ -1,7 +1,7 @@
 import React from 'react';
 import WorldCard from './WorldCard';
 import HeroTitle from './HeroTitle';
-import Button from './Button';
+import Button from '../Commons/Button';
 
 import { useWorlds } from '../../hooks/useWorlds';
 
@@ -14,7 +14,7 @@ const WorldsSection: React.FC = () => {
       <HeroTitle
         heading={
           <>
-            Nuestros Mundos
+            Nuestros mundos
           </>
         }
         subheading="Explora los diferentes mundos que tenemos. Aquí podrás llevar tu conocimiento a otro nivel."

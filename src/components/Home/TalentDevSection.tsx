@@ -21,6 +21,7 @@ const TalentDevSection: React.FC = () => {
                         description={micro.description}
                         categories={categories}
                         variant="small"
+                        path={`/microlearning/${micro.name}`}
                     />
                 ));
             }
@@ -32,6 +33,7 @@ const TalentDevSection: React.FC = () => {
                         description={course.description}
                         categories={categories}
                         variant="small"
+                        path={`/course/${course.name}`}
                     />
                 ));
             }
@@ -43,6 +45,7 @@ const TalentDevSection: React.FC = () => {
                         description={certification.description}
                         categories={categories}
                         variant="medium"
+                        path={`/program/${certification.name}`}
                     />
                 ));
             }
@@ -54,6 +57,7 @@ const TalentDevSection: React.FC = () => {
                         description={specialization.description}
                         categories={categories}
                         variant="large"
+                        path={`/program/${specialization.name}`}
                     />
                 ));
             }
@@ -65,6 +69,7 @@ const TalentDevSection: React.FC = () => {
                         description={master.description}
                         categories={categories}
                         variant="large"
+                        path={`/program/${master.name}`}
                     />
                 ));
             }
@@ -76,6 +81,7 @@ const TalentDevSection: React.FC = () => {
                         description={phd.description}
                         categories={categories}
                         variant="large"
+                        path={`/program/${phd.name}`}
                     />
                 ));
             }
@@ -88,7 +94,7 @@ const TalentDevSection: React.FC = () => {
 
             <div className="flex justify-between">
                 <div>
-                    <h1 className="text-7xl font-calsans text-black leading-none mt-16">Desarrolla tu Talento</h1>
+                    <h1 className="text-7xl font-calsans text-black leading-none mt-16">Desarrolla tu talento</h1>
                     <div className="flex flex-row gap-24 mb-8">
                         <p className="text-xl text-black pt-4 w-3/4">Nos adaptamos a todos los tiempos y niveles de aventura. Conoce cómo puedes explorar nuestros mundos.</p>
                         <TalentSearchBar />

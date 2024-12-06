@@ -1,23 +1,26 @@
 import React from 'react';
-import Button from './Button';
+import Button from '../Commons/Button';
 import { HashLink as Link } from "react-router-hash-link";
-
+import logo from '../../assets/Icesi-EverGrow_logo.svg'; // Ajusta la ruta según la ubicación real
 
 const NavBar: React.FC = () => {
   return (
-    <nav className="text-white font-inter shadow-md fixed top-0 z-50 w-full">
+    <nav className="text-white font-inter shadow-md fixed top-0 z-10 w-full">
       <div className="flex justify-between items-center p-4 ">
         {/* Logo Section */}
         <div className="pl-16 flex items-center">
           {/* Logo */}
-          <img src="src/assets/Icesi-EverGrow_logo.svg" alt="Icesi and EverGrow logo" className="h-8 mr-2" />
+          <Link to={"/#"} smooth>
+            <img src={logo} alt="Icesi and EverGrow logo" className="h-8 mr-2" />
+          </Link>
+
           {/* Navigation Links */}
           <div className="hidden md:flex space-x-6 pl-8">
             <Link to={"/#mundos"} smooth className=" hover:text-textGray">
               Mundos
             </Link>
             <Link to={"/#desarrolla-tu-talento"} smooth className="custom-link hover:text-textGray">
-              Desarrolla tu Talento
+              Desarrolla tu talento
             </Link>
             <Link to={"/#programas"} smooth className="custom-link hover:text-textGray">
               Programas

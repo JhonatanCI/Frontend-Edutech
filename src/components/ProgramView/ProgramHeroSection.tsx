@@ -1,0 +1,48 @@
+import { Program } from '../../consts/types';
+import Button from '../Commons/Button';
+import HabilitiesTags from './HabilitiesTags';
+
+interface ProgramHeroSectionProps {
+  program: Program | any
+}
+
+const ProgramHeroSection: React.FC<ProgramHeroSectionProps> = ({ program }) => {
+  const parts = program.name.split(" ");
+  const nameFirstPart = parts.slice(0, 2).join(" ");
+  const nameSecondPart = parts.slice(2).join(" ");
+
+  return (
+    <div
+      className="relative w-full h-screen bg-center flex flex-col items-center justify-center text-white"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6)), url(${program.image})`,
+        backgroundSize: 'cover',
+      }}
+    >
+      <div className='flex flex-col px-64 mt-16 h-2/3'>
+        <span className='text-6xl font-calsans text-white leading-tight max-w-md'>{nameFirstPart}</span>
+        <span className='text-6xl font-calsans text-white leading-tight max-w-6xl'>{nameSecondPart}</span>
+        <p className='text text-white w-2/3 mb-6'>
+          {program.description}
+        </p>
+
+        <HabilitiesTags
+          tags={[
+            'Negocios',
+            'Liderazgo',
+            'Inteligencia Artificial',
+            'Diseño de Experiencia',
+            'Tecnología',
+            'Salud',
+          ]}
+        />
+        <div className='w-1/3 pt-12'>
+          <Button href="#" variant="tertiary" size="medium" withArrow={true} > Inscribirme ya  </Button>
+        </div>
+      </div>
+    </div>
+
+  );
+};
+
+export default ProgramHeroSection;

@@ -1,15 +1,15 @@
 import React from 'react';
 
-interface PopularTagsProps {
+interface HabilitiesTagsProps {
   tags: string[];
 }
 
-const PopularTags: React.FC<PopularTagsProps> = ({ tags }) => {
+const HabilitiesTags: React.FC<HabilitiesTagsProps> = ({ tags }) => {
   return (
-    <div className="flex flex-col mt-4 ">
-      <h2 className="text-gray font-normal font-inter">
-        Búsquedas populares
-      </h2>
+    <div className="flex flex-col mt-6 ">
+      <p className="text-white text-sm font-light font-inter">
+        Habilidades que desarrollarás
+      </p>
       <div className="flex justify-left mt-4 space-x-4">
         {tags.map((tag, index) => (
           <button
@@ -25,4 +25,4 @@ const PopularTags: React.FC<PopularTagsProps> = ({ tags }) => {
   );
 };
 
-export default PopularTags;
+export default HabilitiesTags;

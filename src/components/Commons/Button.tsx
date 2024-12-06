@@ -2,7 +2,7 @@ type ButtonProps = {
     children: React.ReactNode;
     onClick?: () => void;
     href?: string;
-    variant?: 'primary' | 'secondary';
+    variant?: 'primary' | 'secondary' | 'tertiary';
     size?: 'small' | 'medium' | 'large' | 'arrow';
     disabled?: boolean;
     block?: boolean;
@@ -25,6 +25,7 @@ const Button: React.FC<ButtonProps> = ({
   const variantStyles = {
     primary: 'bg-primaryBlue hover:bg-primaryBlue-dark text-white',
     secondary: 'bg-offsetBlack hover:bg-offsetBlack-light text-white',
+    tertiary: 'bg-secondaryBlue hover:bg-secondaryBlue-dark text-white'
   };
   const sizeStyles = {
     small: 'text-sm py-2 px-4',
