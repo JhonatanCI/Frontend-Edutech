@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '../Commons/Button';
 import { HashLink as Link } from "react-router-hash-link";
+import logo from '../../assets/Icesi-EverGrow_logo.svg'; // Ajusta la ruta según la ubicación real
 
 
 const NavBar: React.FC = () => {
@@ -10,7 +11,7 @@ const NavBar: React.FC = () => {
         {/* Logo Section */}
         <div className="pl-16 flex items-center">
           {/* Logo */}
-          <img src="src/assets/Icesi-EverGrow_logo.svg" alt="Icesi and EverGrow logo" className="h-8 mr-2" />
+          <img src={logo} alt="Icesi and EverGrow logo" className="h-8 mr-2" />
           {/* Navigation Links */}
           <div className="hidden md:flex space-x-6 pl-8">
             <Link to={"/#mundos"} smooth className=" hover:text-textGray">

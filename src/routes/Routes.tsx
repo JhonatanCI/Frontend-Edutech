@@ -7,7 +7,7 @@ export const AppRoutes = () => {
     return (
         <Switch>
             <Route path="/" element={<Home/>} />
-            <Route path="/program" element={<ProgramView/>} />
+            <Route path="/program/:nombre" element={<ProgramView/>} />
             <Route path="/*" element={<NotFound/>} />
         </Switch>
     )
