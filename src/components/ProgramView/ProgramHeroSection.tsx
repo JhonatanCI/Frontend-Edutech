@@ -1,15 +1,30 @@
+import { Program } from '../../consts/types';
 import Button from '../Commons/Button';
 import HabilitiesTags from './HabilitiesTags';
 
+interface ProgramHeroSectionProps {
+  program: Program | any
+}
 
-const ProgramHeroSection: React.FC = () => {
+const ProgramHeroSection: React.FC<ProgramHeroSectionProps> = ({ program }) => {
+  const parts = program.name.split(" ");
+  const nameFirstPart = parts.slice(0, 2).join(" ");
+  const nameSecondPart = parts.slice(2).join(" ");
+
   return (
-    <div className="relative w-full h-screen bg-[url('../assets/ProgramBackground.png')] bg-cover bg-center flex flex-col items-center justify-center text-white">
-        <div className='flex flex-col px-64 -mt-16'>
-            <h1 className='text-8xl font-calsans text-black leading-tight '>Maestría en <br></br>Gerencia de Proyectos</h1>
-            <p className='text text-black w-1/2 mb-2'>Los graduados de la Maestría en Gerencia de Proyectos son líderes capacitados para abordar desafíos complejos en el campo de la gestión de proyectos. 
-                Con un enfoque estratégico y una comprensión profunda de los principios fundamentales de la gestión de proyectos, están preparados para concebir, 
-                planificar y ejecutar proyectos de manera eficiente y efectiva. </p>
+    <div
+      className="relative w-full h-screen bg-center flex flex-col items-center justify-center text-white"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6)), url(${program.image})`,
+        backgroundSize: 'cover',
+      }}
+    >
+      <div className='flex flex-col px-64 mt-16 h-2/3'>
+        <span className='text-5xl font-calsans text-white leading-tight max-w-md'>{nameFirstPart}</span>
+        <span className='text-5xl font-calsans text-white leading-tight max-w-6xl'>{nameSecondPart}</span>
+        <p className='text text-white w-2/3 mb-2'>
+          {program.description}
+        </p>
 
         <HabilitiesTags
           tags={[
@@ -22,11 +37,11 @@ const ProgramHeroSection: React.FC = () => {
           ]}
         />
         <div className='w-1/3 pt-12'>
-                    <Button href="#" variant="tertiary" size="medium" withArrow={true} > Inscribirme ya  </Button>
+          <Button href="#" variant="tertiary" size="medium" withArrow={true} > Inscribirme ya  </Button>
         </div>
-        </div>
+      </div>
     </div>
-    
+
   );
 };
 

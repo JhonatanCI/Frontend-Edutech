@@ -5,7 +5,7 @@ import { HashLink as Link } from "react-router-hash-link";
 
 const NavBar: React.FC = () => {
   return (
-    <nav className="text-white font-inter shadow-md fixed top-0 z-50 w-full">
+    <nav className="text-white font-inter shadow-md fixed top-0 z-10 w-full">
       <div className="flex justify-between items-center p-4 ">
         {/* Logo Section */}
         <div className="pl-16 flex items-center">
