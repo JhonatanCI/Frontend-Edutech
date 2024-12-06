@@ -46,3 +46,23 @@ export interface LearningItem {
   description: string;
   icon: JSX.Element;
 }
+
+
+
+//Full Programs and Courses
+export interface FullProgram {
+  id: string,
+  name: string,
+  credits: number,
+  semesters: number,
+  graduateProfile: string,
+  programType: string,
+  tags: string,
+  image: string,
+  parents: Program[],
+  children: Program[],
+  academicCompetencies: any,
+  programCourses: any,
+  programOutcomes: any,
+  academicWorlds: World[]
+}

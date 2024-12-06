@@ -1,5 +1,5 @@
 import React from "react";
-import CourseCard from "./CourseCard";
+import CourseCard from "../Commons/CourseCard";
 import TalentSearchBar from "./TalentSearchBar";
 import TalentCycleComponent from "./TalentCycleComponent";
 

@@ -1,9 +1,9 @@
-import { Program } from '../../consts/types';
+import { FullProgram } from '../../consts/types';
 import Button from '../Commons/Button';
 import HabilitiesTags from './HabilitiesTags';
 
 interface ProgramHeroSectionProps {
-  program: Program | any
+  program: FullProgram
 }
 
 const ProgramHeroSection: React.FC<ProgramHeroSectionProps> = ({ program }) => {
@@ -23,7 +23,7 @@ const ProgramHeroSection: React.FC<ProgramHeroSectionProps> = ({ program }) => {
         <span className='text-6xl font-calsans text-white leading-tight max-w-md'>{nameFirstPart}</span>
         <span className='text-6xl font-calsans text-white leading-tight max-w-6xl'>{nameSecondPart}</span>
         <p className='text text-white w-2/3 mb-6'>
-          {program.description}
+          {program.graduateProfile}
         </p>
 
         <HabilitiesTags
