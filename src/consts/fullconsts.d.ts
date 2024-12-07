@@ -1,5 +1,5 @@
 import { defaultMasters } from "./talentdevconsts.d";
-import { FullProgram, ProgramCourse, Outcome } from "./types";
+import { FullProgram, ProgramCourse, Outcome } from "../model/types";
 import { defaultPHD, defaultSpecializations } from "./talentdevconsts.d";
 import { defaultWorlds } from "./worlds.d";
 

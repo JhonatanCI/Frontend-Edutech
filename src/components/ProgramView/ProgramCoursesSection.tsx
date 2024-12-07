@@ -1,4 +1,4 @@
-import { ProgramCourse } from "../../consts/types"
+import { ProgramCourse } from "../../model/types"
 import { ProgramSemester } from "./ProgramSemester"
 
 import { filterBySemester } from "../../filters/filters"

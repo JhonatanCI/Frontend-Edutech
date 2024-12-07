@@ -1,7 +1,6 @@
 export type UUID = `${string}-${string}-${string}-${string}-${string}`;
 
-
-export interface Result {
+export type Result = {
   microLearnings: MicroLearning[],
   courses: Course[],
   certifications: Program[],
@@ -10,14 +9,14 @@ export interface Result {
   phd: Program[],
 }
 
-export interface MicroLearning {
+export type MicroLearning = {
   id: UUID,
   name: string,
   description: string,
   categories: string[]
 }
 
-export interface Course {
+export type Course = {
   id: UUID,
   name: string,
   description: string,
@@ -25,7 +24,7 @@ export interface Course {
   categories: string[]
 }
 
-export interface Program {
+export type Program = {
   id: UUID,
   name: string,
   description: string,
@@ -34,40 +33,14 @@ export interface Program {
   categories: string[]
 }
 
-export interface World {
+export type World = {
     id: UUID,
     name: string,
     description: string,
     image: string
 }
 
-export interface LearningItem {
-  title: string;
-  description: string;
-  icon: JSX.Element;
-}
-
-
-
-//Full Programs and Courses
-export interface FullProgram {
-  id: UUID,
-  name: string,
-  credits: number,
-  semesters: number,
-  graduateProfile: string,
-  programType: string,
-  tags: string,
-  image: string,
-  parents: Program[],
-  children: Program[],
-  academicCompetencies: any,
-  programCourses: ProgramCourse[],
-  programOutcomes: any,
-  academicWorlds: World[]
-}
-
-export interface ProgramCourse {
+export type ProgramCourse = {
   programId: UUID,
   courseId: UUID,
   outcomeId: UUID,
@@ -86,9 +59,36 @@ export interface ProgramCourse {
   outcome: Outcome
 }
 
-export interface Outcome {
+export type Outcome = {
   id: UUID,
   name: string,
   description: string,
   competency: any
+}
+
+export type ProgramOutcome = {
+  programId: UUID,
+  outcomeId: UUID,
+  minCredits: number,
+  maxCredits: number,
+  program: Program,
+  outcome: Outcome
+}
+
+//Full Programs and Courses
+export type FullProgram = {
+  id: UUID,
+  name: string,
+  credits: number,
+  semesters: number,
+  graduateProfile: string,
+  programType: string,
+  tags: string,
+  image: string,
+  parents: Program[],
+  children: Program[],
+  academicCompetencies: any,
+  programCourses: ProgramCourse[],
+  programOutcomes: any,
+  academicWorlds: World[]
 }

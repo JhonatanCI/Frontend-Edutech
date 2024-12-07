@@ -1,6 +1,6 @@
 import React from "react"
 import { FilledLine, DottedLine } from "../../assets/Icons/linesIcons"
-import { FullProgram } from "../../consts/types"
+import { FullProgram } from "../../model/types"
 import ProgramCoursesSection from "./ProgramCoursesSection"
 import { HabilitiesDev } from "./HabilitiesDevSection"
 
@@ -8,10 +8,9 @@ interface AvailableCoursesSectionProps {
     program: FullProgram
 }
 
-
 const AvailableCoursesSection: React.FC<AvailableCoursesSectionProps> = ({program}) => {
     return (
-        <div id="courses" className="h-full w-full flex flex-col px-28 py-14">
+        <div id="courses" className="h-full w-full flex flex-col px-28 pb-14 pt-24">
             <h2 className="text-black text-4xl font-calsans leading-tight max-w-md">Cursos disponibles</h2>
             <p className="text-black w-3/5 mb-6">
                 Nuestra oferta de cursos se destaca por su flexibilidad y adaptabilidad al perfil que quieras construir, podrás intercambiar cursos por otros que consideres que tienen mayor aporte a tu formación.

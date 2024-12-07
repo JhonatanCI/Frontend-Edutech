@@ -1,4 +1,4 @@
-import { World } from "./types.d";
+import { World } from "../model/types";
 
 export const defaultWorlds: World[] = [
     {

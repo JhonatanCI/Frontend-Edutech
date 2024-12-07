@@ -4,7 +4,7 @@ import TalentSearchBar from "./TalentSearchBar";
 import TalentCycleComponent from "./TalentCycleComponent";
 
 import { useTalentDevContext } from "../../hooks/useTalentDevContext";
-import { Course, MicroLearning, Program } from "../../consts/types";
+import { Course, MicroLearning, Program } from "../../model/types";
 
 const TalentDevSection: React.FC = () => {
     const { state } = useTalentDevContext();

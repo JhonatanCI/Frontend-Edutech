@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getAllPrograms } from "../services/academicPrograms";
 
 import defaultPrograms from "../consts/programs.d";
-import { Program } from "../consts/types.d";
+import { Program } from "../model/types";
 
 export const usePrograms = (page: number, size: number) => {
     const [programs, setPrograms] = useState(defaultPrograms)

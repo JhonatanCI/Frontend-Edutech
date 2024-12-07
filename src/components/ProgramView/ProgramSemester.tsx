@@ -1,5 +1,5 @@
 import React from "react";
-import { ProgramCourse } from "../../consts/types";
+import { ProgramCourse } from "../../model/types";
 import CourseCard from "../Commons/CourseCard";
 
 interface ProgramSemesterProps {

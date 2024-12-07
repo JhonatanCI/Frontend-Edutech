@@ -1,4 +1,4 @@
-import { FullProgram } from '../../consts/types';
+import { FullProgram } from '../../model/types';
 import Button from '../Commons/Button';
 import HabilitiesTags from './HabilitiesTags';
 
