@@ -12,7 +12,7 @@ const ProgramCoursesSection: React.FC<ProgramCoursesSectionProps> = ({programCou
     const semesterArray = [...Array(semesters).keys()]
     
     return(
-        <div className="pt-12">
+        <div className="pt-12 w-3/5">
             {semesterArray.map((semesterIndex) => (
                 <ProgramSemester key={semesterIndex} semester={semesterIndex + 1} programCourses={filterBySemester(semesterIndex + 1, programCourses)}/>
             ))}

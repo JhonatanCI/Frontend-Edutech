@@ -2,6 +2,7 @@ import React from "react"
 import { FilledLine, DottedLine } from "../../assets/Icons/linesIcons"
 import { FullProgram } from "../../consts/types"
 import ProgramCoursesSection from "./ProgramCoursesSection"
+import { HabilitiesDev } from "./HabilitiesDevSection"
 
 interface AvailableCoursesSectionProps {
     program: FullProgram
@@ -10,7 +11,7 @@ interface AvailableCoursesSectionProps {
 
 const AvailableCoursesSection: React.FC<AvailableCoursesSectionProps> = ({program}) => {
     return (
-        <div id="courses" className="h-full w-full flex flex-col px-32 py-14">
+        <div id="courses" className="h-full w-full flex flex-col px-28 py-14">
             <h2 className="text-black text-4xl font-calsans leading-tight max-w-md">Cursos disponibles</h2>
             <p className="text-black w-3/5 mb-6">
                 Nuestra oferta de cursos se destaca por su flexibilidad y adaptabilidad al perfil que quieras construir, podrás intercambiar cursos por otros que consideres que tienen mayor aporte a tu formación.
@@ -27,9 +28,11 @@ const AvailableCoursesSection: React.FC<AvailableCoursesSectionProps> = ({progra
                 </div>
             </div>
 
-
-            <ProgramCoursesSection programCourses={program.programCourses} semesters={program.semesters}/>
-
+            <div className="flex w-full justify-between gap-32">
+                <ProgramCoursesSection programCourses={program.programCourses} semesters={program.semesters}/>
+                <HabilitiesDev/>
+            </div>
+            
         </div>
     )
 }
