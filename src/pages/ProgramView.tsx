@@ -16,7 +16,7 @@ export const ProgramView = () => {
             <NavBar />
             <ProgramHeroSection program={program} />
             <ProgramNavbar/>
-            <AvailableCoursesSection program={program}/>
+            {program.programCourses && <AvailableCoursesSection program={program}/>}
             
             {/* Content Sections */}
             <div id="achievements" className="h-screen bg-green-200">Achievements Section</div>

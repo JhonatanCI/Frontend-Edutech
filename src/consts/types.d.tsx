@@ -8,3 +8,8 @@ export type Image = {
   src: string,
   alt: string
 }
+
+export type ChartValues = {
+  categories: string[],
+  max: number
+}

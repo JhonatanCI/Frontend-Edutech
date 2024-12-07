@@ -1,17 +1,14 @@
 import ReactApexChart from "react-apexcharts"
 import { ApexOptions } from "apexcharts";
 import React from "react";
-
-type ChartValues = {
-    categories: string[],
-    max: number
-}
+import { ChartValues } from "../../consts/types.d";
 
 interface HabilitiesBarChartProps {
-    chartvalues: ChartValues
+    chartvalues: ChartValues,
+    data: number[]
 }
 
-const HabilitiesBarChart: React.FC<HabilitiesBarChartProps> = ({chartvalues}) => {
+const HabilitiesBarChart: React.FC<HabilitiesBarChartProps> = ({chartvalues, data}) => {
     const options: ApexOptions = {
         chart: {
             type: 'bar',
@@ -53,7 +50,7 @@ const HabilitiesBarChart: React.FC<HabilitiesBarChartProps> = ({chartvalues}) =>
     const series = [
         {
             name: 'Actual',
-            data: [3, 4, 6, 4, 5, 4, 2, 3], // Valores actuales (barras azules)
+            data: data,
         },
     ];
 

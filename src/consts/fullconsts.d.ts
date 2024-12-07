@@ -1,5 +1,5 @@
 import { defaultMasters } from "./talentdevconsts.d";
-import { FullProgram, ProgramCourse, Outcome } from "../model/types";
+import { FullProgram, ProgramCourse, Outcome, ProgramOutcome } from "../model/types";
 import { defaultPHD, defaultSpecializations } from "./talentdevconsts.d";
 import { defaultWorlds } from "./worlds.d";
 
@@ -136,6 +136,33 @@ const programCourses: ProgramCourse[] = [
     },
 ]
 
+const programOutcomes: ProgramOutcome = [
+    {
+        programId: "d561019e-2c20-48a4-8afa-c4044facfab6",
+        outcomeId: "d561019e-2c20-48a4-8afa-c4044facfab6",
+        minCredits: 0,
+        maxCredits: 5,
+        program: null,
+        outcome: outcome1
+    },
+    {
+        programId: "02a6bda8-00d1-4248-803e-7ecfd77b974b",
+        outcomeId: "02a6bda8-00d1-4248-803e-7ecfd77b974b",
+        minCredits: 0,
+        maxCredits: 15,
+        program: null,
+        outcome: outcome2
+    },
+    {
+        programId: "93d2c630-eeac-47cc-94ab-5a46c0fa22da",
+        outcomeId: "93d2c630-eeac-47cc-94ab-5a46c0fa22da",
+        minCredits: 0,
+        maxCredits: 4,
+        program: null,
+        outcome: outcome3
+    }
+]
+
 export const fullProgramExample: FullProgram = {
     id: "3e6bdc69-7f79-4545-a1e6-dcc65cd0f6a1",
     name: "Maestría en Innovación Tecnologica",
@@ -149,6 +176,6 @@ export const fullProgramExample: FullProgram = {
     children: defaultSpecializations,
     academicCompetencies: null,
     programCourses: programCourses,
-    programOutcomes: null,
+    programOutcomes: programOutcomes,
     academicWorlds: defaultWorlds
 }

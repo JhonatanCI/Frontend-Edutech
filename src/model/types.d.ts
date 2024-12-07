@@ -89,6 +89,6 @@ export type FullProgram = {
   children: Program[],
   academicCompetencies: any,
   programCourses: ProgramCourse[],
-  programOutcomes: any,
+  programOutcomes: ProgramOutcome[],
   academicWorlds: World[]
 }

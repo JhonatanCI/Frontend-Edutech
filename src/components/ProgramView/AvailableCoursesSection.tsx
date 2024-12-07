@@ -29,7 +29,7 @@ const AvailableCoursesSection: React.FC<AvailableCoursesSectionProps> = ({progra
 
             <div className="flex w-full justify-between gap-32">
                 <ProgramCoursesSection programCourses={program.programCourses} semesters={program.semesters}/>
-                <HabilitiesDev/>
+                {program.programOutcomes && <HabilitiesDev programOutcomes={program.programOutcomes}/>}
             </div>
             
         </div>
