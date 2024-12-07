@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import editIcon from "../../assets/editIcon.svg"
 
 interface CardProps {
     title: string,
@@ -45,7 +46,7 @@ const CourseCard: React.FC<CardProps> = ({ title, description, categories, credi
             {/* Editable Icon */}
             {isEditable && (
                 <button className="absolute -top-6 -right-6 hover:scale-125">
-                    <img src="src/assets/editIcon.svg" alt="edit" />
+                    <img src={editIcon} alt="edit" />
                 </button>
             )}
             {/* Title */}
