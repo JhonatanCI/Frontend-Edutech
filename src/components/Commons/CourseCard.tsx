@@ -27,7 +27,7 @@ const CourseCard: React.FC<CardProps> = ({ title, description, categories, credi
             : variant === "medium"
                 ? "col-span-2 row-span-1"
                 : "col-span-3 row-span-1"; // Si existiera una variante "large"
-    const heightClass = variant === "medium" ? "h-[12rem]" : "h-[12rem]";
+    const heightClass = variant === "medium" ? "h-[16rem]" : "h-[16rem]";
     const paddingClass = variant === "large" ? "p-6" : "p-4";
     const creditsPaddingClass =
         variant === "large" ? "bottom-6 right-6" : "bottom-4 right-4";

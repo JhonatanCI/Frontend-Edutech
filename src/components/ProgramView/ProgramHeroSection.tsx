@@ -19,9 +19,9 @@ const ProgramHeroSection: React.FC<ProgramHeroSectionProps> = ({ program }) => {
         backgroundSize: 'cover',
       }}
     >
-      <div className='flex flex-col px-64 mt-16 h-2/3'>
-        <span className='text-5xl font-calsans text-white leading-tight max-w-md'>{nameFirstPart}</span>
-        <span className='text-5xl font-calsans text-white leading-tight max-w-6xl'>{nameSecondPart}</span>
+      <div className='flex flex-col px-56 mt-32 h-full'>
+        <span className='text-6xl font-calsans text-white leading-tight max-w-6xl'>{nameFirstPart}</span>
+        <span className='text-6xl font-calsans text-white leading-tight max-w-6xl'>{nameSecondPart}</span>
         <p className='text text-white w-full mb-6'>
           {program.graduateProfile}
         </p>
@@ -36,7 +36,7 @@ const ProgramHeroSection: React.FC<ProgramHeroSectionProps> = ({ program }) => {
             'Salud',
           ]}
         />
-        <div className='w-1/3 pt-12'>
+        <div className='w-1/3 pt-10'>
           <Button href="#" variant="tertiary" size="medium" withArrow={true} > Inscribirme ya  </Button>
         </div>
       </div>

@@ -6,7 +6,7 @@ import logo from '../../assets/Icesi-EverGrow_logo.svg'; // Ajusta la ruta segú
 const NavBar: React.FC = () => {
   return (
     <nav className="text-white font-inter shadow-md fixed top-0 z-10 w-full">
-      <div className="flex justify-between items-center p-4 ">
+      <div className="flex justify-between items-center p-3">
         {/* Logo Section */}
         <div className="pl-16 flex items-center">
           {/* Logo */}

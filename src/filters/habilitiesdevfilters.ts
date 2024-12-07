@@ -1,4 +1,4 @@
-import { ProgramOutcome } from "../model/types";
+import { ProgramCourse, ProgramOutcome } from "../model/types";
 
 export const getMaxValue = (programOutcomes: ProgramOutcome[]) => {
     return programOutcomes.reduce((max, outcome) => {
@@ -10,6 +10,10 @@ export const getCategories = (programOutcomes: ProgramOutcome[]) => {
     return programOutcomes.map(outcome => outcome.outcome.name);
 };
 
-export const getOutcomeValues = (programOutcomes: ProgramOutcome[]) => {
-  return programOutcomes.map(outcome => outcome.maxCredits);
-};
+export const getContributionForEachCategory = (programCourses: ProgramCourse[], categories: string[]) => {
+  return categories.map(category =>
+    programCourses.reduce((sum, course) => {
+      return course.outcome.name === category ? sum + course.credits : sum;
+    }, 0)
+  );
+}

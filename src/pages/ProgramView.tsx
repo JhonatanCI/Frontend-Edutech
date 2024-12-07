@@ -11,7 +11,7 @@ import { FullProgram } from "../model/types";
 
 export const ProgramView = () => {
     const {name} = useParams()
-    const [program, setProgram] = useState(fullProgramExample)
+    const [program, setProgram] = useState<FullProgram | null>(null)
 
     useEffect(() => {
         const fetchFullProgram = async() => {
@@ -27,12 +27,17 @@ export const ProgramView = () => {
                 }
                 setProgram(programsFetched)
             } catch (error) {
+                setProgram(fullProgramExample)
                 console.error("No se ha podido obtener los programas academicos")
             }
         }
 
         fetchFullProgram()
     }, [])
+
+    if(!program){
+        return
+    }
 
     return (
         <div>
