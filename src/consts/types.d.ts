@@ -51,7 +51,7 @@ export interface LearningItem {
 
 //Full Programs and Courses
 export interface FullProgram {
-  id: string,
+  id: UUID,
   name: string,
   credits: number,
   semesters: number,
@@ -62,7 +62,33 @@ export interface FullProgram {
   parents: Program[],
   children: Program[],
   academicCompetencies: any,
-  programCourses: any,
+  programCourses: ProgramCourse[],
   programOutcomes: any,
   academicWorlds: World[]
+}
+
+export interface ProgramCourse {
+  programId: UUID,
+  courseId: UUID,
+  outcomeId: UUID,
+  name: string,
+  nameMen: string,
+  description: string,
+  credits: number,
+  generalObjective: string,
+  terminalObjectives: string,
+  modality: string,
+  semester: number,
+  flexibility: string,
+  introduce: boolean,
+  fortalece: boolean,
+  valora: boolean,
+  outcome: Outcome
+}
+
+export interface Outcome {
+  id: UUID,
+  name: string,
+  description: string,
+  competency: any
 }

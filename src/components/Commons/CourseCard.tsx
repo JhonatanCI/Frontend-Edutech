@@ -9,7 +9,7 @@ interface CardProps {
     variant: "small" | "medium" | "large", // To handle size variations
     variantStyle?: "solid" | "dashed", // New prop for border style
     isEditable?: boolean, // Determines if the pencil icon is shown
-    path: string
+    path?: string
 }
 
 const CourseCard: React.FC<CardProps> = ({ title, description, categories, credits, variant, variantStyle, isEditable, path }) => {
@@ -17,7 +17,7 @@ const CourseCard: React.FC<CardProps> = ({ title, description, categories, credi
     const navigateTo = useNavigate()
 
     const handleClick = () => {
-        navigateTo(path)
+        path && navigateTo(path)
     }
 
     const gridClass =
