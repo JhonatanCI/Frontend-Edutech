@@ -5,18 +5,41 @@ import ProgramNavbar from "../components/ProgramView/ProgramNavBar";
 import AvailableCoursesSection from "../components/ProgramView/AvailableCoursesSection";
 
 import { fullProgramExample } from "../consts/fullconsts.d";
+import { useEffect, useState } from "react";
+import { getFullProgram } from "../services/fullAcademicProgram";
+import { FullProgram } from "../model/types";
 
 export const ProgramView = () => {
-    const program = fullProgramExample //Borar esto
     const {name} = useParams()
-    console.log("Este es el nombre ",name)
+    const [program, setProgram] = useState(fullProgramExample)
+
+    useEffect(() => {
+        const fetchFullProgram = async() => {
+            try {
+                if (!name) {
+                    throw new Error("El parámetro 'name' es undefined");
+                }
+
+                const response: FullProgram = await getFullProgram(name)
+                const programsFetched = {
+                    ...response,
+                    image: `${import.meta.env.VITE_API_URL}${response.image}`
+                }
+                setProgram(programsFetched)
+            } catch (error) {
+                console.error("No se ha podido obtener los programas academicos")
+            }
+        }
+
+        fetchFullProgram()
+    }, [])
 
     return (
         <div>
             <NavBar />
             <ProgramHeroSection program={program} />
             <ProgramNavbar/>
-            {program.programCourses && <AvailableCoursesSection program={program}/>}
+            {program.programCourses?.length && <AvailableCoursesSection program={program} />}
             
             {/* Content Sections */}
             <div id="achievements" className="h-screen bg-green-200">Achievements Section</div>

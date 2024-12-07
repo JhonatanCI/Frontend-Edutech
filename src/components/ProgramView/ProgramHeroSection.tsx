@@ -20,9 +20,9 @@ const ProgramHeroSection: React.FC<ProgramHeroSectionProps> = ({ program }) => {
       }}
     >
       <div className='flex flex-col px-64 mt-16 h-2/3'>
-        <span className='text-6xl font-calsans text-white leading-tight max-w-md'>{nameFirstPart}</span>
-        <span className='text-6xl font-calsans text-white leading-tight max-w-6xl'>{nameSecondPart}</span>
-        <p className='text text-white w-2/3 mb-6'>
+        <span className='text-5xl font-calsans text-white leading-tight max-w-md'>{nameFirstPart}</span>
+        <span className='text-5xl font-calsans text-white leading-tight max-w-6xl'>{nameSecondPart}</span>
+        <p className='text text-white w-full mb-6'>
           {program.graduateProfile}
         </p>
 
