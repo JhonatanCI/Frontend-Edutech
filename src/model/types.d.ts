@@ -43,7 +43,6 @@ export type World = {
 export type ProgramCourse = {
   programId: UUID,
   courseId: UUID,
-  outcomeId: UUID,
   name: string,
   nameMen: string,
   description: string,
@@ -51,12 +50,9 @@ export type ProgramCourse = {
   generalObjective: string,
   terminalObjectives: string,
   modality: string,
-  semester: number,
+  semester: number
   flexibility: string,
-  introduce: boolean,
-  fortalece: boolean,
-  valora: boolean,
-  outcome: Outcome
+  outcomesContribution: SimpleOutcome[];
 }
 
 export type Outcome = {
@@ -64,6 +60,14 @@ export type Outcome = {
   name: string,
   description: string,
   competency: any
+}
+
+type SimpleOutcome = {
+  id: UUID,
+  name: string,
+  introduce: boolean,
+  fortalece: boolean,
+  valora: boolean
 }
 
 export type ProgramOutcome = {

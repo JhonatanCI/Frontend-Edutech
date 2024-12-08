@@ -5,39 +5,19 @@ import ProgramNavbar from "../components/ProgramView/ProgramNavBar";
 import AvailableCoursesSection from "../components/ProgramView/AvailableCoursesSection";
 import { AchievementsSection } from "../components/ProgramView/AchievementsSection";
 
-import { fullProgramExample } from "../consts/fullconsts.d";
-import { useEffect, useState } from "react";
-import { getFullProgram } from "../services/fullAcademicProgram";
-import { FullProgram } from "../model/types";
+import { useFullProgram } from "../hooks/useFullProgram";
 
 export const ProgramView = () => {
     const {name} = useParams()
-    const [program, setProgram] = useState<FullProgram | null>(null)
-
-    useEffect(() => {
-        const fetchFullProgram = async() => {
-            try {
-                if (!name) {
-                    throw new Error("El parámetro 'name' es undefined");
-                }
-
-                const response: FullProgram = await getFullProgram(name)
-                const programsFetched = {
-                    ...response,
-                    image: `${import.meta.env.VITE_API_URL}${response.image}`
-                }
-                setProgram(programsFetched)
-            } catch (error) {
-                setProgram(fullProgramExample)
-                console.error("No se ha podido obtener los programas academicos")
-            }
-        }
-
-        fetchFullProgram()
-    }, [])
+    const program = useFullProgram(name)
+    
 
     if(!program){
-        return
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <div className="w-16 h-16 border-4 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
+            </div>
+        );
     }
 
     return (
@@ -46,7 +26,7 @@ export const ProgramView = () => {
             <ProgramHeroSection program={program} />
             <ProgramNavbar/>
             {program.programCourses?.length && <AvailableCoursesSection program={program} />}
-            <AchievementsSection programName={program.name}/>
+            <AchievementsSection programName={program.name} programCourses={program.programCourses}/>
             
             {/* Content Sections */}
             <div id="learning-path" className="h-screen bg-yellow-200">Learning Path Section</div>

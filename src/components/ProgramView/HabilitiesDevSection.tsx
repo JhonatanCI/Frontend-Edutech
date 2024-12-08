@@ -2,7 +2,7 @@ import React from "react"
 import { ChartValues } from "../../consts/types.d"
 import HabilitiesBarChart from "./HabilitiesBarChart"
 import { ProgramCourse, ProgramOutcome } from "../../model/types"
-import { getCategories, getMaxValue, getContributionForEachCategory } from "../../filters/habilitiesdevfilters"
+import { getCategories, getMaxValue, getContributionForEachCategory } from "../../filters/filters"
 
 interface HabilitiesDevProps {
     programOutcomes: ProgramOutcome[],

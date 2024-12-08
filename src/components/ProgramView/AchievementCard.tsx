@@ -1,10 +1,13 @@
+import React from "react"
 import { AchivementIcon } from "../../assets/Icons/achivementIcons"
 import { Checkbox } from "../../assets/Icons/achivementIcons"
 
-export const AchievementCard = () => {
-    const name = "Certificación en Gerencia de Proyectos Predictivos"
-    const description = "Los graduados de la Certificación de Proyectos Predictivos son líderes capacitados para abordar desafíos complejos en el campo de la gestión de proyectos."
+interface AchievementCardProps {
+    name: string,
+    description: string
+}
 
+export const AchievementCard: React.FC<AchievementCardProps> = ({name, description}) => {
     return (
         <div className="flex flex-col relative h-[16rem] bg-white shadow-md rounded-lg border border-gray-200 transition-transform hover:scale-105 cursor-pointer">
             <div className="flex items-center justify-center h-full w-full p-10">

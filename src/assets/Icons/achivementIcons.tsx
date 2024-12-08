@@ -3,10 +3,10 @@ export const Checkbox = () => (
         <g filter="url(#filter0_d_2075_518)">
             <rect x="9.5" y="9" width="20" height="20" fill="#5454E9" />
         </g>
-        <path d="M25.5 15L17.9376 23L14.5 19.3637" stroke="white" stroke-width="2" stroke-linejoin="round" />
+        <path d="M25.5 15L17.9376 23L14.5 19.3637" stroke="white" strokeWidth="2" strokeLinejoin="round" />
         <defs>
-            <filter id="filter0_d_2075_518" x="0.5" y="0" width="38" height="38" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <filter id="filter0_d_2075_518" x="0.5" y="0" width="38" height="38" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                <feFlood floodOpacity="0" result="BackgroundImageFix" />
                 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
                 <feMorphology radius="4" operator="dilate" in="SourceAlpha" result="effect1_dropShadow_2075_518" />
                 <feOffset />
@@ -19,6 +19,7 @@ export const Checkbox = () => (
         </defs>
     </svg>
 );
+
 
 export const AchivementIcon = () => (
     <svg width="58" height="74" viewBox="0 0 58 74" fill="none" xmlns="http://www.w3.org/2000/svg">
