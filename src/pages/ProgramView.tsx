@@ -3,6 +3,7 @@ import NavBar from "../components/Commons/NavBar"
 import ProgramHeroSection from "../components/ProgramView/ProgramHeroSection"
 import ProgramNavbar from "../components/ProgramView/ProgramNavBar";
 import AvailableCoursesSection from "../components/ProgramView/AvailableCoursesSection";
+import { AchievementsSection } from "../components/ProgramView/AchievementsSection";
 
 import { fullProgramExample } from "../consts/fullconsts.d";
 import { useEffect, useState } from "react";
@@ -45,9 +46,9 @@ export const ProgramView = () => {
             <ProgramHeroSection program={program} />
             <ProgramNavbar/>
             {program.programCourses?.length && <AvailableCoursesSection program={program} />}
+            <AchievementsSection programName={program.name}/>
             
             {/* Content Sections */}
-            <div id="achievements" className="h-screen bg-green-200">Achievements Section</div>
             <div id="learning-path" className="h-screen bg-yellow-200">Learning Path Section</div>
             <div id="keep-learning" className="h-screen bg-red-200">Keep Learning Section</div>
         </div>
