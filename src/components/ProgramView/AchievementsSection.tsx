@@ -46,7 +46,7 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ progra
             </p>
 
             <div className="grid grid-cols-[repeat(auto-fill,minmax(32rem,1fr))] gap-[1rem] max-w-full w-full bg-white pt-12">
-                {achievements.map((achievement) => (
+                {achievements && achievements.map((achievement) => (
                     <AchievementCard
                         key={achievement.id} // Asegúrate de que `id` exista en el objeto Program
                         name={achievement.name}

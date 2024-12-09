@@ -1,5 +1,5 @@
 import { defaultMasters } from "./talentdevconsts.d";
-import { FullProgram, ProgramCourse, Outcome, ProgramOutcome } from "../model/types";
+import { FullProgram, ProgramCourse, Outcome, ProgramOutcome, SimpleOutcome } from "../model/types";
 import { defaultPHD, defaultSpecializations } from "./talentdevconsts.d";
 import { defaultWorlds } from "./worlds.d";
 
@@ -8,6 +8,30 @@ const outcome1: Outcome = {
     name: "Liderazgo",
     description: "Alguna descripción",
     competency: null
+}
+
+const simpleOutcome: SimpleOutcome = {
+    id: "3e6bdc69-7f79-4545-a1e6-dcc65cd0f6a1",
+    name: "Liderazgo",
+    introduce: true,
+    fortalece: true,
+    valora: false
+}
+
+const simpleOutcome2: SimpleOutcome = {
+    id: "0ff80525-0181-484e-b486-8b39a0ebd464",
+    name: "Liderazgo",
+    introduce: true,
+    fortalece: true,
+    valora: false
+}
+
+const simpleOutcome3: SimpleOutcome = {
+    id: "fa38b0d1-ff4f-443b-99a3-768def9c70b",
+    name: "Liderazgo",
+    introduce: true,
+    fortalece: true,
+    valora: false
 }
 
 const outcome2: Outcome = {
@@ -42,7 +66,10 @@ const programCourses: ProgramCourse[] = [
         introduce: true,
         fortalece: true,
         valora: true,
-        outcome: outcome1
+        outcomesContribution: [
+            simpleOutcome,
+            simpleOutcome3
+        ]
     },
     {
         programId: "0ff80525-0181-484e-b486-8b39a0ebd464",
@@ -60,7 +87,10 @@ const programCourses: ProgramCourse[] = [
         introduce: true,
         fortalece: true,
         valora: true,
-        outcome: outcome1
+        outcomesContribution: [
+            simpleOutcome2,
+            simpleOutcome3
+        ]
     },
     {
         programId: "93d2c630-eeac-47cc-94ab-5a46c0fa22da",
@@ -78,7 +108,10 @@ const programCourses: ProgramCourse[] = [
         introduce: true,
         fortalece: true,
         valora: true,
-        outcome: outcome2
+        outcomesContribution: [
+            simpleOutcome,
+            simpleOutcome3
+        ]
     },
     {
         programId: "2d3dc141-0b1d-45b2-9f39-538a213f01ae",
@@ -96,7 +129,10 @@ const programCourses: ProgramCourse[] = [
         introduce: true,
         fortalece: true,
         valora: true,
-        outcome: outcome3
+        outcomesContribution: [
+            simpleOutcome,
+            simpleOutcome2
+        ]
     },
     {
         programId: "02a6bda8-00d1-4248-803e-7ecfd77b974b",
@@ -114,7 +150,10 @@ const programCourses: ProgramCourse[] = [
         introduce: true,
         fortalece: true,
         valora: true,
-        outcome: outcome1
+        outcomesContribution: [
+            simpleOutcome2,
+            simpleOutcome3
+        ]
     },
     {
         programId: "d561019e-2c20-48a4-8afa-c4044facfab6",
@@ -132,7 +171,10 @@ const programCourses: ProgramCourse[] = [
         introduce: true,
         fortalece: true,
         valora: true,
-        outcome: outcome3
+        outcomesContribution: [
+            simpleOutcome2,
+            simpleOutcome3
+        ]
     },
 ]
 
