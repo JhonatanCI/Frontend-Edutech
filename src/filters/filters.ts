@@ -11,7 +11,7 @@ export const getMaxValue = (programOutcomes: ProgramOutcome[]) => {
 }
 
 export const getCategories = (programOutcomes: ProgramOutcome[]) => {
-    return programOutcomes.map(outcome => outcome.outcome.name);
+    return programOutcomes.map(outcome => outcome.outcomeName);
 }
 
 export const getContributionForEachCategory = (programCourses: ProgramCourse[], categories: string[]) => {

@@ -75,8 +75,7 @@ export type ProgramOutcome = {
   outcomeId: UUID,
   minCredits: number,
   maxCredits: number,
-  program: Program,
-  outcome: Outcome
+  outcomeName: string
 }
 
 //Full Programs and Courses

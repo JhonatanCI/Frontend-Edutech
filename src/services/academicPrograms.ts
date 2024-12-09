@@ -21,7 +21,7 @@ export const getFullProgram = async(name: string) => {
 
 export const getAchievements = async(courseIds: UUID[]) => {
     try {
-        const response = await API.post("/search/findAchievements", {courseIds})
+        const response = await API.post("/search/findAchievements", courseIds)
         return response.data
     } catch (error) {
         throw error;

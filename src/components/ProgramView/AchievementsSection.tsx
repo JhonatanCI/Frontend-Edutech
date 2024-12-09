@@ -6,11 +6,12 @@ import { getAchievements } from "../../services/academicPrograms";
 
 
 interface AchievementsSectionProps {
+    programUUID: UUID,
     programName: string,
     programCourses: ProgramCourse[]
 }
 
-export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ programName, programCourses }) => {
+export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ programUUID, programName, programCourses }) => {
 
     const [achievements, setAchievements] = useState<Program[] | null>(null)
     const article = programName.startsWith("Doctorado") ? "el" : "la";
@@ -20,8 +21,10 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ progra
             const uuids: UUID[] = getCoursesUUID(programCourses);
 
             try {
-                const response = await getAchievements(uuids);
-                setAchievements(response)
+                const response: Program[] = await getAchievements(uuids);
+                const filteredPrograms = response.filter(program => program.id !== programUUID);
+
+                setAchievements(filteredPrograms)
             } catch (error) {
                 console.error("No se puedo traer logros")
             }
