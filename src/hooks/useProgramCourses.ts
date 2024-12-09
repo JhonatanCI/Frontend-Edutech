@@ -1,20 +1,20 @@
 import { useState, useEffect } from "react";
 import { getAllProgramCourses } from "../services/academicCourses";
-import { FullProgram, ProgramCourse } from "../model/types";
+import { ProgramCourse } from "../model/types";
 import { toProgramCourse } from "../mappers/programCourseMapper";
 
-export const useProgramCourses = (program: FullProgram | null) => {
+export const useProgramCourses = (name: string | undefined) => {
     const [programCourses, setProgramCourses] = useState<ProgramCourse[] | null>(null);
 
     useEffect(() => {
         async function fetchProgramCourses() {
             try {
-                if (!program) {
-                    setProgramCourses(null); // Limpia si no hay programa
-                    return;
+
+                if (!name) {
+                    throw new Error("El parámetro 'name' es undefined");
                 }
 
-                const programsFetched = await getAllProgramCourses(program?.id)
+                const programsFetched = await getAllProgramCourses(name)
                 const programCourses = toProgramCourse(programsFetched);
                 setProgramCourses(programCourses)
             } catch (error) {
@@ -23,7 +23,7 @@ export const useProgramCourses = (program: FullProgram | null) => {
         }
 
         fetchProgramCourses()
-    }, [program])
+    }, [])
 
     return programCourses
 } 

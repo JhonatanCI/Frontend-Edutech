@@ -13,7 +13,7 @@ import { useProgramCourses } from "../hooks/useProgramCourses";
 export const ProgramView = () => {
     const {name} = useParams()
     const program = useFullProgram(name)
-    const programCourses = useProgramCourses(program)
+    const programCourses = useProgramCourses(name)
 
 
     if(!program){
