@@ -19,7 +19,7 @@ const ProgramHeroSection: React.FC<ProgramHeroSectionProps> = ({ program }) => {
         backgroundSize: 'cover',
       }}
     >
-      <div className='flex flex-col px-56 mt-32 h-full'>
+      <div className='flex flex-col px-52 mt-32 h-full'>
         <span className='text-6xl font-calsans text-white leading-tight max-w-6xl'>{nameFirstPart}</span>
         <span className='text-6xl font-calsans text-white leading-tight max-w-6xl'>{nameSecondPart}</span>
         <p className='text text-white w-full mb-6'>
