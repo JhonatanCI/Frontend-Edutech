@@ -19,6 +19,7 @@ export const useFullProgram = (name: string | undefined) => {
                     ...response,
                     image: `${import.meta.env.VITE_API_URL}${response.image}`
                 }
+  
                 setProgram(programsFetched)
             } catch (error) {
                 setProgram(fullProgramExample)

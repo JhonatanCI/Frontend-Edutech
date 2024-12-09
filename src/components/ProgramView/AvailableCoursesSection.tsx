@@ -1,14 +1,16 @@
 import React from "react"
 import { FilledLine, DottedLine } from "../../assets/Icons/linesIcons"
-import { FullProgram } from "../../model/types"
+import { ProgramCourse, ProgramOutcome } from "../../model/types"
 import ProgramCoursesSection from "./ProgramCoursesSection"
 import { HabilitiesDev } from "./HabilitiesDevSection"
 
 interface AvailableCoursesSectionProps {
-    program: FullProgram
+    semesters: number,
+    programCourses: ProgramCourse[],
+    programOutcomes: ProgramOutcome[]
 }
 
-const AvailableCoursesSection: React.FC<AvailableCoursesSectionProps> = ({program}) => {
+const AvailableCoursesSection: React.FC<AvailableCoursesSectionProps> = ({semesters, programCourses, programOutcomes}) => {
     return (
         <div id="courses" className="h-full w-full flex flex-col px-28 pb-14 pt-24">
             <h2 className="text-black text-4xl font-calsans leading-tight max-w-md">Cursos disponibles</h2>
@@ -28,8 +30,8 @@ const AvailableCoursesSection: React.FC<AvailableCoursesSectionProps> = ({progra
             </div>
 
             <div className="flex w-full justify-between gap-32">
-                <ProgramCoursesSection programCourses={program.programCourses} semesters={program.semesters}/>
-                {program.programOutcomes && <HabilitiesDev programOutcomes={program.programOutcomes} programCourses={program.programCourses}/>}
+                <ProgramCoursesSection programCourses={programCourses} semesters={semesters}/>
+                {programOutcomes && <HabilitiesDev programOutcomes={programOutcomes} programCourses={programCourses}/>}
             </div>
             
         </div>

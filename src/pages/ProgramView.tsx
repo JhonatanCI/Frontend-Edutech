@@ -8,11 +8,13 @@ import { AchievementsSection } from "../components/ProgramView/AchievementsSecti
 import { useFullProgram } from "../hooks/useFullProgram";
 import { LearningPathSection } from "../components/ProgramView/LearningPathSection";
 import { KeepLearningSection } from "../components/ProgramView/KeepLearningSection";
+import { useProgramCourses } from "../hooks/useProgramCourses";
 
 export const ProgramView = () => {
     const {name} = useParams()
     const program = useFullProgram(name)
-    
+    const programCourses = useProgramCourses(name)
+
 
     if(!program){
         return (
@@ -27,8 +29,8 @@ export const ProgramView = () => {
             <NavBar />
             <ProgramHeroSection program={program} />
             <ProgramNavbar/>
-            {program.programCourses?.length && <AvailableCoursesSection program={program} />}
-            {program.programCourses?.length && <AchievementsSection programUUID={program.id} programName={program.name} programCourses={program.programCourses}/>}
+            {programCourses?.length && <AvailableCoursesSection semesters={program.semesters} programCourses={programCourses} programOutcomes={program.programOutcomes}/>}
+            {programCourses?.length && <AchievementsSection programUUID={program.id} programName={program.name} programCourses={programCourses}/>}
             <LearningPathSection programName={program.name}/>
             <KeepLearningSection/>
         </div>
