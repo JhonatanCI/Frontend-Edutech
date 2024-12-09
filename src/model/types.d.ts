@@ -110,24 +110,6 @@ export type FullProgram = {
   parents: Program[],
   children: Program[],
   academicCompetencies: any,
-  programCourses: ProgramCourse[],
-  programOutcomes: ProgramOutcome[],
-  academicWorlds: World[]
-}
-
-export type FullProgramRaw = {
-  id: UUID,
-  name: string,
-  credits: number,
-  semesters: number,
-  graduateProfile: string,
-  programType: string,
-  tags: string,
-  image: string,
-  parents: Program[],
-  children: Program[],
-  academicCompetencies: any,
-  programCourses: ProgramCourseRaw[],
   programOutcomes: ProgramOutcome[],
   academicWorlds: World[]
 }

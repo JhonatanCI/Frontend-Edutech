@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import { FullProgram, FullProgramRaw } from "../model/types";
+import { FullProgram } from "../model/types";
 import { getFullProgram } from "../services/academicPrograms";
 
 import { fullProgramExample } from "../consts/fullconsts.d";
-import { toProgramCourse } from "../mappers/programCourseMapper";
 
 export const useFullProgram = (name: string | undefined) => {
     const [program, setProgram] = useState<FullProgram | null>(null)
@@ -15,17 +14,13 @@ export const useFullProgram = (name: string | undefined) => {
                     throw new Error("El parámetro 'name' es undefined");
                 }
 
-                const response: FullProgramRaw = await getFullProgram(name)
+                const response: FullProgram = await getFullProgram(name)
                 const programsFetched = {
                     ...response,
                     image: `${import.meta.env.VITE_API_URL}${response.image}`
                 }
-
-                const programCourses = toProgramCourse(programsFetched.programCourses);
-                setProgram({
-                    ...programsFetched,
-                    programCourses
-                })
+  
+                setProgram(programsFetched)
             } catch (error) {
                 setProgram(fullProgramExample)
                 console.error("No se ha podido obtener los programas academicos")
