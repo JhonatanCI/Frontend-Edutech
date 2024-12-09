@@ -5,9 +5,11 @@ import TalentCycleComponent from "./TalentCycleComponent";
 
 import { useTalentDevContext } from "../../hooks/useTalentDevContext";
 import { Course, MicroLearning, Program } from "../../model/types";
+import { useNavigate } from "react-router-dom";
 
 const TalentDevSection: React.FC = () => {
     const { state } = useTalentDevContext();
+    const navigateTo = useNavigate()
 
     const categories = ["Categoria 1", "Categoria2"];
 
@@ -21,7 +23,7 @@ const TalentDevSection: React.FC = () => {
                         description={micro.description}
                         categories={categories}
                         variant="small"
-                        path={`/microlearning/${micro.name}`}
+                        onClick={() => navigateTo(`/microlearning/${micro.name}`)}
                     />
                 ));
             }
@@ -33,7 +35,7 @@ const TalentDevSection: React.FC = () => {
                         description={course.description}
                         categories={categories}
                         variant="small"
-                        path={`/course/${course.name}`}
+                        onClick={() => navigateTo(`/course/${course.name}`)}
                     />
                 ));
             }
@@ -45,7 +47,7 @@ const TalentDevSection: React.FC = () => {
                         description={certification.description}
                         categories={categories}
                         variant="medium"
-                        path={`/program/${certification.name}`}
+                        onClick={() => navigateTo(`/program/${certification.name}`)}
                     />
                 ));
             }
@@ -57,7 +59,7 @@ const TalentDevSection: React.FC = () => {
                         description={specialization.description}
                         categories={categories}
                         variant="large"
-                        path={`/program/${specialization.name}`}
+                        onClick={() => navigateTo(`/program/${specialization.name}`)}
                     />
                 ));
             }
@@ -69,7 +71,7 @@ const TalentDevSection: React.FC = () => {
                         description={master.description}
                         categories={categories}
                         variant="large"
-                        path={`/program/${master.name}`}
+                        onClick={() => navigateTo(`/program/${master.name}`)}
                     />
                 ));
             }
@@ -81,7 +83,7 @@ const TalentDevSection: React.FC = () => {
                         description={phd.description}
                         categories={categories}
                         variant="large"
-                        path={`/program/${phd.name}`}
+                        onClick={() => navigateTo(`/program/${phd.name}`)}
                     />
                 ));
             }

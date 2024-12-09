@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getAllProgramCourses } from "../services/academicCourses";
 import { ProgramCourse } from "../model/types";
 import { toProgramCourse } from "../mappers/programCourseMapper";
+import { programCourses as courses } from "../consts/fullconsts.d";
 
 export const useProgramCourses = (name: string | undefined) => {
     const [programCourses, setProgramCourses] = useState<ProgramCourse[] | null>(null);
@@ -18,6 +19,7 @@ export const useProgramCourses = (name: string | undefined) => {
                 const programCourses = toProgramCourse(programsFetched);
                 setProgramCourses(programCourses)
             } catch (error) {
+                setProgramCourses(courses)
                 console.error("No se ha podido obtener los cursos del programa")
             }
         }

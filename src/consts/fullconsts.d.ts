@@ -49,7 +49,7 @@ const outcome3: Outcome = {
 }
 
 
-const programCourses: ProgramCourse[] = [
+export const programCourses: ProgramCourse[] = [
     {
         programId: "3e6bdc69-7f79-4545-a1e6-dcc65cd0f6a1",
         courseId: "3e6bdc69-7f79-4545-a1e6-dcc65cd0f6a1",

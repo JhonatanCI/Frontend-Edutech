@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import editIcon from "../../assets/editIcon.svg"
 
 interface CardProps {
@@ -10,17 +9,10 @@ interface CardProps {
     variant: "small" | "medium" | "large", // To handle size variations
     variantStyle?: "solid" | "dashed", // New prop for border style
     isEditable?: boolean, // Determines if the pencil icon is shown
-    path?: string
+    onClick: () => void
 }
 
-const CourseCard: React.FC<CardProps> = ({ title, description, categories, credits, variant, variantStyle, isEditable, path }) => {
-
-    const navigateTo = useNavigate()
-
-    const handleClick = () => {
-        path && navigateTo(path)
-    }
-
+const CourseCard: React.FC<CardProps> = ({ title, description, categories, credits, variant, variantStyle, isEditable, onClick }) => {
     const gridClass =
         variant === "small"
             ? "col-span-1 row-span-1"
@@ -41,7 +33,7 @@ const CourseCard: React.FC<CardProps> = ({ title, description, categories, credi
     return (
         <div
             className={`flex flex-col relative bg-white shadow-md rounded-lg border border-gray-200 ${gridClass} ${borderClass} ${heightClass} ${paddingClass} transition-transform hover:scale-105 cursor-pointer`}
-            onClick={handleClick}
+            onClick={onClick}
         >
             {/* Editable Icon */}
             {isEditable && (
@@ -49,6 +41,7 @@ const CourseCard: React.FC<CardProps> = ({ title, description, categories, credi
                     <img src={editIcon} alt="edit" />
                 </button>
             )}
+
             {/* Title */}
             <div className="flex items-center mb-4">
                 <span className="mr-3 text-xl font-bold text-gray-900">🖥️</span>

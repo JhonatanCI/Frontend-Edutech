@@ -1,0 +1,31 @@
+import React from "react";
+import CourseView from "../../pages/CourseView";
+import { ProgramCourse } from "../../model/types";
+
+interface CourseModalProps {
+    course: ProgramCourse,
+    onClose: () => void;
+}
+
+const CourseModal: React.FC<CourseModalProps> = ({
+    course,
+    onClose,
+}) => {
+
+    return (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="relative bg-white rounded-lg w-[70rem] h-[40rem] overflow-hidden shadow-lg">
+                {/* Close Button */}
+                <button
+                    onClick={onClose}
+                    className="absolute top-4 right-4 text-gray-700 hover:text-black text-2xl z-50"
+                >
+                    ✖
+                </button>
+                <CourseView course={course}/>
+            </div>
+        </div>
+    );
+};
+
+export default CourseModal;
