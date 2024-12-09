@@ -13,7 +13,8 @@ export type MicroLearning = {
   id: UUID,
   name: string,
   description: string,
-  categories: string[]
+  modality: string,
+  type: string
 }
 
 export type Course = {
