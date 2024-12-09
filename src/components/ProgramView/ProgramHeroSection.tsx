@@ -30,10 +30,7 @@ const ProgramHeroSection: React.FC<ProgramHeroSectionProps> = ({ program }) => {
           tags={[
             'Negocios',
             'Liderazgo',
-            'Inteligencia Artificial',
-            'Diseño de Experiencia',
-            'Tecnología',
-            'Salud',
+            'Gerencia de Proyectos'
           ]}
         />
         <div className='w-1/3 pt-10'>

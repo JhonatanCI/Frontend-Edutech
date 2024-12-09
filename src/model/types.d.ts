@@ -55,6 +55,25 @@ export type ProgramCourse = {
   outcomesContribution: SimpleOutcome[];
 }
 
+export type ProgramCourseRaw = {
+  programId: UUID,
+  courseId: UUID,
+  outcomeId: UUID,
+  name: string,
+  nameMen: string,
+  description: string,
+  credits: number,
+  generalObjective: string,
+  terminalObjectives: string,
+  modality: string,
+  semester: number
+  flexibility: string,
+  introduce: boolean,
+  fortalece: boolean,
+  valora: boolean,
+  outcome: Outcome;
+}
+
 export type Outcome = {
   id: UUID,
   name: string,
@@ -92,6 +111,23 @@ export type FullProgram = {
   children: Program[],
   academicCompetencies: any,
   programCourses: ProgramCourse[],
+  programOutcomes: ProgramOutcome[],
+  academicWorlds: World[]
+}
+
+export type FullProgramRaw = {
+  id: UUID,
+  name: string,
+  credits: number,
+  semesters: number,
+  graduateProfile: string,
+  programType: string,
+  tags: string,
+  image: string,
+  parents: Program[],
+  children: Program[],
+  academicCompetencies: any,
+  programCourses: ProgramCourseRaw[],
   programOutcomes: ProgramOutcome[],
   academicWorlds: World[]
 }
