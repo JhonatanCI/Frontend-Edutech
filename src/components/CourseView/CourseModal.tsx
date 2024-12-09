@@ -3,7 +3,7 @@ import CourseView from "../../pages/CourseView";
 import { ProgramCourse } from "../../model/types";
 
 interface CourseModalProps {
-    course: ProgramCourse,
+    course: ProgramCourse;
     onClose: () => void;
 }
 
@@ -11,10 +11,10 @@ const CourseModal: React.FC<CourseModalProps> = ({
     course,
     onClose,
 }) => {
-
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="relative bg-white rounded-lg w-[70rem] h-[40rem] overflow-hidden shadow-lg">
+            {/* Modal Container */}
+            <div className="relative bg-white rounded-lg w-[70rem] h-[40rem] shadow-lg overflow-hidden modal-scrollable">
                 {/* Close Button */}
                 <button
                     onClick={onClose}
@@ -22,7 +22,8 @@ const CourseModal: React.FC<CourseModalProps> = ({
                 >
                     ✖
                 </button>
-                <CourseView course={course}/>
+                {/* Render CourseView */}
+                <CourseView course={course} />
             </div>
         </div>
     );

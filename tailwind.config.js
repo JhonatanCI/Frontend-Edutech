@@ -57,6 +57,10 @@ module.exports = {
           overflow: 'hidden',
           height: '100vh',
         },
+        '.modal-scrollable': {
+          'max-height': '90vh', /* Limita la altura máxima del modal */
+          'overflow-y': 'auto', /* Habilita scroll interno */
+        },
       });
     },
   ],
