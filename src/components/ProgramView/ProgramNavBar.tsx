@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PencilIcon, SparklesIcon, MapIcon, UpArrowIcon} from "../../assets/Icons/programIcons";
+import { PencilIcon, SparklesIcon, MapIcon, UpArrowIcon} from "../../assets/Icons/programnavIcons";
 
 interface NavItem {
   label: string;

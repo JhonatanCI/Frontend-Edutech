@@ -1,4 +1,4 @@
-import { Course } from "./types"
+import { Course } from "../model/types";
 
 export const defaultCourses: Course[] = [
     {

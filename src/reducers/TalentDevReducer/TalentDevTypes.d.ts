@@ -1,4 +1,4 @@
-import { Course, MicroLearning, Program, Result } from "../../consts/types"
+import { Course, MicroLearning, Program, Result } from "../../model/types"
 
 export interface TalentDevState {
     initialValue: Result,

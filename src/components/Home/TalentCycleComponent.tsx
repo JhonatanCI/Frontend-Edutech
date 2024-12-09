@@ -39,7 +39,7 @@ const TalentCycleComponent: React.FC = () => {
             }`}
           >
             <div className="flex items-center">
-              <span className="mr-3 text-lg">{item.icon}</span>
+              <span className="mr-3 text-2xl">{item.icon}</span>
               <h4
                 className={`font-semibold ${
                   index === state.item ? "text-green-700" : ""

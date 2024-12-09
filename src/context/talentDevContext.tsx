@@ -2,7 +2,7 @@ import { createContext, ReactNode, useEffect } from "react";
 import useTalentDev from "../reducers/TalentDevReducer/TalentDevReducer";
 import { TalentDevState } from "../reducers/TalentDevReducer/TalentDevTypes";
 import { getGeneralResults } from "../services/search";
-import { Result } from "../consts/types";
+import { Result } from "../model/types";
 
 interface TalentDevProviderProps {
     children: ReactNode;

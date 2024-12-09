@@ -1,4 +1,4 @@
-import { Program } from "./types";
+import { Program } from "../model/types";
 
 const imageUrl = "https://th.bing.com/th/id/OIP.cv7VXyoSS47ruQQVfIgjigHaEK?rs=1&pid=ImgDetMain"
 

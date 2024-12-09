@@ -1,6 +1,6 @@
 import { useReducer } from "react"
 import { talentDevInitialState } from "./TalentDevInitialState.d"
-import { Result } from "../../consts/types"
+import { Result } from "../../model/types"
 import { ActionType } from "./TalentDevActions"
 import talentDevReducer from "./Reducer"
 

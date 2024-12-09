@@ -66,6 +66,7 @@ const ProgramSection: React.FC = () => {
               title={program.name}
               description={program.description}
               buttonText="Saber más"
+              path={`/program/${program.name}`}
             />
           )}
         </div>

@@ -1,4 +1,4 @@
-import { LearningItem } from "./types";
+import { LearningItem } from "./types.d";
 
 const learningItems: LearningItem[] = [
   {

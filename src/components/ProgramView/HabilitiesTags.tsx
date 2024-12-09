@@ -6,11 +6,11 @@ interface HabilitiesTagsProps {
 
 const HabilitiesTags: React.FC<HabilitiesTagsProps> = ({ tags }) => {
   return (
-    <div className="flex flex-col mt-6 ">
+    <div className="flex flex-col mt-2">
       <p className="text-white text-sm font-light font-inter">
         Habilidades que desarrollarás
       </p>
-      <div className="flex justify-left mt-4 space-x-4">
+      <div className="flex justify-left mt-3 space-x-4">
         {tags.map((tag, index) => (
           <button
             key={index}

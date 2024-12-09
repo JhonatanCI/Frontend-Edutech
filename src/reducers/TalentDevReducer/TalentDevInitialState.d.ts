@@ -1,7 +1,7 @@
 import { defaultCourses } from "../../consts/courses.d";
 import { defaultCertifications, defaultSpecializations, defaultMasters, defaultPHD } from "../../consts/talentdevconsts.d";
 import { TalentDevState } from "./TalentDevTypes.d";
-import { Result } from "../../consts/types";
+import { Result } from "../../model/types";
 
 const initValue: Result = {
     microLearnings: defaultCourses,

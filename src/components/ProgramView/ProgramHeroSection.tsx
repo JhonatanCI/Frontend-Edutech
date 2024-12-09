@@ -1,9 +1,9 @@
-import { Program } from '../../consts/types';
+import { FullProgram } from '../../model/types';
 import Button from '../Commons/Button';
 import HabilitiesTags from './HabilitiesTags';
 
 interface ProgramHeroSectionProps {
-  program: Program | any
+  program: FullProgram
 }
 
 const ProgramHeroSection: React.FC<ProgramHeroSectionProps> = ({ program }) => {
@@ -19,11 +19,11 @@ const ProgramHeroSection: React.FC<ProgramHeroSectionProps> = ({ program }) => {
         backgroundSize: 'cover',
       }}
     >
-      <div className='flex flex-col px-64 mt-16 h-2/3'>
-        <span className='text-6xl font-calsans text-white leading-tight max-w-md'>{nameFirstPart}</span>
+      <div className='flex flex-col px-52 mt-32 h-full'>
+        <span className='text-6xl font-calsans text-white leading-tight max-w-6xl'>{nameFirstPart}</span>
         <span className='text-6xl font-calsans text-white leading-tight max-w-6xl'>{nameSecondPart}</span>
-        <p className='text text-white w-2/3 mb-6'>
-          {program.description}
+        <p className='text text-white w-full mb-6'>
+          {program.graduateProfile}
         </p>
 
         <HabilitiesTags
@@ -36,7 +36,7 @@ const ProgramHeroSection: React.FC<ProgramHeroSectionProps> = ({ program }) => {
             'Salud',
           ]}
         />
-        <div className='w-1/3 pt-12'>
+        <div className='w-1/3 pt-10'>
           <Button href="#" variant="tertiary" size="medium" withArrow={true} > Inscribirme ya  </Button>
         </div>
       </div>

@@ -1,7 +1,4 @@
-interface Image {
-    src: string,
-    alt: string
-}
+import { Image } from "./types.d"
 
 export const partners: Image[] = [
     {
