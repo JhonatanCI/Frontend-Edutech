@@ -11,8 +11,8 @@ export const LearningPathSection: React.FC<LearningPathSectionProps> = ({program
     const article = programName.startsWith("Doctorado") ? "el" : "la";
 
     return (
-        <div id="learning-path" className="h-full w-full flex flex-col px-28 py-8">
-            <h2 className="text-black text-4xl font-calsans leading-tight max-w-md">Ruta de aprendizaje</h2>
+        <div id="learning-path" className="h-screen w-full flex flex-col px-28">
+            <h2 className="text-black text-4xl font-calsans leading-tight max-w-md pt-24">Ruta de aprendizaje</h2>
             <p className="text-black w-3/5 mt-3">
                 {`Al completar ${article} ${programName} podrás elevar tu aprendizaje con:`}
             </p>
