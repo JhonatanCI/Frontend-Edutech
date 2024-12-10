@@ -16,12 +16,14 @@ export const ProgramSemester: React.FC<ProgramSemesterProps> = ({ semester, prog
                 {programCourses.map(course => {
                     return course.flexibility === "CONDICIONADO" ?
                         <CourseCardModal
+                            key={course.courseId}
                             course={course}
                             isEditable
                             variantStyle="solid"
                             variant="small"
                         />
                         : <CourseCardModal
+                            key={course.courseId}
                             course={course}
                             isEditable
                             variantStyle="dashed"
