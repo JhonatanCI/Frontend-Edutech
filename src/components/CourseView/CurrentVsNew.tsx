@@ -10,15 +10,15 @@ interface CurrentVsNewProps {
 
 const CurrentVsNew: React.FC<CurrentVsNewProps> = ({ current, newCourse }) => {
   return (
-    <div className="flex justify-between">
+    <div className="flex gap-4">
       {/* Contenedor del curso actual */}
-      <div className="flex flex-col items-center">
-        <span className="text-black text-sm mb-2 text-center mr-8">Curso actual</span>
+      <div className="flex flex-col">
+        <span className="text-black text-sm mb-2 text-center">Curso actual</span>
         <MiniCourseCard title={current.name} description={current.description} categories={["Categoria 1", "Categoria 2"]} credits={current.credits}/>
       </div>
       {/* Contenedor del curso nuevo */}
-      <div className="flex flex-col items-center">
-        <span className="text-black text-sm mb-2 text-center mr-8">Curso nuevo</span>
+      <div className="flex flex-col">
+        <span className="text-black text-sm mb-2 text-center">Curso nuevo</span>
         {newCourse ? (
           <MiniCourseCard
             title={newCourse.name}
