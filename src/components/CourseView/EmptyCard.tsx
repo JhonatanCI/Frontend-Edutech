@@ -14,7 +14,7 @@ const EmptyCard: React.FC<EmptyCardProps> = ({variant, scalable = false}) => {
         : variant === "medium"
         ? "col-span-2 row-span-1"
         : "col-span-3 row-span-1";
-    const heightClass = "h-[16rem]";
+    const heightClass = "h-[15rem]";
     const paddingClass = variant === "large" ? "p-6" : "p-4";
     const creditsPaddingClass =
       variant === "large" ? "bottom-6 right-6" : "bottom-4 right-4";
@@ -30,7 +30,7 @@ const EmptyCard: React.FC<EmptyCardProps> = ({variant, scalable = false}) => {
     return (
       <div style={scaleStyle}>
         <div
-          className={`flex flex-col relative bg-gray-400 shadow-md rounded-lg border w-[14rem] border-gray-200 ${gridClass} ${borderClass} ${heightClass} ${paddingClass}`}
+          className={`flex flex-col relative bg-gray-400 shadow-md rounded-lg border w-[16rem] border-gray-200 ${gridClass} ${borderClass} ${heightClass} ${paddingClass}`}
         >
           {/* Title */}
           <div className="flex items-center mb-4">

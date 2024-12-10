@@ -4,7 +4,7 @@ import SearchBar from "../Commons/SearchBar"
 import CurrentVsNew from "./CurrentVsNew"
 
 import { programCourses } from "../../consts/fullconsts.d";
-import CourseCard from "../Commons/CourseCard";
+import MiniCourseCard from "./MiniCourseCard";
 import Button from "../Commons/Button";
 
 interface CourseSwapProps {
@@ -39,15 +39,13 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course }) => {
                     </div>
                     <div className="w-3/6">
                     {"A este scroll"}
-                    <div className="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] max-w-[40rem] w-full bg-white overflow-y-auto max-h-[20rem] p-2 scrollbar-blue">
+                    <div className="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] max-w-[50rem] w-full bg-white overflow-y-auto max-h-[20rem] p-2 scrollbar-blue">
                     {coursesMatch.map(course => {
-                                return <CourseCard
+                                return <MiniCourseCard
                                     key={course.courseId}
                                     title={course.name}
                                     description={course.description}
                                     categories={["Categoria 1", "Categoria 1",]}
-                                    variant="small"
-                                    scalable
                                     onClick={() => setNewCourse(course)}
                                 />
                             })}

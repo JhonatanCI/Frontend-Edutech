@@ -59,13 +59,7 @@ const CourseView: React.FC<CourseViewProps> = ({ course }) => {
                     </h3>
                     {/* Contenedor de la lista sin scroll */}
                     <div className="border border-gray-300 rounded-md">
-                        <ol className="list-decimal list-inside p-4">
-                            {courseContent.map((item, index) => (
-                                <li key={index} className="text-black py-2 border-b last:border-none">
-                                    {item}
-                                </li>
-                            ))}
-                        </ol>
+                        <p className="text-black">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, a assumenda, iure dicta quam optio nam consequuntur cupiditate illum nesciunt voluptas mollitia, deleniti ducimus quos temporibus! Tempore quis doloribus nam.</p>
                     </div>
                 </div>
 

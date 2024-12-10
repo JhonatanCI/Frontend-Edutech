@@ -15,7 +15,7 @@ const CourseModal: React.FC<CourseModalProps> = ({
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             {/* Modal Container */}
-            <div className="relative bg-white rounded-lg w-[70rem] h-[40rem] shadow-lg overflow-hidden modal-scrollable">
+            <div className="relative bg-white rounded-lg w-[80rem] h-[40rem] shadow-lg overflow-hidden modal-scrollable">
                 {/* Close Button */}
                 <button
                     onClick={onClose}

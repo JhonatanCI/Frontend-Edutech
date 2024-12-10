@@ -1,3 +1,4 @@
+import { getCategories } from '../../filters/filters';
 import { FullProgram } from '../../model/types';
 import Button from '../Commons/Button';
 import HabilitiesTags from './HabilitiesTags';
@@ -10,6 +11,8 @@ const ProgramHeroSection: React.FC<ProgramHeroSectionProps> = ({ program }) => {
   const parts = program.name.split(" ");
   const nameFirstPart = parts.slice(0, 2).join(" ");
   const nameSecondPart = parts.slice(2).join(" ");
+
+  const categories = getCategories(program.programOutcomes)
 
   return (
     <div
@@ -27,11 +30,7 @@ const ProgramHeroSection: React.FC<ProgramHeroSectionProps> = ({ program }) => {
         </p>
 
         <HabilitiesTags
-          tags={[
-            'Negocios',
-            'Liderazgo',
-            'Gerencia de Proyectos'
-          ]}
+          tags={categories.slice(0, 4)}
         />
         <div className='w-1/3 pt-10'>
           <Button href="#" variant="tertiary" size="medium" withArrow={true} > Inscribirme ya  </Button>
