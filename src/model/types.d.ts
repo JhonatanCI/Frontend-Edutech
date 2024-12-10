@@ -22,7 +22,9 @@ export type Course = {
   name: string,
   description: string,
   credits: number,
-  categories: string[]
+  modality: string,
+  generalObjective: string,
+  terminalObjectives: string
 }
 
 export type Program = {

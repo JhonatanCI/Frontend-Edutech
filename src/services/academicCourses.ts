@@ -8,3 +8,12 @@ export const getAllProgramCourses = async(name: string) => {
         throw error;
     }
 }
+
+export const getFullCourse = async(name: string) => {
+    try {
+        const response = await API.get(`/courses/name/${name}`)
+        return response.data
+    } catch (error) {
+        throw error;
+    }
+}

@@ -1,17 +1,37 @@
 import React from "react";
 import { fullProgramExample } from "../consts/fullconsts.d";
-import { ProgramCourse } from "../model/types";
+import { Course, ProgramCourse } from "../model/types";
+
+import { useParams } from "react-router-dom";
+import { useFullCourse } from "../hooks/useFullCourse";
 
 interface CourseViewProps {
-    course?: ProgramCourse;
+    course?: ProgramCourse | Course | null;
 }
 
 const CourseView: React.FC<CourseViewProps> = ({ course }) => {
     const coverImage = fullProgramExample.image;
     const courseContent: string[] = ["Creación de cronogramas", "Monitoreo y control", "Herramientas de cronogramas", "Actualización de cronogramas"];
 
-    if (!course) {
-        return null;
+    const { name } = useParams();
+    const { course: fetchedCourse, loading } = useFullCourse(name);
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <div className="w-16 h-16 border-4 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
+            </div>
+        );
+    }
+
+    const currentCourse = course || fetchedCourse;
+
+    if (!currentCourse) {
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <p>No se pudo cargar el curso.</p>
+            </div>
+        );
     }
 
     return (
@@ -25,7 +45,7 @@ const CourseView: React.FC<CourseViewProps> = ({ course }) => {
             >
                 {/* Overlay Text */}
                 <div className="absolute inset-0 flex items-center pl-14">
-                    <h2 className="text-4xl font-bold text-white">{course.name}</h2>
+                    <h2 className="text-4xl font-bold text-white">{currentCourse.name}</h2>
                 </div>
             </div>
 
@@ -33,7 +53,7 @@ const CourseView: React.FC<CourseViewProps> = ({ course }) => {
             <div className="flex h-[calc(100%-12rem)] py-10">
                 {/* Left Content */}
                 <div className="flex-1 p-6">
-                    <p className="text-gray-700 text-sm mb-6">{course.description}</p>
+                    <p className="text-gray-700 text-sm mb-6">{currentCourse.description}</p>
                     <h3 className="text-lg font-bold text-black mb-3">
                         Contenido del Curso
                     </h3>
@@ -62,10 +82,10 @@ const CourseView: React.FC<CourseViewProps> = ({ course }) => {
                     </div>
                     <ul className="px-12 py-8 text-xl text-black bg-white">
                         <li className="py-2">
-                            <strong className="font-medium">☑️ {course.modality}</strong>
+                            <strong className="font-medium">☑️ {currentCourse.modality}</strong>
                         </li>
                         <li className="py-2">
-                            <strong className="font-medium">☑️ {course.credits} créditos</strong>
+                            <strong className="font-medium">☑️ {currentCourse.credits} créditos</strong>
                         </li>
                     </ul>
                 </div>
