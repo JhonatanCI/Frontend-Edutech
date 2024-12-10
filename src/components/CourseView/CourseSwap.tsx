@@ -3,7 +3,7 @@ import { ProgramCourse } from "../../model/types";
 import SearchBar from "../Commons/SearchBar"
 import CurrentVsNew from "./CurrentVsNew"
 
-import { defaultCourses } from "../../consts/courses.d";
+import { programCourses } from "../../consts/fullconsts.d";
 import CourseCard from "../Commons/CourseCard";
 import Button from "../Commons/Button";
 
@@ -13,7 +13,8 @@ interface CourseSwapProps {
 
 const CourseSwap: React.FC<CourseSwapProps> = ({ course }) => {
 
-    const [coursesMatch, setCoursesMatch] = useState(defaultCourses)
+    const [coursesMatch, setCoursesMatch] = useState(programCourses)
+    const [newCourse, setNewCourse] = useState<ProgramCourse | null>(null)
 
     return (
         <div className="h-screen w-full px-16 py-8">
@@ -34,19 +35,20 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course }) => {
 
                 <div className="flex w-full justify-between mt-16">
                     <div className="w-3/6">
-                        <CurrentVsNew current={course} />
+                        <CurrentVsNew current={course} newCourse={newCourse}/>
                     </div>
                     <div className="w-3/6">
                     {"A este scroll"}
                     <div className="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] max-w-[40rem] w-full bg-white overflow-y-auto max-h-[20rem] p-2 scrollbar-blue">
                     {coursesMatch.map(course => {
                                 return <CourseCard
-                                    key={course.id}
+                                    key={course.courseId}
                                     title={course.name}
                                     description={course.description}
                                     categories={["Categoria 1", "Categoria 1",]}
                                     variant="small"
                                     scalable
+                                    onClick={() => setNewCourse(course)}
                                 />
                             })}
                         </div>
