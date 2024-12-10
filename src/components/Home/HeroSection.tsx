@@ -1,5 +1,5 @@
 import HeroTitle from './HeroTitle';
-import SearchBar from './SearchBar';
+import SearchBar from '../Commons/SearchBar';
 import PopularTags from './PopularTags';
 import { useSelector } from 'react-redux';
 import { TagsState } from '../../redux/tagsSlice';
@@ -15,17 +15,20 @@ const HeroSection: React.FC = () => {
         <HeroTitle
           heading={
             <>
-            ¿Qué mundo <br /> quieres explorar?
+              ¿Qué mundo <br /> quieres explorar?
             </>
           }
           subheading="Adéntrate en nuestros mundos de conocimiento, con más de 200 cursos, certificaciones, especializaciones y maestrías."
         />
-        <SearchBar />
+        <div className='w-3/5'>
+          <SearchBar searchBy='mundos' />
+        </div>
+
         <PopularTags
           tags={recentSearches.slice(-3)}
         />
       </div>
-      
+
     </div>
   );
 };

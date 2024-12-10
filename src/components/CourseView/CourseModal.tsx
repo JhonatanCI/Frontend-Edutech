@@ -1,6 +1,7 @@
 import React from "react";
 import CourseView from "../../pages/CourseView";
 import { ProgramCourse } from "../../model/types";
+import CourseSwap from "./CourseSwap";
 
 interface CourseModalProps {
     course: ProgramCourse;
@@ -24,6 +25,7 @@ const CourseModal: React.FC<CourseModalProps> = ({
                 </button>
                 {/* Render CourseView */}
                 <CourseView course={course} />
+                <CourseSwap course={course}/>
             </div>
         </div>
     );

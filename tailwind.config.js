@@ -61,6 +61,18 @@ module.exports = {
           'max-height': '90vh', /* Limita la altura máxima del modal */
           'overflow-y': 'auto', /* Habilita scroll interno */
         },
+        '.scrollbar-blue': {
+          '&::-webkit-scrollbar': {
+            width: '8px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#865CF0', // Azul
+            borderRadius: '9999px',
+          },
+          '&::-webkit-scrollbar-track': {
+            backgroundColor: '#f0f0f0', // Gris
+          },
+        },
       });
     },
   ],

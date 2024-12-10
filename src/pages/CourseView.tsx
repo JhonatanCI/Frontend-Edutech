@@ -54,7 +54,7 @@ const CourseView: React.FC<CourseViewProps> = ({ course }) => {
                 {/* Left Content */}
                 <div className="flex-1 p-6">
                     <p className="text-gray-700 text-sm mb-6">{currentCourse.description}</p>
-                    <h3 className="text-lg font-bold text-black mb-3">
+                    <h3 className="text-3xl font-bold text-black mb-3">
                         Contenido del Curso
                     </h3>
                     {/* Contenedor de la lista sin scroll */}

@@ -1,12 +1,17 @@
 import React from 'react';
 
-const SearchBar: React.FC = () => {
+interface SearchBarProps {
+  searchBy: string
+}
+
+
+const SearchBar: React.FC<SearchBarProps> = ({searchBy}) => {
   return (
     <div className="flex mt-6">
       <input
         type="text"
-        placeholder="Buscar mundos (e.j Negocios, Liderazgo)"
-        className="bg-white font-inter text-sm text-textGray px-4 py-2  w-1/2 rounded-l-sm border border-gray-300 focus:outline-none focus:ring-0"
+        placeholder={`Buscar ${searchBy} (e.j Negocios, Liderazgo)`}
+        className="bg-white font-inter text-sm text-textGray px-4 py-2 w-full rounded-l-sm border border-gray-300 focus:outline-none focus:ring-0 flex-grow"
       />
       <button className="bg-primaryBlue text-white px-4 py-2 rounded-r-sm hover:bg-primaryBlue-dark h-12">
         <svg width="23" height="23" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18,4 +23,3 @@ const SearchBar: React.FC = () => {
 };
   
 export default SearchBar;
-  
