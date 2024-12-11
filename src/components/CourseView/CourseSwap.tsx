@@ -50,7 +50,7 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course }) => {
                                 />
                             })}
                         </div>
-                        <div className="flex justify-between mt-8">
+                        <div className="flex gap-20 mt-8">
                             <button
                                 className="text-black font-inter font-semibold rounded border border-black bg-white transition-all duration-300 text-md py-3 px-12 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
                             >

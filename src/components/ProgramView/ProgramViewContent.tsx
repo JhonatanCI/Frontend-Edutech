@@ -16,7 +16,7 @@ interface ProgramViewContentProps {
 }
 
 const ProgramViewContent: React.FC<ProgramViewContentProps> = ({ program }) => {
-    const { state, initializeCourses } = useAvailableCoursesContext()
+    const {initializeCourses } = useAvailableCoursesContext()
 
     useEffect(() => {
         if (program) {
@@ -30,7 +30,7 @@ const ProgramViewContent: React.FC<ProgramViewContentProps> = ({ program }) => {
             <ProgramHeroSection program={program} />
             <ProgramNavbar />
             <AvailableCoursesSection semesters={program.semesters} programOutcomes={program.programOutcomes} />
-            {state.programCourses.length > 0 && <AchievementsSection programUUID={program.id} programName={program.name} programCourses={state.programCourses} />}
+            <AchievementsSection programUUID={program.id} programName={program.name} />
             <LearningPathSection programName={program.name} />
             <KeepLearningSection />
         </>

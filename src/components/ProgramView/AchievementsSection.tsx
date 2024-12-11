@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
+import { useAvailableCoursesContext } from "../../hooks/useAvailableCoursesContext";
+
 import { AchievementCard } from "./AchievementCard";
-import { Program, ProgramCourse, UUID } from "../../model/types";
+import { Program, UUID } from "../../model/types";
 import { getCoursesUUID } from "../../filters/filters";
 import { getAchievements } from "../../services/academicPrograms";
 
@@ -8,10 +10,20 @@ import { getAchievements } from "../../services/academicPrograms";
 interface AchievementsSectionProps {
     programUUID: UUID,
     programName: string,
-    programCourses: ProgramCourse[]
 }
 
-export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ programUUID, programName, programCourses }) => {
+export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ programUUID, programName }) => {
+
+    const {state} = useAvailableCoursesContext()
+    const {programCourses} = state
+
+    if(programCourses.length === 0){
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <div className="w-16 h-16 border-4 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
+            </div>
+        );
+    }
 
     const [achievements, setAchievements] = useState<Program[] | null>(null)
     const article = programName.startsWith("Doctorado") ? "el" : "la";
