@@ -1,11 +1,11 @@
 import React from "react";
-import { ProgramCourse } from "../../model/types";
+import { Course, ProgramCourse } from "../../model/types";
 import MiniCourseCard from "./MiniCourseCard";
 import EmptyCard from "./EmptyCard";
 
 interface CurrentVsNewProps {
   current: ProgramCourse,
-  newCourse: ProgramCourse | null
+  newCourse: Course | null
 }
 
 const CurrentVsNew: React.FC<CurrentVsNewProps> = ({ current, newCourse }) => {

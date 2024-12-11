@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 import { useAvailableCoursesContext } from "../../hooks/useAvailableCoursesContext";
 
 import { AchievementCard } from "./AchievementCard";
@@ -6,18 +6,45 @@ import { Program, UUID } from "../../model/types";
 import { getCoursesUUID } from "../../filters/filters";
 import { getAchievements } from "../../services/academicPrograms";
 
-
 interface AchievementsSectionProps {
-    programUUID: UUID,
-    programName: string,
+    programUUID: UUID;
+    programName: string;
 }
 
-export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ programUUID, programName }) => {
+export const AchievementsSection: React.FC<AchievementsSectionProps> = ({
+    programUUID,
+    programName,
+}) => {
+    const { state } = useAvailableCoursesContext();
+    const { programCourses } = state;
 
-    const {state} = useAvailableCoursesContext()
-    const {programCourses} = state
+    const [achievements, setAchievements] = useState<Program[] | null>(null);
+    const article = programName.startsWith("Doctorado") ? "el" : "la";
 
-    if(programCourses.length === 0){
+    // Lógica para manejar la carga de logros
+    useEffect(() => {
+        async function fetchAchievements() {
+            const uuids: UUID[] = getCoursesUUID(programCourses);
+
+            try {
+                const response: Program[] = await getAchievements(uuids);
+                const filteredPrograms = response.filter(
+                    (program) => program.id !== programUUID
+                );
+
+                setAchievements(filteredPrograms);
+            } catch (error) {
+                console.error("No se pudieron traer logros");
+            }
+        }
+
+        if (programCourses.length > 0) {
+            fetchAchievements();
+        }
+    }, [programCourses, programUUID]);
+
+    // Retorno condicional para evitar cortar el flujo de Hooks
+    if (programCourses.length === 0) {
         return (
             <div className="flex items-center justify-center h-screen">
                 <div className="w-16 h-16 border-4 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
@@ -25,29 +52,8 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ progra
         );
     }
 
-    const [achievements, setAchievements] = useState<Program[] | null>(null)
-    const article = programName.startsWith("Doctorado") ? "el" : "la";
-
-    useEffect(() => {
-        async function fetchAchievements() {
-            const uuids: UUID[] = getCoursesUUID(programCourses);
-
-            try {
-                const response: Program[] = await getAchievements(uuids);
-                const filteredPrograms = response.filter(program => program.id !== programUUID);
-
-                setAchievements(filteredPrograms)
-            } catch (error) {
-                console.error("No se puedo traer logros")
-            }
-        }
-
-        fetchAchievements()
-
-    }, [])
-
-    if(!achievements){
-       return 
+    if (!achievements) {
+        return null;
     }
 
     return (
@@ -58,7 +64,7 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ progra
             </p>
 
             <div className="grid grid-cols-[repeat(auto-fill,minmax(32rem,1fr))] gap-[1rem] max-w-full w-full bg-white pt-12">
-                {achievements && achievements.map((achievement) => (
+                {achievements.map((achievement) => (
                     <AchievementCard
                         key={achievement.id} // Asegúrate de que `id` exista en el objeto Program
                         name={achievement.name}
@@ -68,4 +74,4 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({ progra
             </div>
         </div>
     );
-}
+};
