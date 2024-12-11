@@ -2,6 +2,7 @@ import React from "react";
 import { ProgramCourse } from "../../model/types";
 import CourseCardModal from "../CourseView/CourseCardModal";
 
+import { getCategoriesForCourse } from "../../filters/filters";
 
 interface ProgramSemesterProps {
     semester: number,
@@ -18,6 +19,7 @@ export const ProgramSemester: React.FC<ProgramSemesterProps> = ({ semester, prog
                         <CourseCardModal
                             key={course.courseId}
                             course={course}
+                            categories={getCategoriesForCourse(course.outcomesContribution)}
                             isEditable
                             variantStyle="solid"
                             variant="small"
@@ -25,6 +27,7 @@ export const ProgramSemester: React.FC<ProgramSemesterProps> = ({ semester, prog
                         : <CourseCardModal
                             key={course.courseId}
                             course={course}
+                            categories={getCategoriesForCourse(course.outcomesContribution)}
                             isEditable
                             variantStyle="dashed"
                             variant="small"

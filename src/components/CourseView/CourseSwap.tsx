@@ -9,9 +9,11 @@ import Button from "../Commons/Button";
 
 interface CourseSwapProps {
     course: ProgramCourse;
+    swap: () => void;
+    noSwap: () => void;
 }
 
-const CourseSwap: React.FC<CourseSwapProps> = ({ course }) => {
+const CourseSwap: React.FC<CourseSwapProps> = ({ course, swap,  noSwap}) => {
 
     const [coursesMatch, setCoursesMatch] = useState(programCourses)
     const [newCourse, setNewCourse] = useState<ProgramCourse | null>(null)
@@ -53,6 +55,7 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course }) => {
                         <div className="flex gap-20 mt-8">
                             <button
                                 className="text-black font-inter font-semibold rounded border border-black bg-white transition-all duration-300 text-md py-3 px-12 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
+                                onClick={noSwap}
                             >
                                 No intercambiar
                             </button>

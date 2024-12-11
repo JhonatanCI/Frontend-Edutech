@@ -25,7 +25,7 @@ const CourseModal: React.FC<CourseModalProps> = ({
                 </button>
                 {/* Render CourseView */}
                 <CourseView course={course} />
-                <CourseSwap course={course}/>
+                <CourseSwap course={course} swap={() => null} noSwap={onClose}/>
             </div>
         </div>
     );

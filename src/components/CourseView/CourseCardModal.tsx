@@ -5,15 +5,15 @@ import CourseCard from "../Commons/CourseCard";
 
 interface CourseCardModalProps {
     course: ProgramCourse,
+    categories: string[],
     variant: "small" | "medium" | "large",
     variantStyle?: "solid" | "dashed",
     isEditable?: boolean
 }
 
-const CourseCardModal: React.FC<CourseCardModalProps> = ({course, variant, variantStyle, isEditable}) => {
+const CourseCardModal: React.FC<CourseCardModalProps> = ({course, categories, variant, variantStyle, isEditable}) => {
 
     const [isSelected, setIsSelected] = useState(false);
-    const categories = ["Categoria 1", "Categoria2"];
 
     useEffect(() => {
         if (isSelected) {
