@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
 
 import NavBar from "../Commons/NavBar";
 import ProgramHeroSection from "./ProgramHeroSection";
@@ -10,32 +9,27 @@ import { LearningPathSection } from "./LearningPathSection";
 import { KeepLearningSection } from "./KeepLearningSection";
 
 import { FullProgram } from "../../model/types";
-import useAvailableCourses from "../../reducers/AvailableCoursesReducer/AvailableCoursesReducer";
+import { useAvailableCoursesContext } from "../../hooks/useAvailableCoursesContext";
 
 interface ProgramViewContentProps {
     program: FullProgram
 }
 
 const ProgramViewContent: React.FC<ProgramViewContentProps> = ({ program }) => {
-    const { name } = useParams();
-    const { state, initializeCourses } = useAvailableCourses()
+    const { state, initializeCourses } = useAvailableCoursesContext()
 
     useEffect(() => {
-        if (name) {
-            initializeCourses(name);
+        if (program) {
+            initializeCourses(program.name);
         }
-    }, [name, initializeCourses]);
-
-    if (!program) {
-        return null;
-    }
+    }, []);
 
     return (
         <>
             <NavBar />
             <ProgramHeroSection program={program} />
             <ProgramNavbar />
-            {state.programCourses.length > 0 && <AvailableCoursesSection semesters={program.semesters} programCourses={state.programCourses} programOutcomes={program.programOutcomes} />}
+            <AvailableCoursesSection semesters={program.semesters} programOutcomes={program.programOutcomes} />
             {state.programCourses.length > 0 && <AchievementsSection programUUID={program.id} programName={program.name} programCourses={state.programCourses} />}
             <LearningPathSection programName={program.name} />
             <KeepLearningSection />

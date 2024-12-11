@@ -22,7 +22,6 @@ const useAvailableCourses = () => {
         try {
             const programsFetched = await getAllProgramCourses(name);
             const programCourses = toProgramCourse(programsFetched);
-            console.log("Aqui los c: ", programCourses)
             setCourses(programCourses);
         } catch (error) {
             console.error("Error fetching program courses", error);

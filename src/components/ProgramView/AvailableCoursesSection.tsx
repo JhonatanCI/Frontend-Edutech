@@ -1,16 +1,29 @@
 import React from "react"
 import { FilledLine, DottedLine } from "../../assets/Icons/linesIcons"
-import { ProgramCourse, ProgramOutcome } from "../../model/types"
+import { ProgramOutcome } from "../../model/types"
 import ProgramCoursesSection from "./ProgramCoursesSection"
 import { HabilitiesDev } from "./HabilitiesDevSection"
+import { useAvailableCoursesContext } from "../../hooks/useAvailableCoursesContext"
 
 interface AvailableCoursesSectionProps {
     semesters: number,
-    programCourses: ProgramCourse[],
     programOutcomes: ProgramOutcome[]
 }
 
-const AvailableCoursesSection: React.FC<AvailableCoursesSectionProps> = ({semesters, programCourses, programOutcomes}) => {
+const AvailableCoursesSection: React.FC<AvailableCoursesSectionProps> = ({semesters, programOutcomes}) => {
+    
+    const {state} = useAvailableCoursesContext()
+    const {programCourses} = state
+
+    
+    if(programCourses.length === 0){
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <div className="w-16 h-16 border-4 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
+            </div>
+        );
+    }
+    
     return (
         <div id="courses" className="h-full w-full flex flex-col px-28 pb-14 pt-24">
             <h2 className="text-black text-4xl font-calsans leading-tight max-w-md">Cursos disponibles</h2>
