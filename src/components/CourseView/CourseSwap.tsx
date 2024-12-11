@@ -61,7 +61,7 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course, swap, noSwap }) => {
                                     >
                                         No intercambiar
                                     </button>
-                                    <Button>Confirmar intercambio</Button>
+                                    <Button onClick={swap}>Confirmar intercambio</Button>
                                 </div>
                             </>
                         ) : (
