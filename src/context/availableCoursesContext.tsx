@@ -1,7 +1,7 @@
 import { createContext, ReactNode } from "react"
 import { AvailableCoursesState } from "../reducers/AvailableCoursesReducer/AvailableCoursesTypes"
 import useAvailableCourses from "../reducers/AvailableCoursesReducer/AvailableCoursesReducer";
-import { ProgramCourse } from "../model/types";
+import { Course, ProgramCourse } from "../model/types";
 
 interface AvailableCoursesProviderProps {
     children: ReactNode
@@ -10,7 +10,7 @@ interface AvailableCoursesProviderProps {
 export type AvailableCoursesContextType = {
     state: AvailableCoursesState,
     setCourses: (courses: ProgramCourse[]) => void,
-    updateCourses: (current: ProgramCourse, newCourse: ProgramCourse) => void;
+    updateCourses: (current: ProgramCourse, newCourse: Course) => void;
     initializeCourses: (name: string) => Promise<void>
 }
 

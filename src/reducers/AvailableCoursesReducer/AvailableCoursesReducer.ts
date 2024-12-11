@@ -5,7 +5,7 @@ import {ACInitialState} from "./AvailableCoursesInitialState"
 
 import { getAllProgramCourses } from "../../services/academicCourses"
 import { toProgramCourse } from "../../mappers/programCourseMapper"
-import { ProgramCourse } from "../../model/types"
+import { Course, ProgramCourse } from "../../model/types"
 
 const initialState = ACInitialState
 const reducer = availableCoursesReducer
@@ -15,7 +15,7 @@ const useAvailableCourses = () => {
 
     const setCourses = (courses: ProgramCourse[]) => dispatch({ type: ACActionType.INITIAL_STATE, payload: courses });
 
-    const updateCourses = (current: ProgramCourse, newCourse: ProgramCourse) => 
+    const updateCourses = (current: ProgramCourse, newCourse: Course) => 
         dispatch({ type: ACActionType.UPDATE_STATE, payload: { current, newCourse } });
 
     const initializeCourses = async (name: string) => {

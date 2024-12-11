@@ -8,10 +8,8 @@ interface CourseModalProps {
     onClose: () => void;
 }
 
-const CourseModal: React.FC<CourseModalProps> = ({
-    course,
-    onClose,
-}) => {
+const CourseModal: React.FC<CourseModalProps> = ({course, onClose}) => {
+
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             {/* Modal Container */}
@@ -25,7 +23,7 @@ const CourseModal: React.FC<CourseModalProps> = ({
                 </button>
                 {/* Render CourseView */}
                 <CourseView course={course} />
-                <CourseSwap course={course} swap={() => null} noSwap={onClose}/>
+                <CourseSwap course={course} close={onClose}/>
             </div>
         </div>
     );

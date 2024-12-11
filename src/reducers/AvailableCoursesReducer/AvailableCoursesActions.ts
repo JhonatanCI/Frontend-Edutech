@@ -1,4 +1,4 @@
-import { ProgramCourse } from "../../model/types"
+import { Course, ProgramCourse } from "../../model/types"
 
 export enum ACActionType {
     INITIAL_STATE = "initial_state",
@@ -7,5 +7,5 @@ export enum ACActionType {
 
 export type ACPayload = {
     current: ProgramCourse,
-    newCourse: ProgramCourse
+    newCourse: Course
 }

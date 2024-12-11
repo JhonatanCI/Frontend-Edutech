@@ -15,7 +15,11 @@ const availableCoursesReducer = (state: AvailableCoursesState, action: Available
                 ...state,
                 programCourses: state.programCourses.map(course =>
                     course.courseId === (payload as ACPayload).current.courseId
-                        ? (payload as ACPayload).newCourse
+                        ? {
+                            ...course,
+                            ...((payload as ACPayload).newCourse),
+                            courseId: (payload as ACPayload).newCourse.id,
+                        }
                         : course
                 )
             };

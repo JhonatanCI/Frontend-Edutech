@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useAvailableCoursesContext } from "../../hooks/useAvailableCoursesContext";
 import { Course, ProgramCourse } from "../../model/types";
 import SearchBar from "../Commons/SearchBar";
 import CurrentVsNew from "./CurrentVsNew";
@@ -9,17 +10,24 @@ import useCoursesMatched from "../../hooks/useCoursesMatched";
 
 interface CourseSwapProps {
     course: ProgramCourse;
-    swap: () => void;
-    noSwap: () => void;
+    close: () => void
 }
 
-const CourseSwap: React.FC<CourseSwapProps> = ({ course, swap, noSwap }) => {
+const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
     const response = useCoursesMatched(course.outcomesContribution);
     const [newCourse, setNewCourse] = useState<Course | null>(null);
+    const {updateCourses} = useAvailableCoursesContext()
 
     const coursesMatch = response
         ? response.filter((matchedCourse) => matchedCourse.id !== course.courseId)
         : [];
+
+    const swap = () => {
+        if(newCourse){
+            updateCourses(course, newCourse)
+            close() 
+        }
+    }
 
     return (
         <div className="h-screen w-full px-16 py-8">
@@ -57,7 +65,7 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course, swap, noSwap }) => {
                                 <div className="flex gap-20 mt-8">
                                     <button
                                         className="text-black font-inter font-semibold rounded border border-black bg-white transition-all duration-300 text-md py-3 px-12 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
-                                        onClick={noSwap}
+                                        onClick={close}
                                     >
                                         No intercambiar
                                     </button>
