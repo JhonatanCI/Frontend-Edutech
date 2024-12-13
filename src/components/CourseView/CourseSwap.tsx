@@ -7,6 +7,7 @@ import CurrentVsNew from "./CurrentVsNew";
 import MiniCourseCard from "./MiniCourseCard";
 import Button from "../Commons/Button";
 import useCoursesMatched from "../../hooks/useCoursesMatched";
+import useAllCourses from "../../hooks/useAllCourses";
 
 interface CourseSwapProps {
     course: ProgramCourse;
@@ -14,7 +15,7 @@ interface CourseSwapProps {
 }
 
 const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
-    const response = useCoursesMatched(course.outcomesContribution);
+    const response = (course.flexibility === "CONDICIONADO")? useCoursesMatched(course.outcomesContribution) : useAllCourses();
     const [newCourse, setNewCourse] = useState<Course | null>(null);
     const {updateCourses} = useAvailableCoursesContext()
 

@@ -16,13 +16,13 @@ interface ProgramViewContentProps {
 }
 
 const ProgramViewContent: React.FC<ProgramViewContentProps> = ({ program }) => {
-    const {initializeCourses } = useAvailableCoursesContext()
+    const {initializeCourses} = useAvailableCoursesContext()
 
     useEffect(() => {
         if (program) {
             initializeCourses(program.name);
         }
-    }, []);
+    }, [program]);
 
     return (
         <>

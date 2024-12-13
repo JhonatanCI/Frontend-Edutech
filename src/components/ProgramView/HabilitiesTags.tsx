@@ -10,7 +10,7 @@ const HabilitiesTags: React.FC<HabilitiesTagsProps> = ({ tags }) => {
       <p className="text-white text-sm font-light font-inter">
         Habilidades que desarrollarás
       </p>
-      <div className="flex justify-left mt-3 space-x-4">
+      <div className="flex justify-left mt-3 gap-2">
         {tags.map((tag, index) => (
           <button
             key={index}

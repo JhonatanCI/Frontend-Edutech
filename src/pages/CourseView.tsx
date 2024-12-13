@@ -11,7 +11,6 @@ interface CourseViewProps {
 
 const CourseView: React.FC<CourseViewProps> = ({ course }) => {
     const coverImage = fullProgramExample.image;
-    const courseContent: string[] = ["Creación de cronogramas", "Monitoreo y control", "Herramientas de cronogramas", "Actualización de cronogramas"];
 
     const { name } = useParams();
     const { course: fetchedCourse, loading } = useFullCourse(name);

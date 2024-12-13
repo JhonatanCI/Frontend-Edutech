@@ -55,7 +55,7 @@ export type ProgramCourse = {
   terminalObjectives: string,
   modality: string,
   semester: number
-  flexibility: string,
+  flexibility: 'CONDICIONADO' | 'FLEXIBLE',
   outcomesContribution: SimpleOutcome[];
 }
 

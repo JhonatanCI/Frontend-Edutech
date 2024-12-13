@@ -11,10 +11,7 @@ interface AchievementsSectionProps {
     programName: string;
 }
 
-export const AchievementsSection: React.FC<AchievementsSectionProps> = ({
-    programUUID,
-    programName,
-}) => {
+export const AchievementsSection: React.FC<AchievementsSectionProps> = ({programUUID, programName}) => {
     const { state } = useAvailableCoursesContext();
     const { programCourses } = state;
 
@@ -43,7 +40,7 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({
         }
     }, [programCourses, programUUID]);
 
-    // Retorno condicional para evitar cortar el flujo de Hooks
+
     if (programCourses.length === 0) {
         return (
             <div className="flex items-center justify-center h-screen">
@@ -52,8 +49,8 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({
         );
     }
 
-    if (!achievements) {
-        return null;
+    if (!achievements || achievements.length === 0) {
+        return
     }
 
     return (
@@ -66,9 +63,10 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({
             <div className="grid grid-cols-[repeat(auto-fill,minmax(32rem,1fr))] gap-[1rem] max-w-full w-full bg-white pt-12">
                 {achievements.map((achievement) => (
                     <AchievementCard
-                        key={achievement.id} // Asegúrate de que `id` exista en el objeto Program
+                        key={achievement.id}
                         name={achievement.name}
                         description={achievement.description}
+                        to={`/program/${achievement.name}`}
                     />
                 ))}
             </div>
