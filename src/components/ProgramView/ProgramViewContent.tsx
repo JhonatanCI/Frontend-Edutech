@@ -31,7 +31,7 @@ const ProgramViewContent: React.FC<ProgramViewContentProps> = ({ program }) => {
             <ProgramNavbar />
             <AvailableCoursesSection semesters={program.semesters} programOutcomes={program.programOutcomes} />
             <AchievementsSection programUUID={program.id} programName={program.name} />
-            <LearningPathSection programName={program.name} />
+            <LearningPathSection programUUID={program.id} programName={program.name} />
             <KeepLearningSection />
         </>
     );

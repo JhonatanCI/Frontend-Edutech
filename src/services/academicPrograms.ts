@@ -27,3 +27,12 @@ export const getAchievements = async(courseIds: UUID[]) => {
         throw error;
     }
 }
+
+export const getLearningPath = async(courseIds: UUID[]) => {
+    try {
+        const response = await API.post("/search/findLearningPath", courseIds)
+        return response.data
+    } catch (error) {
+        throw error;
+    }
+}

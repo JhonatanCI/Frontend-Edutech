@@ -53,6 +53,7 @@ export const ProgramsScrollSection: React.FC<ProgramsScrollSectionProps> = ({ pr
                             title={program.name}
                             description={program.description}
                             buttonText="Saber más"
+                            path={`/program/${program.name}`}
                         />
                     )}
                 </div>
