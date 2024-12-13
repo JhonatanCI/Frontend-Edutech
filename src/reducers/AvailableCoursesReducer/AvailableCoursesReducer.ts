@@ -13,7 +13,8 @@ const reducer = availableCoursesReducer
 const useAvailableCourses = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const setCourses = (courses: ProgramCourse[]) => dispatch({ type: ACActionType.INITIAL_STATE, payload: courses });
+    const setProgramCourses = (programCourses: ProgramCourse[]) => dispatch({ type: ACActionType.INIT_PROGRAMCOURSES, payload: programCourses });
+    const setCourses = (courses: Course[]) => dispatch({type: ACActionType.INIT_COURSES, payload: courses})
 
     const updateCourses = (current: ProgramCourse, newCourse: Course) => 
         dispatch({ type: ACActionType.UPDATE_STATE, payload: { current, newCourse } });
@@ -22,14 +23,14 @@ const useAvailableCourses = () => {
         try {
             const programsFetched = await getAllProgramCourses(name);
             const programCourses = toProgramCourse(programsFetched);
-            setCourses(programCourses);
+            setProgramCourses(programCourses);
         } catch (error) {
             console.error("Error fetching program courses", error);
             setCourses([]);
         }
     };
 
-    return { state, setCourses, updateCourses, initializeCourses };
+    return { state, setCourses, setProgramCourses, updateCourses, initializeCourses };
 };
 
 export default useAvailableCourses;

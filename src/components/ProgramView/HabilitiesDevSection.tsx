@@ -11,7 +11,7 @@ interface HabilitiesDevProps {
 
 export const HabilitiesDev: React.FC<HabilitiesDevProps> = ({programOutcomes, programCourses}) => {
 
-    const maxValue = getMaxValue(programOutcomes);
+    const maxValue = getMaxValue(programOutcomes) * 3;
 
     const chartvalues: ChartValues = {
         categories: getCategories(programOutcomes),

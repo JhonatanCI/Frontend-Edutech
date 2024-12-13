@@ -25,7 +25,9 @@ export type Course = {
   credits: number,
   modality: string,
   generalObjective: string,
-  terminalObjectives: string
+  terminalObjectives: string,
+  academicWorlds: string[],
+  outcomes: string[]
 }
 
 export type Program = {

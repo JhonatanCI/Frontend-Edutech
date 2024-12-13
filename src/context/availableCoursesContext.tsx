@@ -1,7 +1,8 @@
-import { createContext, ReactNode } from "react"
+import { createContext, ReactNode, useEffect } from "react"
 import { AvailableCoursesState } from "../reducers/AvailableCoursesReducer/AvailableCoursesTypes"
 import useAvailableCourses from "../reducers/AvailableCoursesReducer/AvailableCoursesReducer";
 import { Course, ProgramCourse } from "../model/types";
+import { getAllCourses } from "../services/academicCourses";
 
 interface AvailableCoursesProviderProps {
     children: ReactNode
@@ -9,7 +10,7 @@ interface AvailableCoursesProviderProps {
 
 export type AvailableCoursesContextType = {
     state: AvailableCoursesState,
-    setCourses: (courses: ProgramCourse[]) => void,
+    setProgramCourses: (courses: ProgramCourse[]) => void,
     updateCourses: (current: ProgramCourse, newCourse: Course) => void;
     initializeCourses: (name: string) => Promise<void>
 }
@@ -17,10 +18,24 @@ export type AvailableCoursesContextType = {
 const AvailableCoursesContext = createContext<AvailableCoursesContextType | undefined>(undefined)
 
 const AvailableCoursesProvider = ({ children }: AvailableCoursesProviderProps) => {
-    const { state, setCourses, updateCourses, initializeCourses } = useAvailableCourses();
+    const { state, setProgramCourses, setCourses, updateCourses, initializeCourses } = useAvailableCourses();
+
+    useEffect(() => {
+
+        const fetchCourses = async() => {
+            try {
+                const response = await getAllCourses()
+                setCourses(response)
+            } catch (error) {
+                console.error("No se pudo cargar los cursos")
+            }
+        }
+
+        fetchCourses()
+    }, [])
 
     return (
-        <AvailableCoursesContext.Provider value={{state, setCourses, updateCourses, initializeCourses}}>
+        <AvailableCoursesContext.Provider value={{state, setProgramCourses, updateCourses, initializeCourses}}>
             {children}
         </AvailableCoursesContext.Provider>
     )

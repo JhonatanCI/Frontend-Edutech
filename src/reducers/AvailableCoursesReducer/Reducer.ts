@@ -1,15 +1,20 @@
 import { ACActionType, ACPayload } from "./AvailableCoursesActions";
 import { AvailableCoursesAction, AvailableCoursesState } from "./AvailableCoursesTypes";
-import { ProgramCourse } from "../../model/types";
+import { Course, ProgramCourse } from "../../model/types";
 
 const availableCoursesReducer = (state: AvailableCoursesState, action: AvailableCoursesAction) => {
     const { type, payload } = action
 
     switch (type) {
-        case ACActionType.INITIAL_STATE:  return {
+        case ACActionType.INIT_PROGRAMCOURSES: return {
             ...state,
             programCourses: payload as ProgramCourse[], // Asegúrate de que el payload es un arreglo de cursos
         };
+        case ACActionType.INIT_COURSES:
+            return {
+                ...state,
+                courses: payload as Course[], // Actualiza 'courses' correctamente
+            };
         case ACActionType.UPDATE_STATE:
             return {
                 ...state,

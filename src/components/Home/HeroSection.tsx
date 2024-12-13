@@ -21,7 +21,7 @@ const HeroSection: React.FC = () => {
           subheading="Adéntrate en nuestros mundos de conocimiento, con más de 200 cursos, certificaciones, especializaciones y maestrías."
         />
         <div className='w-3/5'>
-          <SearchBar searchBy='mundos' />
+          <SearchBar search='mundos' by='Negocios, Liderazgo' handleClick={() => null} />
         </div>
 
         <PopularTags

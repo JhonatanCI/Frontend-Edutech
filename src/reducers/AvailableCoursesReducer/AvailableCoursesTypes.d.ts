@@ -1,11 +1,12 @@
-import { ProgramCourse } from "../../model/types"
+import { Course, ProgramCourse } from "../../model/types"
 import { ACActionType, ACPayload } from "./AvailableCoursesActions"
 
 export type AvailableCoursesState = {
-    programCourses: ProgramCourse[]
+    programCourses: ProgramCourse[],
+    courses: Course[]
 }
 
 export type AvailableCoursesAction = {
     type: ACActionType,
-    payload: ProgramCourse[] | ACPayload
+    payload: ProgramCourse[] | Course[] | ACPayload
 }

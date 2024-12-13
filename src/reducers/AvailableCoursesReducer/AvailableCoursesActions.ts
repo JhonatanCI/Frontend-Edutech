@@ -1,7 +1,8 @@
 import { Course, ProgramCourse } from "../../model/types"
 
 export enum ACActionType {
-    INITIAL_STATE = "initial_state",
+    INIT_PROGRAMCOURSES = "initial_state",
+    INIT_COURSES = "initial_courses",
     UPDATE_STATE = "update_state"
 }
 

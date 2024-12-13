@@ -7,17 +7,19 @@ const useCoursesMatched = (outcomes: SimpleOutcome[]) => {
     const [courses, setCourses] = useState<Course[] | null>(null)
     
     useEffect(() => {
-        const fetchCourses = async() => {
+        const fetchCourses = async () => {
             try {
                 const response: Course[] = await getMatched(outcomes);
-                setCourses(response)
+                setCourses(response);
             } catch (error) {
-                console.error("No se ha podido cargar las opciones de cursos para intercambiar")
+                console.error("No se ha podido cargar las opciones de cursos para intercambiar");
             }
+        };
+    
+        if (outcomes.length > 0) {
+            fetchCourses();
         }
-
-        fetchCourses()
-    }, [])
+    }, [outcomes]);
 
     return courses
 }

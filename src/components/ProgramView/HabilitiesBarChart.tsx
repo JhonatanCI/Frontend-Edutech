@@ -21,7 +21,7 @@ const HabilitiesBarChart: React.FC<HabilitiesBarChartProps> = ({chartvalues, dat
             },
         },
         dataLabels: {
-            enabled: true,
+            enabled: false,
         },
         colors: ['#865CF0'], // Fondo gris transparente y barra azul
         xaxis: {
@@ -29,10 +29,6 @@ const HabilitiesBarChart: React.FC<HabilitiesBarChartProps> = ({chartvalues, dat
             max: chartvalues.max,
             labels: {
                 show: false
-            },
-            title: {
-                text: `0 Cantidad de créditos ${chartvalues.max}`,
-                offsetY: -18
             }
         },
         tooltip: {

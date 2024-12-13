@@ -3,7 +3,7 @@ import React from "react";
 interface SmallCardProps {
   title: string;
   description: string;
-  categories: string[];
+  categories?: string[];
   credits?: number;
   onClick?: () => void;
 }
@@ -27,16 +27,17 @@ const MiniCourseCard: React.FC<SmallCardProps> = ({
       </div>
 
       {/* Categories */}
-      <div className="flex flex-wrap gap-1 mb-2">
-        {categories.map((category, index) => (
-          <span
-            key={index}
-            className="bg-green-100 text-green-700 text-[0.6rem] font-semibold px-1 py-0.5 rounded-full"
-          >
-            {category}
+      {categories ? (
+        <div
+          className="flex mb-2 overflow-hidden text-[0.6rem] font-semibold text-green-700 whitespace-nowrap"
+          style={{ textOverflow: "ellipsis", maxWidth: "100%" }}
+          title={categories.sort().join(", ")}
+        >
+          <span className="truncate">
+            {categories.sort().join(", ")}
           </span>
-        ))}
-      </div>
+        </div>
+      ) : null}
 
       {/* Description */}
       <p className="text-xs text-black mb-2 truncate-2-lines">{description}</p>
