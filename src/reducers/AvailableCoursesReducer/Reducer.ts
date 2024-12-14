@@ -8,12 +8,12 @@ const availableCoursesReducer = (state: AvailableCoursesState, action: Available
     switch (type) {
         case ACActionType.INIT_PROGRAMCOURSES: return {
             ...state,
-            programCourses: payload as ProgramCourse[], // Asegúrate de que el payload es un arreglo de cursos
+            programCourses: payload as ProgramCourse[],
         };
         case ACActionType.INIT_COURSES:
             return {
                 ...state,
-                courses: payload as Course[], // Actualiza 'courses' correctamente
+                courses: payload as Course[],
             };
         case ACActionType.UPDATE_STATE:
             return {
