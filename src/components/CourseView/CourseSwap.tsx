@@ -60,9 +60,11 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
                         <p className="text-gray-700 text-sm w-2/5">
                             Si lo deseas puedes cambiar este curso por otro que se adapte más a tus necesidades. Puedes hacer uso del buscador para encontrarlo.
                         </p>
-                        <div className="w-2/3">
-                            <SearchBar handleClick={handleSearch} search="cursos" by="Gerencia de Proyectos, Formulación en..." />
-                        </div>
+                        {course.flexibility === "FLEXIBLE" ? (
+                            <div className="w-2/3">
+                                <SearchBar handleClick={handleSearch} search="cursos" by="Gerencia de Proyectos, Formulación en..." />
+                            </div>
+                        ) : null}
                     </div>
                 </div>
 

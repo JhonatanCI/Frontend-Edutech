@@ -2,14 +2,14 @@ import React from "react";
 import editIcon from "../../assets/editIcon.svg";
 
 interface CardProps {
-  title: string;
-  description: string;
-  categories: string[];
-  credits?: number;
-  variant: "small" | "medium" | "large"; // To handle size variations
-  variantStyle?: "solid" | "dashed"; // New prop for border style
-  isEditable?: boolean;
-  onClick?: () => void;
+    title: string;
+    description: string;
+    categories: string[];
+    credits?: number;
+    variant: "small" | "medium" | "large"; // To handle size variations
+    variantStyle?: "solid" | "dashed"; // New prop for border style
+    isEditable?: boolean;
+    onClick?: () => void;
 }
 
 const CourseCard: React.FC<CardProps> = ({ title, description, categories, credits, variant, variantStyle, isEditable, onClick }) => {
@@ -48,15 +48,14 @@ const CourseCard: React.FC<CardProps> = ({ title, description, categories, credi
             </div>
 
             {/* Categories */}
-            <div className="flex flex-wrap gap-2 mb-4">
-                {categories.map((category, index) => (
-                    <span
-                        key={index}
-                        className="bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
-                    >
-                        {category}
-                    </span>
-                ))}
+            <div
+                className="mb-4 overflow-hidden text-xs font-semibold text-green-700 whitespace-nowrap"
+                style={{ textOverflow: "ellipsis", maxWidth: "100%" }}
+                title={categories.sort().join(", ")} // Tooltip para mostrar las categorías completas
+            >
+                <span className="truncate">
+                    {categories.sort().join(", ")} {/* Ordena y une las categorías */}
+                </span>
             </div>
 
             {/* Description */}

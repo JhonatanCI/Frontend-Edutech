@@ -33,7 +33,7 @@ const TalentDevSection: React.FC = () => {
                         key={course.id}
                         title={course.name}
                         description={course.description}
-                        categories={categories}
+                        categories={course.outcomes}
                         variant="small"
                         onClick={() => navigateTo(`/course/${course.name}`)}
                     />
