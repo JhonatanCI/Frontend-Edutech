@@ -1,18 +1,22 @@
 import { Course, Outcome, ProgramCourse, ProgramOutcome, SimpleOutcome } from "../model/types"
 
 export const filterBySemester = (semester: number, programCourses: ProgramCourse[]) => {
-    return programCourses.filter((pc) => pc.semester === semester)
+  return programCourses.filter((pc) => pc.semester === semester)
 }
 
 export const getMaxValue = (programOutcomes: ProgramOutcome[]) => {
-    return programOutcomes.reduce((max, outcome) => {
-      return outcome.maxCredits > max ? outcome.maxCredits
-       : outcome.minCredits > max? outcome.minCredits : max;
-    }, 0);
+  return programOutcomes.reduce((max, outcome) => {
+    return outcome.maxCredits > max ? outcome.maxCredits
+      : outcome.minCredits > max ? outcome.minCredits : max;
+  }, 0);
 }
 
 export const getCategories = (programOutcomes: ProgramOutcome[]) => {
+  if(programOutcomes){
     return programOutcomes.map(outcome => outcome.outcomeName);
+  } else {
+    return null
+  }
 }
 
 export const getCategoriesByOutcome = (outcomes: Outcome[]) => {
@@ -33,30 +37,47 @@ export const getContributionForEachCategory = (programCourses: ProgramCourse[], 
 }
 
 export const getCoursesUUID = (programCourses: ProgramCourse[]) => {
-    return programCourses.map(course => course.courseId);
+  return programCourses.map(course => course.courseId);
 }
 
-export function filterCourses(courses: Course[], query: string): Course[] {
-  
-  const keywords = query.split(',').map((keyword) => keyword.trim().toLowerCase());
 
-  if(query === ''){
-    return courses
+export function filterCourses(courses: Course[], query: string): Course[] {
+  const keywords = query.toLowerCase().split(',').map(word => word.trim());
+
+  if (keywords.length === 0 || query.trim() === '') {
+    return courses;
   }
 
-  return courses.filter((course) => {
-    // Check if any keyword matches the course name
-    const nameMatches = keywords.some((keyword) =>
-      course.name.toLowerCase().includes(keyword)
-    );
-
-    // Check if any keyword matches the academic worlds (only if it's an array)
-    const academicWorldsMatch =
-      Array.isArray(course.academicWorlds) &&
-      keywords.some((keyword) =>
-        course.academicWorlds.some((world) => world.toLowerCase().includes(keyword))
-      );
-
-    return nameMatches || academicWorldsMatch;
+  const worlds = new Set<string>();
+  const filteredCoursesByWorld = new Set<Course>();
+  keywords.forEach(keyword => {
+    courses.forEach(course => {
+      if (course.academicWorlds.some(world => world.toLowerCase().includes(keyword))) {
+        filteredCoursesByWorld.add(course);
+        worlds.add(keyword)
+      }
+    });
   });
+
+  if (filteredCoursesByWorld.size === 0) {
+    courses.forEach(course => filteredCoursesByWorld.add(course));
+  }
+
+  // Filtrar nuevamente por nombre del curso
+  const filteredCoursesByName = new Set<Course>();
+  keywords.forEach(keyword => {
+    filteredCoursesByWorld.forEach(course => {
+      if (course.name.toLowerCase().includes(keyword) && !worlds.has(keyword)) {
+        filteredCoursesByName.add(course);
+      }
+    });
+  });
+
+  // Si no se encontraron coincidencias en nombres, mantener los cursos filtrados por mundos académicos
+  if (filteredCoursesByName.size === 0) {
+    filteredCoursesByWorld.forEach(course => filteredCoursesByName.add(course));
+  }
+
+  // Convertir el Set a un array para retornar los cursos filtrados
+  return Array.from(filteredCoursesByName);
 }

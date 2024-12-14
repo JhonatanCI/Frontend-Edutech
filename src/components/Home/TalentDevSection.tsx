@@ -11,83 +11,89 @@ const TalentDevSection: React.FC = () => {
     const { state } = useTalentDevContext();
     const navigateTo = useNavigate()
 
-    const categories = ["Categoria 1", "Categoria2"];
-
     const renderCards = () => {
-        switch(state.item){
+        const renderSpinner = (
+            <div className="flex items-center justify-center h-screen">
+                <div className="w-16 h-16 border-4 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
+            </div>
+        );
+
+        switch (state.item) {
             case 0: {
-                return state.microLearnings?.map((micro: MicroLearning) => (
+                if (!state.microLearnings || state.microLearnings.length === 0) return renderSpinner;
+                return state.microLearnings.map((micro: MicroLearning) => (
                     <CourseCard
                         key={micro.id}
                         title={micro.name}
                         description={micro.description}
-                        categories={categories}
                         variant="small"
                         onClick={() => navigateTo(`/microlearning/${micro.name}`)}
                     />
                 ));
             }
             case 1: {
-                return state.courses?.map((course: Course) => (
+                if (!state.courses || state.courses.length === 0) return renderSpinner;
+                return state.courses.map((course: Course) => (
                     <CourseCard
                         key={course.id}
                         title={course.name}
                         description={course.description}
-                        categories={course.outcomes}
                         variant="small"
                         onClick={() => navigateTo(`/course/${course.name}`)}
                     />
                 ));
             }
             case 2: {
-                return state.certifications?.map((certification: Program) => (
+                if (!state.certifications || state.certifications.length === 0) return renderSpinner;
+                return state.certifications.map((certification: Program) => (
                     <CourseCard
                         key={certification.id}
                         title={certification.name}
                         description={certification.description}
-                        categories={categories}
                         variant="medium"
                         onClick={() => navigateTo(`/program/${certification.name}`)}
                     />
                 ));
             }
             case 3: {
-                return state.specializations?.map((specialization: Program) => (
+                if (!state.specializations || state.specializations.length === 0) return renderSpinner;
+                return state.specializations.map((specialization: Program) => (
                     <CourseCard
                         key={specialization.id}
                         title={specialization.name}
                         description={specialization.description}
-                        categories={categories}
                         variant="large"
                         onClick={() => navigateTo(`/program/${specialization.name}`)}
                     />
                 ));
             }
             case 4: {
-                return state.masters?.map((master: Program) => (
+                if (!state.masters || state.masters.length === 0) return renderSpinner;
+                return state.masters.map((master: Program) => (
                     <CourseCard
                         key={master.id}
                         title={master.name}
                         description={master.description}
-                        categories={categories}
                         variant="large"
                         onClick={() => navigateTo(`/program/${master.name}`)}
                     />
                 ));
             }
             case 5: {
-                return state.phd?.map((phd: Program) => (
+                if (!state.phd || state.phd.length === 0) return renderSpinner;
+                return state.phd.map((phd: Program) => (
                     <CourseCard
                         key={phd.id}
                         title={phd.name}
                         description={phd.description}
-                        categories={categories}
                         variant="large"
                         onClick={() => navigateTo(`/program/${phd.name}`)}
                     />
                 ));
             }
-            default: return
+            default: {
+                return renderSpinner;
+            }
         }
     };
 

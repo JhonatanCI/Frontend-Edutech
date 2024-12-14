@@ -62,7 +62,7 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
                         </p>
                         {course.flexibility === "FLEXIBLE" ? (
                             <div className="w-2/3">
-                                <SearchBar handleClick={handleSearch} search="cursos" by="Gerencia de Proyectos, Formulación en..." />
+                                <SearchBar handleClick={handleSearch} search="cursos" by="Gerencia de Proyectos, Formulación de..." />
                             </div>
                         ) : null}
                     </div>
