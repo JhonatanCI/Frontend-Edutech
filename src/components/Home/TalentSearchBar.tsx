@@ -35,7 +35,7 @@ const TalentSearchBar: React.FC = () => {
       };
       fetchData();
     },
-    1000,
+    800,
     [debouncedValue]
   );
 

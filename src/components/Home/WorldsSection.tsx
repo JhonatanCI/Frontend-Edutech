@@ -30,7 +30,7 @@ const WorldsSection: React.FC = () => {
         {worlds.map(world =>
           <WorldCard key={world.id}
             image={world.image}
-            title={world.name}
+            title={world.title}
             description={world.description}
             buttonText="Saber más"
           />

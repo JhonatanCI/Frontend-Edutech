@@ -42,6 +42,7 @@ export type Program = {
 export type World = {
     id: UUID,
     name: string,
+    title: string,
     description: string,
     image: string
 }

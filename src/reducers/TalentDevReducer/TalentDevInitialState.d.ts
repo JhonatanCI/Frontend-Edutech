@@ -4,22 +4,22 @@ import { TalentDevState } from "./TalentDevTypes.d";
 import { Result } from "../../model/types";
 
 const initValue: Result = {
-    microLearnings: defaultCourses,
-    courses: defaultCourses,
-    certifications: defaultCertifications,
-    specializations: defaultSpecializations,
-    masters: defaultMasters,
-    phd: defaultPHD
+    microLearnings: [],
+    courses: [],
+    certifications: [],
+    specializations: [],
+    masters: [],
+    phd: []
 }
 
 
 export const talentDevInitialState: TalentDevState = {
     initialValue: initValue,
     item: 0,
-    microLearnings: defaultCourses,
-    courses: defaultCourses,
-    certifications: defaultCertifications,
-    specializations: defaultSpecializations,
-    masters: defaultMasters,
-    phd: defaultPHD
+    microLearnings: [],
+    courses: [],
+    certifications: [],
+    specializations: [],
+    masters: [],
+    phd: [],
 }
