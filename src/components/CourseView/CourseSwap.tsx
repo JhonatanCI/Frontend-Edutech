@@ -7,7 +7,7 @@ import MiniCourseCard from "./MiniCourseCard";
 import Button from "../Commons/Button";
 import useCoursesMatched from "../../hooks/useCoursesMatched";
 
-import { filterCourses } from "../../filters/filters";
+import { exactCoincidences, filterCourses } from "../../filters/filters";
 
 interface CourseSwapProps {
     course: ProgramCourse;
@@ -30,7 +30,8 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
             const filteredCourses = response.filter(
                 (matchedCourse) => matchedCourse.id !== course.courseId
             );
-            setCoursesMatched(filteredCourses);
+            const exactMatched = exactCoincidences(course, filteredCourses)
+            setCoursesMatched(exactMatched);
         }
     }, [response, course.courseId]);
 

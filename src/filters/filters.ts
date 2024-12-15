@@ -12,7 +12,7 @@ export const getMaxValue = (programOutcomes: ProgramOutcome[]) => {
 }
 
 export const getCategories = (programOutcomes: ProgramOutcome[]) => {
-  if(programOutcomes){
+  if (programOutcomes) {
     return programOutcomes.map(outcome => outcome.outcomeName);
   } else {
     return null
@@ -63,7 +63,6 @@ export function filterCourses(courses: Course[], query: string): Course[] {
     courses.forEach(course => filteredCoursesByWorld.add(course));
   }
 
-  // Filtrar nuevamente por nombre del curso
   const filteredCoursesByName = new Set<Course>();
   keywords.forEach(keyword => {
     filteredCoursesByWorld.forEach(course => {
@@ -73,11 +72,21 @@ export function filterCourses(courses: Course[], query: string): Course[] {
     });
   });
 
-  // Si no se encontraron coincidencias en nombres, mantener los cursos filtrados por mundos académicos
   if (filteredCoursesByName.size === 0) {
     filteredCoursesByWorld.forEach(course => filteredCoursesByName.add(course));
   }
 
-  // Convertir el Set a un array para retornar los cursos filtrados
   return Array.from(filteredCoursesByName);
 }
+
+export const exactCoincidences = (pc: ProgramCourse, c: Course[]) => {
+  const programCourseOutcomesSet = new Set(pc.outcomesContribution.map(outcome => outcome.name));
+
+  return c.filter(course => {
+    if (course.outcomes.length !== programCourseOutcomesSet.size) {
+      return false;
+    }
+
+    return course.outcomes.every(outcome => programCourseOutcomesSet.has(outcome));
+  });
+};
