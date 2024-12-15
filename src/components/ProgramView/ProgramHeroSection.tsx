@@ -12,7 +12,7 @@ const ProgramHeroSection: React.FC<ProgramHeroSectionProps> = ({ program }) => {
   const nameFirstPart = parts.slice(0, 2).join(" ");
   const nameSecondPart = parts.slice(2).join(" ");
 
-  const categories = getCategories(program.programOutcomes)
+  const categories = getCategories(program.programOutcomes) || ["Categoria 1", "Categoria 2"]
 
   return (
     <div

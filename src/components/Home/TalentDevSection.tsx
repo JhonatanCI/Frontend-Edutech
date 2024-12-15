@@ -20,7 +20,7 @@ const TalentDevSection: React.FC = () => {
 
         switch (state.item) {
             case 0: {
-                if (!state.microLearnings || state.microLearnings.length === 0) return renderSpinner;
+                if (!state.microLearnings) return renderSpinner;
                 return state.microLearnings.map((micro: MicroLearning) => (
                     <CourseCard
                         key={micro.id}
@@ -32,7 +32,7 @@ const TalentDevSection: React.FC = () => {
                 ));
             }
             case 1: {
-                if (!state.courses || state.courses.length === 0) return renderSpinner;
+                if (!state.courses) return renderSpinner;
                 return state.courses.map((course: Course) => (
                     <CourseCard
                         key={course.id}
@@ -44,7 +44,7 @@ const TalentDevSection: React.FC = () => {
                 ));
             }
             case 2: {
-                if (!state.certifications || state.certifications.length === 0) return renderSpinner;
+                if (!state.certifications) return renderSpinner;
                 return state.certifications.map((certification: Program) => (
                     <CourseCard
                         key={certification.id}
@@ -56,7 +56,7 @@ const TalentDevSection: React.FC = () => {
                 ));
             }
             case 3: {
-                if (!state.specializations || state.specializations.length === 0) return renderSpinner;
+                if (!state.specializations) return renderSpinner;
                 return state.specializations.map((specialization: Program) => (
                     <CourseCard
                         key={specialization.id}
@@ -68,7 +68,7 @@ const TalentDevSection: React.FC = () => {
                 ));
             }
             case 4: {
-                if (!state.masters || state.masters.length === 0) return renderSpinner;
+                if (!state.masters) return renderSpinner;
                 return state.masters.map((master: Program) => (
                     <CourseCard
                         key={master.id}
@@ -80,7 +80,7 @@ const TalentDevSection: React.FC = () => {
                 ));
             }
             case 5: {
-                if (!state.phd || state.phd.length === 0) return renderSpinner;
+                if (!state.phd) return renderSpinner;
                 return state.phd.map((phd: Program) => (
                     <CourseCard
                         key={phd.id}

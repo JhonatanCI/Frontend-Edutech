@@ -30,7 +30,7 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
             const filteredCourses = response.filter(
                 (matchedCourse) => matchedCourse.id !== course.courseId
             );
-            const exactMatched = exactCoincidences(course, filteredCourses)
+            const exactMatched = (course.flexibility === "CONDICIONADO")? exactCoincidences(course, filteredCourses) : filteredCourses
             setCoursesMatched(exactMatched);
         }
     }, [response, course.courseId]);

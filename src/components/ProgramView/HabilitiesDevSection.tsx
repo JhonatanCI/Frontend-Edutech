@@ -14,7 +14,7 @@ export const HabilitiesDev: React.FC<HabilitiesDevProps> = ({programOutcomes, pr
     const maxValue = getMaxValue(programOutcomes) * 3;
 
     const chartvalues: ChartValues = {
-        categories: getCategories(programOutcomes),
+        categories: getCategories(programOutcomes) || ["RA1"],
         max: maxValue === 0? 10 : maxValue
     }
 

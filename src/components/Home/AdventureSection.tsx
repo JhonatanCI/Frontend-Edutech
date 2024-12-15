@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '../Commons/Button';
 import HeroTitle from './HeroTitle';
+import advImage from "../../assets/AdventureImage.png"
 
 const AdventureSection: React.FC = () => {
     return (
@@ -28,7 +29,7 @@ const AdventureSection: React.FC = () => {
             <div className="flex justify-end">
                 <div className=" w-11/12 h-11/12">
                     <img
-                        src="./src/assets/AdventureImage.png"
+                        src={advImage}
                         alt="Adventure"
                         className="object-cover w-full h-full "
                     />

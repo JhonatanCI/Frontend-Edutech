@@ -1,28 +1,34 @@
 import { Image } from "./types.d"
+import FVL from "../assets/partners/valle_del_lili.svg"
+import BW from "../assets/partners/bancow.webp"
+import TQ from "../assets/partners/tq.svg"
+import Manuelita from "../assets/partners/manuelita.svg"
+import CPalmolive from "../assets/partners/colgate-palmolive.svg"
+import CMelendez from "../assets/partners/constructora_melendez.svg"
 
 export const partners: Image[] = [
     {
-        src: "/src/assets/partners/valle_del_lili.svg",
-        alt: "Fundación Valle del Lili"
+        src: FVL, // Usar la importación
+        alt: "Fundación Valle del Lili" // Cambia {FVL} por una descripción en texto
     },
     {
-        src: "/src/assets/partners/bancow.webp",
+        src: BW,
         alt: "Banco W"
     },
     {
-        src: "/src/assets/partners/tq.svg",
+        src: TQ,
         alt: "Tecnoquímicas"
     },
     {
-        src: "/src/assets/partners/manuelita.svg",
+        src: Manuelita,
         alt: "Ingenio Manuelita"
     },
     {
-        src: "/src/assets/partners/colgate-palmolive.svg",
+        src: CPalmolive,
         alt: "Colgate Palmolive"
     },
     {
-        src: "/src/assets/partners/constructora_melendez.svg",
+        src: CMelendez,
         alt: "Constructora Meléndez"
     }
-]
+];
