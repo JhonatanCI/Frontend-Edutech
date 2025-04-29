@@ -3,21 +3,38 @@ import CourseCard from "../Commons/CourseCard";
 import TalentSearchBar from "./TalentSearchBar";
 import TalentCycleComponent from "./TalentCycleComponent";
 
+
 import { useTalentDevContext } from "../../hooks/useTalentDevContext";
 import { Course, MicroLearning, Program } from "../../model/types";
 import { useNavigate } from "react-router-dom";
 
 const TalentDevSection: React.FC = () => {
     const { state } = useTalentDevContext();
-    const navigateTo = useNavigate()
+    const navigateTo = useNavigate();
+
+    const renderSpinner = (
+        <div className="flex items-center justify-center h-screen">
+            <div className="w-16 h-16 border-4 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
+        </div>
+    );
 
     const renderCards = () => {
-        const renderSpinner = (
-            <div className="flex items-center justify-center h-screen">
-                <div className="w-16 h-16 border-4 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
-            </div>
-        );
+      
+        // Si hay resultados de búsqueda, renderizar esos resultados
+        if (state.items && state.items.length > 0) {
+    
+            return state.items.map((item: any) => (
+                <CourseCard
+                    key={item.id}
+                    title={item.name}
+                    description={item.description}
+                    variant={state.item <= 1 ? "small" : "large"}
+                    onClick={() => navigateTo(`/program/${item.name}`)}
+                />
+            ));
+        }
 
+        // Si NO hay resultados de búsqueda, mostrar normalmente según sección
         switch (state.item) {
             case 0: {
                 if (!state.microLearnings) return renderSpinner;
@@ -99,15 +116,15 @@ const TalentDevSection: React.FC = () => {
 
     return (
         <section id="desarrolla-tu-talento" className="flex flex-col px-32 pt-8 bg-white">
-
             <div className="flex justify-between">
                 <div>
                     <h1 className="text-7xl font-calsans text-black leading-none mt-16">Desarrolla tu talento</h1>
                     <div className="flex flex-row gap-24 mb-8">
-                        <p className="text-xl text-black pt-4 w-3/4">Nos adaptamos a todos los tiempos y niveles de aventura. Conoce cómo puedes explorar nuestros mundos.</p>
+                        <p className="text-xl text-black pt-4 w-3/4">
+                            Nos adaptamos a todos los tiempos y niveles de aventura. Conoce cómo puedes explorar nuestros mundos.
+                        </p>
                         <TalentSearchBar />
                     </div>
-
                 </div>
             </div>
 

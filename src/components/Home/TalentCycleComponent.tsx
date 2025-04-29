@@ -4,25 +4,9 @@ import { useTalentDevContext } from "../../hooks/useTalentDevContext";
 
 const TalentCycleComponent: React.FC = () => {
   const {state, updateItemSelected} = useTalentDevContext()
-  const cycleDuration = 15000; // 15 seconds
-  const [isPaused, setIsPaused] = useState(false);
-
-  // Automatically cycle through the items
-  useEffect(() => {
-    if (isPaused) return;
-
-    const interval = setInterval(() => {
-      const nextIndex = state.item === learningItems.length - 1 ? 0 : state.item + 1;
-      updateItemSelected(nextIndex);
-    }, cycleDuration);
-
-    return () => clearInterval(interval);
-  }, [isPaused, state]);
 
   const handleSwitch = (index: number) => {
     updateItemSelected(index);
-    setIsPaused(true);
-    setTimeout(() => setIsPaused(false), cycleDuration); // Resume cycling
   };
 
   return (
@@ -58,16 +42,6 @@ const TalentCycleComponent: React.FC = () => {
                 >
                   {item.description}
                 </p>
-                {/* Progress Bar for Active Item */}
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-gray-200 mt-2 rounded-full overflow-hidden">
-                  <div
-                    className="absolute top-0 left-0 h-full bg-green-500"
-                    style={{
-                      width: "100%",
-                      animation: `progressBar ${cycleDuration}ms linear`,
-                    }}
-                  />
-                </div>
               </>
             )}
           </div>

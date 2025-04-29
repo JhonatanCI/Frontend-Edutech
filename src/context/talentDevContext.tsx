@@ -2,7 +2,7 @@ import { createContext, ReactNode, useEffect } from "react";
 import useTalentDev from "../reducers/TalentDevReducer/TalentDevReducer";
 import { TalentDevState } from "../reducers/TalentDevReducer/TalentDevTypes";
 import { getGeneralResults } from "../services/search";
-import { Result } from "../model/types";
+import { Course, MicroLearning, Program, Result } from "../model/types";
 
 interface TalentDevProviderProps {
     children: ReactNode;
@@ -11,7 +11,7 @@ interface TalentDevProviderProps {
 export interface TalentDevContextType {
     state: TalentDevState;
     updateItemSelected: (itemSelected: number) => void;
-    updateItems: (items: Result) => void;
+    updateItems: (items: (MicroLearning | Course | Program)[]) => void;
     reset: () => void;
 }
 

@@ -16,6 +16,7 @@ const initValue: Result = {
 export const talentDevInitialState: TalentDevState = {
     initialValue: initValue,
     item: 0,
+    items: [],
     microLearnings: null,
     courses: null,
     certifications: null,

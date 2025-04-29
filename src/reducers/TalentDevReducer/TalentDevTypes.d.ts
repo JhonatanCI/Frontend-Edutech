@@ -3,6 +3,7 @@ import { Course, MicroLearning, Program, Result } from "../../model/types"
 export interface TalentDevState {
     initialValue: Result,
     item: number,
+    items: (MicroLearning | Course | Program)[],
     microLearnings: MicroLearning[],
     courses: Course[],
     certifications: Program[],
