@@ -17,12 +17,12 @@ const TalentDevSection: React.FC = () => {
             <div className="w-16 h-16 border-4 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
         </div>
     );
-
+    console.log(state);
     const renderCards = () => {
-      
+        
         // Si hay resultados de búsqueda, renderizar esos resultados
         if (state.items && state.items.length > 0) {
-    
+            
             return state.items.map((item: any) => (
                 <CourseCard
                     key={item.id}

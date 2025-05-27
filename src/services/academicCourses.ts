@@ -1,5 +1,5 @@
 import { API } from "../config/axios";
-import { SimpleOutcome } from "../model/types";
+import { SimpleLearningResult } from "../model/types";
 
 export const getAllCourses = async() => {
     try {
@@ -29,9 +29,9 @@ export const getFullCourse = async(name: string) => {
     }
 }
 
-export const getMatched = async(outcomes: SimpleOutcome[]) => {
+export const getMatched = async(learningResults: SimpleLearningResult[]) => {
     try {
-        const response = await API.post(`/courses/findMatched`, outcomes)
+        const response = await API.post(`/courses/findMatched`, learningResults)
         return response.data
     } catch (error) {
         throw error;

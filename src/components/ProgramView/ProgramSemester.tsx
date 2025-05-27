@@ -21,7 +21,7 @@ export const ProgramSemester: React.FC<ProgramSemesterProps> = ({ semester, prog
                         <CourseCardModal
                             key={course.courseId}
                             course={course}
-                            categories={getCategoriesForCourse(course.outcomesContribution)}
+                            categories={getCategoriesForCourse(course.learningResultsContribution)}
                             isEditable
                             variantStyle="solid"
                             variant="small"
@@ -29,7 +29,7 @@ export const ProgramSemester: React.FC<ProgramSemesterProps> = ({ semester, prog
                         : <CourseCardModal
                             key={course.courseId}
                             course={course}
-                            categories={getCategoriesForCourse(course.outcomesContribution)}
+                            categories={getCategoriesForCourse(course.learningResultsContribution)}
                             isEditable
                             variantStyle="dashed"
                             variant="small"

@@ -8,3 +8,12 @@ export const getMicroLearning = async(name: string) => {
         throw error;
     }
 }
+
+export const getMicroLearnings = async() => {
+    try {
+        const response = await API.get(`/microlearnings`)
+        return response.data
+    } catch (error) {
+        throw error;
+    }
+}

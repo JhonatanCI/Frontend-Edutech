@@ -1,25 +1,25 @@
 import { useState, useEffect } from "react";
 
-import { Course, SimpleOutcome } from "../model/types";
+import { Course, SimpleLearningResult } from "../model/types";
 import { getMatched } from "../services/academicCourses";
 
-const useCoursesMatched = (outcomes: SimpleOutcome[]) => {
+const useCoursesMatched = (learningResults: SimpleLearningResult[]) => {
     const [courses, setCourses] = useState<Course[] | null>(null)
     
     useEffect(() => {
         const fetchCourses = async () => {
             try {
-                const response: Course[] = await getMatched(outcomes);
+                const response: Course[] = await getMatched(learningResults);
                 setCourses(response);
             } catch (error) {
                 console.error("No se ha podido cargar las opciones de cursos para intercambiar");
             }
         };
     
-        if (outcomes.length > 0) {
+        if (learningResults.length > 0) {
             fetchCourses();
         }
-    }, [outcomes]);
+    }, [learningResults]);
 
     return courses
 }

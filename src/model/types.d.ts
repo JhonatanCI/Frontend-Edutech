@@ -59,13 +59,13 @@ export type ProgramCourse = {
   modality: string,
   semester: number
   flexibility: 'CONDICIONADO' | 'FLEXIBLE',
-  outcomesContribution: SimpleOutcome[];
+  learningResultsContribution: SimpleLearningResult[];
 }
 
 export type ProgramCourseRaw = {
   programId: UUID,
   courseId: UUID,
-  outcomeId: UUID,
+  learningResultId: UUID,
   name: string,
   nameMen: string,
   description: string,
@@ -78,17 +78,17 @@ export type ProgramCourseRaw = {
   introduce: boolean,
   fortalece: boolean,
   valora: boolean,
-  outcome: Outcome;
+  learningResult: LearningResult;
 }
 
-export type Outcome = {
+export type LearningResult = {
   id: UUID,
   name: string,
   description: string,
   competency: any
 }
 
-type SimpleOutcome = {
+type SimpleLearningResult = {
   id: UUID,
   name: string,
   introduce: boolean,
@@ -96,12 +96,12 @@ type SimpleOutcome = {
   valora: boolean
 }
 
-export type ProgramOutcome = {
+export type ProgramLearningResult = {
   programId: UUID,
-  outcomeId: UUID,
+  learningResultId: UUID,
   minCredits: number,
   maxCredits: number,
-  outcomeName: string
+  learningResultName: string
 }
 
 //Full Programs and Courses
@@ -117,6 +117,6 @@ export type FullProgram = {
   parents: Program[],
   children: Program[],
   academicCompetencies: any,
-  programOutcomes: ProgramOutcome[],
+  programLearningResults: ProgramLearningResult[],
   academicWorlds: World[]
 }

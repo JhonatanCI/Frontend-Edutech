@@ -1,36 +1,36 @@
-import { Course, Outcome, ProgramCourse, ProgramOutcome, SimpleOutcome } from "../model/types"
+import { Course, LearningResult, ProgramCourse, ProgramLearningResult, SimpleLearningResult } from "../model/types"
 
 export const filterBySemester = (semester: number, programCourses: ProgramCourse[]) => {
   return programCourses.filter((pc) => pc.semester === semester)
 }
 
-export const getMaxValue = (programOutcomes: ProgramOutcome[]) => {
-  return programOutcomes.reduce((max, outcome) => {
-    return outcome.maxCredits > max ? outcome.maxCredits
-      : outcome.minCredits > max ? outcome.minCredits : max;
+export const getMaxValue = (programLearningResults: ProgramLearningResult[]) => {
+  return programLearningResults.reduce((max, lr) => {
+    return lr.maxCredits > max ? lr.maxCredits
+      : lr.minCredits > max ? lr.minCredits : max;
   }, 0);
 }
 
-export const getCategories = (programOutcomes: ProgramOutcome[]) => {
-  if (programOutcomes) {
-    return programOutcomes.map(outcome => outcome.outcomeName);
+export const getCategories = (programLearningResults: ProgramLearningResult[]) => {
+  if (programLearningResults) {
+    return programLearningResults.map(lr => lr.learningResultName);
   } else {
     return null
   }
 }
 
-export const getCategoriesByOutcome = (outcomes: Outcome[]) => {
-  return outcomes.map(outcome => outcome.name);
+export const getCategoriesByLearningResult = (learningResults: LearningResult[]) => {
+  return learningResults.map(lr => lr.name);
 }
 
-export const getCategoriesForCourse = (contributions: SimpleOutcome[]) => {
-  return contributions.map(contribution => contribution.name)
+export const getCategoriesForCourse = (contributions: SimpleLearningResult[]) => {
+  return contributions.map(lr => lr.name)
 }
 
 export const getContributionForEachCategory = (programCourses: ProgramCourse[], categories: string[]) => {
   return categories.map(category =>
     programCourses.reduce((sum, course) => {
-      const contributesToCategory = course.outcomesContribution.some(outcome => outcome.name === category);
+      const contributesToCategory = course.learningResultsContribution.some(lr => lr.name === category);
       return contributesToCategory ? sum + course.credits : sum;
     }, 0)
   );
@@ -80,13 +80,13 @@ export function filterCourses(courses: Course[], query: string): Course[] {
 }
 
 export const exactCoincidences = (pc: ProgramCourse, c: Course[]) => {
-  const programCourseOutcomesSet = new Set(pc.outcomesContribution.map(outcome => outcome.name));
+  const programCourseOutcomesSet = new Set(pc.learningResultsContribution.map(lr => lr.name));
 
   return c.filter(course => {
-    if (course.outcomes.length !== programCourseOutcomesSet.size) {
+    if (course.learningResults.length !== programCourseOutcomesSet.size) {
       return false;
     }
 
-    return course.outcomes.every(outcome => programCourseOutcomesSet.has(outcome));
+    return course.learningResults.every(lr => programCourseOutcomesSet.has(lr.name));
   });
 };

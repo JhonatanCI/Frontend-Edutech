@@ -1,6 +1,6 @@
-import { ProgramCourse, ProgramCourseRaw, SimpleOutcome } from "../model/types";
+import { ProgramCourse, ProgramCourseRaw, SimpleLearningResult } from "../model/types";
 
-export function toProgramCourse(programCoursesRaw: ProgramCourseRaw[]): ProgramCourse[] {
+export function toProgramCourse(programCoursesRaw: any[]): ProgramCourse[] {
     const courseMap = new Map();
   
     programCoursesRaw.forEach((programCourse) => {
@@ -16,19 +16,17 @@ export function toProgramCourse(programCoursesRaw: ProgramCourseRaw[]): ProgramC
         modality,
         semester,
         flexibility,
-        outcome,
-        introduce,
-        fortalece,
-        valora,
+        learningResultsContribution = [],
       } = programCourse;
   
-      const outcomeDTO: SimpleOutcome = {
-        id: outcome.id,
-        name: outcome.name,
-        introduce,
-        fortalece,
-        valora,
-      };
+
+      const learningResults = (learningResultsContribution || []).map((lr: any) => ({
+        id: lr.id,
+        name: lr.name,
+        introduce: lr.introduce,
+        fortalece: lr.strengthen, // <-- usa strengthen
+        valora: lr.value,         // <-- usa value
+      }));
   
       if (!courseMap.has(courseId)) {
         courseMap.set(courseId, {
@@ -43,11 +41,11 @@ export function toProgramCourse(programCoursesRaw: ProgramCourseRaw[]): ProgramC
           modality,
           semester,
           flexibility,
-          outcomesContribution: [outcomeDTO],
+          learningResultsContribution: learningResults,
         });
       } else {
         const existingCourse = courseMap.get(courseId);
-        existingCourse.outcomesContribution.push(outcomeDTO);
+        existingCourse.learningResultsContribution.push(...learningResults);
       }
     });
   

@@ -22,7 +22,9 @@ const useAvailableCourses = () => {
     const initializeCourses = async (name: string) => {
         try {
             const programsFetched = await getAllProgramCourses(name);
+            console.log("Respuesta de la API de cursos:", programsFetched);
             const programCourses = toProgramCourse(programsFetched);
+            console.log("Cursos mapeados:", programCourses);
             setProgramCourses(programCourses);
         } catch (error) {
             console.error("Error fetching program courses", error);

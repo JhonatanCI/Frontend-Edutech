@@ -20,6 +20,7 @@ const ProgramViewContent: React.FC<ProgramViewContentProps> = ({ program }) => {
 
     useEffect(() => {
         if (program) {
+            console.log("Nombre del programa usado para cursos:", program.name);
             initializeCourses(program.name);
         }
     }, [program]);
@@ -29,7 +30,7 @@ const ProgramViewContent: React.FC<ProgramViewContentProps> = ({ program }) => {
             <NavBar />
             <ProgramHeroSection program={program} />
             <ProgramNavbar />
-            <AvailableCoursesSection semesters={program.semesters} programOutcomes={program.programOutcomes} />
+            <AvailableCoursesSection semesters={program.semesters} programLearningResult={program.programLearningResults} />
             <AchievementsSection programUUID={program.id} programName={program.name} />
             <LearningPathSection programUUID={program.id} programName={program.name} />
             <KeepLearningSection />

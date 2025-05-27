@@ -1,16 +1,16 @@
 import { defaultMasters } from "./talentdevconsts.d";
-import { FullProgram, ProgramCourse, Outcome, ProgramOutcome, SimpleOutcome } from "../model/types";
+import { FullProgram, ProgramCourse, LearningResult, ProgramOutcome, SimpleLearningResult } from "../model/types";
 import { defaultPHD, defaultSpecializations } from "./talentdevconsts.d";
 import { defaultWorlds } from "./worlds.d";
 
-const outcome1: Outcome = {
+const outcome1: LearningResult = {
     id: "3e6bdc69-7f79-4545-a1e6-dcc65cd0f6a1",
     name: "Liderazgo",
     description: "Alguna descripción",
     competency: null
 }
 
-const simpleOutcome: SimpleOutcome = {
+const simpleOutcome: SimpleLearningResult = {
     id: "3e6bdc69-7f79-4545-a1e6-dcc65cd0f6a1",
     name: "Liderazgo",
     introduce: true,
@@ -18,7 +18,7 @@ const simpleOutcome: SimpleOutcome = {
     valora: false
 }
 
-const simpleOutcome2: SimpleOutcome = {
+const simpleOutcome2: SimpleLearningResult = {
     id: "0ff80525-0181-484e-b486-8b39a0ebd464",
     name: "Liderazgo",
     introduce: true,
@@ -26,7 +26,7 @@ const simpleOutcome2: SimpleOutcome = {
     valora: false
 }
 
-const simpleOutcome3: SimpleOutcome = {
+const simpleOutcome3: SimpleLearningResult = {
     id: "fa38b0d1-ff4f-443b-99a3-768def9c70b",
     name: "Liderazgo",
     introduce: true,
@@ -34,14 +34,14 @@ const simpleOutcome3: SimpleOutcome = {
     valora: false
 }
 
-const outcome2: Outcome = {
+const outcome2: LearningResult = {
     id: "0ff80525-0181-484e-b486-8b39a0ebd464",
     name: "Ingles",
     description: "Alguna descripción",
     competency: null
 }
 
-const outcome3: Outcome = {
+const outcome3: LearningResult = {
     id: "fa38b0d1-ff4f-443b-99a3-768def9c70b6",
     name: "Experiencia de Usuario",
     description: "Alguna descripción",
@@ -66,7 +66,7 @@ export const programCourses: ProgramCourse[] = [
         introduce: true,
         fortalece: true,
         valora: true,
-        outcomesContribution: [
+        learningResultsContribution: [
             simpleOutcome,
             simpleOutcome3
         ]
@@ -87,7 +87,7 @@ export const programCourses: ProgramCourse[] = [
         introduce: true,
         fortalece: true,
         valora: true,
-        outcomesContribution: [
+        learningResultsContribution: [
             simpleOutcome2,
             simpleOutcome3
         ]
@@ -108,7 +108,7 @@ export const programCourses: ProgramCourse[] = [
         introduce: true,
         fortalece: true,
         valora: true,
-        outcomesContribution: [
+        learningResultsContribution: [
             simpleOutcome,
             simpleOutcome3
         ]
@@ -129,7 +129,7 @@ export const programCourses: ProgramCourse[] = [
         introduce: true,
         fortalece: true,
         valora: true,
-        outcomesContribution: [
+        learningResultsContribution: [
             simpleOutcome,
             simpleOutcome2
         ]
@@ -150,7 +150,7 @@ export const programCourses: ProgramCourse[] = [
         introduce: true,
         fortalece: true,
         valora: true,
-        outcomesContribution: [
+        learningResultsContribution: [
             simpleOutcome2,
             simpleOutcome3
         ]
@@ -171,7 +171,7 @@ export const programCourses: ProgramCourse[] = [
         introduce: true,
         fortalece: true,
         valora: true,
-        outcomesContribution: [
+        learningResultsContribution: [
             simpleOutcome2,
             simpleOutcome3
         ]

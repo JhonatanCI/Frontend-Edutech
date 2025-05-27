@@ -1,16 +1,16 @@
 import React from "react"
 import { FilledLine, DottedLine } from "../../assets/Icons/linesIcons"
-import { ProgramOutcome } from "../../model/types"
+import { ProgramLearningResult } from "../../model/types"
 import ProgramCoursesSection from "./ProgramCoursesSection"
 import { HabilitiesDev } from "./HabilitiesDevSection"
 import { useAvailableCoursesContext } from "../../hooks/useAvailableCoursesContext"
 
 interface AvailableCoursesSectionProps {
     semesters: number,
-    programOutcomes: ProgramOutcome[]
+    programLearningResult: ProgramLearningResult[]
 }
 
-const AvailableCoursesSection: React.FC<AvailableCoursesSectionProps> = ({semesters, programOutcomes}) => {
+const AvailableCoursesSection: React.FC<AvailableCoursesSectionProps> = ({semesters, programLearningResult}) => {
     
     const {state} = useAvailableCoursesContext()
     const {programCourses} = state
@@ -44,7 +44,7 @@ const AvailableCoursesSection: React.FC<AvailableCoursesSectionProps> = ({semest
 
             <div className="flex w-full justify-between gap-32">
                 <ProgramCoursesSection programCourses={programCourses} semesters={semesters}/>
-                {programOutcomes && <HabilitiesDev programOutcomes={programOutcomes} programCourses={programCourses}/>}
+                {programLearningResult && <HabilitiesDev programLearningResults={programLearningResult} programCourses={programCourses}/>}
             </div>
             
         </div>

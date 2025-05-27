@@ -1,20 +1,21 @@
 import React from "react"
 import { ChartValues } from "../../consts/types.d"
 import HabilitiesBarChart from "./HabilitiesBarChart"
-import { ProgramCourse, ProgramOutcome } from "../../model/types"
+import { ProgramCourse, ProgramLearningResult } from "../../model/types"
 import { getCategories, getMaxValue, getContributionForEachCategory } from "../../filters/filters"
 
 interface HabilitiesDevProps {
-    programOutcomes: ProgramOutcome[],
+    programLearningResults: ProgramLearningResult[],
     programCourses: ProgramCourse[]
 }
 
-export const HabilitiesDev: React.FC<HabilitiesDevProps> = ({programOutcomes, programCourses}) => {
+export const HabilitiesDev: React.FC<HabilitiesDevProps> = ({programLearningResults, programCourses}) => {
 
-    const maxValue = getMaxValue(programOutcomes) * 3;
+    const maxValue = getMaxValue(programLearningResults) * 3;
+    const categories = getCategories(programLearningResults) || ["RA1"];
 
     const chartvalues: ChartValues = {
-        categories: getCategories(programOutcomes) || ["RA1"],
+        categories: categories,
         max: maxValue === 0? 10 : maxValue
     }
 
