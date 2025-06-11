@@ -22,8 +22,12 @@ const availableCoursesReducer = (state: AvailableCoursesState, action: Available
                     course.courseId === (payload as ACPayload).current.courseId
                         ? {
                             ...course,
-                            ...((payload as ACPayload).newCourse),
+                            name: (payload as ACPayload).newCourse.name,
+                            description: (payload as ACPayload).newCourse.description,
+                            credits: (payload as ACPayload).newCourse.credits,
+                            learningResults: (payload as ACPayload).newCourse.learningResults,
                             courseId: (payload as ACPayload).newCourse.id,
+                            // agrega aquí cualquier otro campo que quieras actualizar
                         }
                         : course
                 )

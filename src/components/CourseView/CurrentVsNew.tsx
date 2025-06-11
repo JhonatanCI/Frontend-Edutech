@@ -19,7 +19,7 @@ const CurrentVsNew: React.FC<CurrentVsNewProps> = ({ current, newCourse }) => {
           <MiniCourseCard
             title={current.name}
             description={current.description}
-            categories={getCategoriesForCourse(current.outcomesContribution)}
+            categories={getCategoriesForCourse(current.learningResultsContribution)}
             credits={current.credits}
           />
         </div>
@@ -30,7 +30,7 @@ const CurrentVsNew: React.FC<CurrentVsNewProps> = ({ current, newCourse }) => {
             <MiniCourseCard
               title={newCourse.name}
               description={newCourse.description}
-              categories={newCourse.outcomes}
+              categories={newCourse.s}
               credits={newCourse.credits}
             />
           ) : (
@@ -45,7 +45,8 @@ const CurrentVsNew: React.FC<CurrentVsNewProps> = ({ current, newCourse }) => {
           <p className="text-gray-700 text-sm w-full py-6">
             Al realizar este intercambio estas serán las nuevas habilidades que vas a desarrollar. Ten en cuenta que se mantienen unas similares al curso inicial y se agregan otras.
           </p>
-          <CoursesTags tags={newCourse.outcomes.slice(0, 2)} />
+        <CoursesTags tags={Array.isArray(newCourse?.learningResults) ? newCourse.learningResults.slice(0, 2) : []} />
+
         </div>
       ) : null}
     </div>

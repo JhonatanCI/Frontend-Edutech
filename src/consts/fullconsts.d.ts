@@ -1,16 +1,17 @@
 import { defaultMasters } from "./talentdevconsts.d";
-import { FullProgram, ProgramCourse, LearningResult, ProgramOutcome, SimpleLearningResult } from "../model/types";
+import { FullProgram, ProgramCourse, LearningResult, ProgramLearningResult, SimpleLearningResult } from '../model/types';
 import { defaultPHD, defaultSpecializations } from "./talentdevconsts.d";
 import { defaultWorlds } from "./worlds.d";
+import learningItems from './learningItems.d';
 
-const outcome1: LearningResult = {
+const learningResult1: LearningResult = {
     id: "3e6bdc69-7f79-4545-a1e6-dcc65cd0f6a1",
     name: "Liderazgo",
     description: "Alguna descripción",
     competency: null
 }
 
-const simpleOutcome: SimpleLearningResult = {
+const simpleLearningResult: SimpleLearningResult = {
     id: "3e6bdc69-7f79-4545-a1e6-dcc65cd0f6a1",
     name: "Liderazgo",
     introduce: true,
@@ -18,7 +19,7 @@ const simpleOutcome: SimpleLearningResult = {
     valora: false
 }
 
-const simpleOutcome2: SimpleLearningResult = {
+const simpleLearningResult2: SimpleLearningResult = {
     id: "0ff80525-0181-484e-b486-8b39a0ebd464",
     name: "Liderazgo",
     introduce: true,
@@ -26,7 +27,7 @@ const simpleOutcome2: SimpleLearningResult = {
     valora: false
 }
 
-const simpleOutcome3: SimpleLearningResult = {
+const simpleLearningResult3: SimpleLearningResult = {
     id: "fa38b0d1-ff4f-443b-99a3-768def9c70b",
     name: "Liderazgo",
     introduce: true,
@@ -34,14 +35,14 @@ const simpleOutcome3: SimpleLearningResult = {
     valora: false
 }
 
-const outcome2: LearningResult = {
+const learningResult2: LearningResult = {
     id: "0ff80525-0181-484e-b486-8b39a0ebd464",
     name: "Ingles",
     description: "Alguna descripción",
     competency: null
 }
 
-const outcome3: LearningResult = {
+const learningResult3: LearningResult = {
     id: "fa38b0d1-ff4f-443b-99a3-768def9c70b6",
     name: "Experiencia de Usuario",
     description: "Alguna descripción",
@@ -53,7 +54,7 @@ export const programCourses: ProgramCourse[] = [
     {
         programId: "3e6bdc69-7f79-4545-a1e6-dcc65cd0f6a1",
         courseId: "3e6bdc69-7f79-4545-a1e6-dcc65cd0f6a1",
-        outcomeId: "3e6bdc69-7f79-4545-a1e6-dcc65cd0f6a1",
+        learningResultId: "3e6bdc69-7f79-4545-a1e6-dcc65cd0f6a1",
         name: "Curso de Prueba 1",
         nameMen: "Curso de Prueba",
         description: "Curso de Prueba para analizar que tan bien se comporta la interfaz con datos quemados",
@@ -67,14 +68,14 @@ export const programCourses: ProgramCourse[] = [
         fortalece: true,
         valora: true,
         learningResultsContribution: [
-            simpleOutcome,
-            simpleOutcome3
+            simpleLearningResult,
+            simpleLearningResult3
         ]
     },
     {
         programId: "0ff80525-0181-484e-b486-8b39a0ebd464",
         courseId: "0ff80525-0181-484e-b486-8b39a0ebd464",
-        outcomeId: "0ff80525-0181-484e-b486-8b39a0ebd464",
+        learningResultId: "0ff80525-0181-484e-b486-8b39a0ebd464",
         name: "Curso de Prueba 2",
         nameMen: "Curso de Prueba",
         description: "Curso de Prueba para analizar que tan bien se comporta la interfaz con datos quemados",
@@ -88,14 +89,14 @@ export const programCourses: ProgramCourse[] = [
         fortalece: true,
         valora: true,
         learningResultsContribution: [
-            simpleOutcome2,
-            simpleOutcome3
+            simpleLearningResult2,
+            simpleLearningResult3
         ]
     },
     {
         programId: "93d2c630-eeac-47cc-94ab-5a46c0fa22da",
         courseId: "93d2c630-eeac-47cc-94ab-5a46c0fa22da",
-        outcomeId: "93d2c630-eeac-47cc-94ab-5a46c0fa22da",
+        learningResultId: "93d2c630-eeac-47cc-94ab-5a46c0fa22da",
         name: "Curso de Prueba 3",
         nameMen: "Curso de Prueba",
         description: "Curso de Prueba para analizar que tan bien se comporta la interfaz con datos quemados",
@@ -109,14 +110,14 @@ export const programCourses: ProgramCourse[] = [
         fortalece: true,
         valora: true,
         learningResultsContribution: [
-            simpleOutcome,
-            simpleOutcome3
+            simpleLearningResult,
+            simpleLearningResult3
         ]
     },
     {
         programId: "2d3dc141-0b1d-45b2-9f39-538a213f01ae",
         courseId: "2d3dc141-0b1d-45b2-9f39-538a213f01ae",
-        outcomeId: "2d3dc141-0b1d-45b2-9f39-538a213f01ae",
+        learningResultId: "2d3dc141-0b1d-45b2-9f39-538a213f01ae",
         name: "Curso de Prueba 4",
         nameMen: "Curso de Prueba",
         description: "Curso de Prueba para analizar que tan bien se comporta la interfaz con datos quemados",
@@ -130,14 +131,14 @@ export const programCourses: ProgramCourse[] = [
         fortalece: true,
         valora: true,
         learningResultsContribution: [
-            simpleOutcome,
-            simpleOutcome2
+            simpleLearningResult,
+            simpleLearningResult2
         ]
     },
     {
         programId: "02a6bda8-00d1-4248-803e-7ecfd77b974b",
         courseId: "02a6bda8-00d1-4248-803e-7ecfd77b974b",
-        outcomeId: "02a6bda8-00d1-4248-803e-7ecfd77b974b",
+        learningResultId: "02a6bda8-00d1-4248-803e-7ecfd77b974b",
         name: "Curso de Prueba 5",
         nameMen: "Curso de Prueba",
         description: "Curso de Prueba para analizar que tan bien se comporta la interfaz con datos quemados",
@@ -151,14 +152,14 @@ export const programCourses: ProgramCourse[] = [
         fortalece: true,
         valora: true,
         learningResultsContribution: [
-            simpleOutcome2,
-            simpleOutcome3
+            simpleLearningResult2,
+            simpleLearningResult3
         ]
     },
     {
         programId: "d561019e-2c20-48a4-8afa-c4044facfab6",
         courseId: "d561019e-2c20-48a4-8afa-c4044facfab6",
-        outcomeId: "d561019e-2c20-48a4-8afa-c4044facfab6",
+        learningResultId: "d561019e-2c20-48a4-8afa-c4044facfab6",
         name: "Curso de Prueba 6",
         nameMen: "Curso de Prueba",
         description: "Curso de Prueba para analizar que tan bien se comporta la interfaz con datos quemados",
@@ -172,36 +173,36 @@ export const programCourses: ProgramCourse[] = [
         fortalece: true,
         valora: true,
         learningResultsContribution: [
-            simpleOutcome2,
-            simpleOutcome3
+            simpleLearningResult2,
+            simpleLearningResult3
         ]
     },
 ]
 
-const programOutcomes: ProgramOutcome = [
+const programLearningResults: programLearningResult = [
     {
         programId: "d561019e-2c20-48a4-8afa-c4044facfab6",
-        outcomeId: "d561019e-2c20-48a4-8afa-c4044facfab6",
+        learningResultId: "d561019e-2c20-48a4-8afa-c4044facfab6",
         minCredits: 0,
         maxCredits: 5,
         program: null,
-        outcome: outcome1
+        learningResult: learningResult1
     },
     {
         programId: "02a6bda8-00d1-4248-803e-7ecfd77b974b",
-        outcomeId: "02a6bda8-00d1-4248-803e-7ecfd77b974b",
+        learningResultId: "02a6bda8-00d1-4248-803e-7ecfd77b974b",
         minCredits: 0,
         maxCredits: 15,
         program: null,
-        outcome: outcome2
+        learningResult: learningResult2
     },
     {
         programId: "93d2c630-eeac-47cc-94ab-5a46c0fa22da",
-        outcomeId: "93d2c630-eeac-47cc-94ab-5a46c0fa22da",
+        learningResultId: "93d2c630-eeac-47cc-94ab-5a46c0fa22da",
         minCredits: 0,
         maxCredits: 4,
         program: null,
-        outcome: outcome3
+        learningResult: learningResult3
     }
 ]
 
@@ -218,6 +219,6 @@ export const fullProgramExample: FullProgram = {
     children: defaultSpecializations,
     academicCompetencies: null,
     programCourses: programCourses,
-    programOutcomes: programOutcomes,
+    programLearningResults: programLearningResults,
     academicWorlds: defaultWorlds
 }

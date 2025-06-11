@@ -19,7 +19,7 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
 
     const response =
         course.flexibility === "CONDICIONADO"
-            ? useCoursesMatched(course.outcomesContribution)
+            ? useCoursesMatched(course.learningResultsContribution)
             : state.courses;
 
     const [newCourse, setNewCourse] = useState<Course | null>(null);
@@ -83,7 +83,7 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
                                                 key={course.id}
                                                 title={course.name}
                                                 description={course.description}
-                                                categories={course.outcomes}
+                                                categories={course.learningResults}
                                                 onClick={() => setNewCourse(course)}
                                             />
                                         ))}

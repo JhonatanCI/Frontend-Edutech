@@ -18,6 +18,7 @@ export type MicroLearning = {
 }
 
 export type Course = {
+  [x: string]: any;
   id: UUID,
   name: string,
   nameMen: string,
@@ -27,7 +28,7 @@ export type Course = {
   generalObjective: string,
   terminalObjectives: string,
   academicWorlds: string[],
-  outcomes: string[]
+  learningResults: string[]
 }
 
 export type Program = {

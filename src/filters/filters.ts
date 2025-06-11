@@ -80,13 +80,13 @@ export function filterCourses(courses: Course[], query: string): Course[] {
 }
 
 export const exactCoincidences = (pc: ProgramCourse, c: Course[]) => {
-  const programCourseOutcomesSet = new Set(pc.learningResultsContribution.map(lr => lr.name));
+  const programCourseLearningResultsSet = new Set(pc.learningResultsContribution.map(lr => lr.name));
 
   return c.filter(course => {
-    if (course.learningResults.length !== programCourseOutcomesSet.size) {
+    if (course.learningResults.length !== programCourseLearningResultsSet.size) {
       return false;
     }
 
-    return course.learningResults.every(lr => programCourseOutcomesSet.has(lr.name));
+    return course.learningResults.every(lr => programCourseLearningResultsSet.has(lr.name));
   });
 };
