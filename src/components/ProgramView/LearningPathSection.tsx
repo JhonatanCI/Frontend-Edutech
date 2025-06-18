@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ProgramsScrollSection } from "./ProgramsScrollSection";
-import { useAvailableCoursesContext } from "../../hooks/useAvailableCoursesContext";
 import { Program, UUID } from "../../model/types";
-import { getCoursesUUID } from "../../filters/filters";
 import { getLearningPath } from "../../services/academicPrograms";
 
 interface LearningPathSectionProps {
@@ -10,19 +8,14 @@ interface LearningPathSectionProps {
     programName: string;
 }
 
-export const LearningPathSection: React.FC<LearningPathSectionProps> = ({programUUID ,programName}) => {
-    const { state } = useAvailableCoursesContext();
-    const { programCourses } = state;
-
+export const LearningPathSection: React.FC<LearningPathSectionProps> = ({ programUUID, programName }) => {
     const [learningPath, setLearningPath] = useState<Program[] | null>(null);
     const article = programName.startsWith("Doctorado") ? "el" : "la";
 
     useEffect(() => {
-        async function fetchAchievements() {
-            const uuids: UUID[] = getCoursesUUID(programCourses);
-
+        async function fetchLearningPath() {
             try {
-                const response: Program[] = await getLearningPath(uuids);
+                const response: Program[] = await getLearningPath(programUUID);
                 const filteredPrograms = response.filter(
                     (program) => program.id !== programUUID
                 );
@@ -34,17 +27,13 @@ export const LearningPathSection: React.FC<LearningPathSectionProps> = ({program
 
                 setLearningPath(programsWithImagePath);
             } catch (error) {
-                console.error("No se pudieron traer logros");
+                console.error("No se pudo traer la ruta de aprendizaje");
             }
         }
+        fetchLearningPath();
+    }, [programUUID]);
 
-        if (programCourses.length > 0) {
-            fetchAchievements();
-        }
-    }, [programCourses, programUUID]);
-
-
-    if (programCourses.length === 0) {
+    if (!learningPath) {
         return (
             <div className="flex items-center justify-center h-screen">
                 <div className="w-16 h-16 border-4 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
@@ -52,8 +41,8 @@ export const LearningPathSection: React.FC<LearningPathSectionProps> = ({program
         );
     }
 
-    if(!learningPath || learningPath.length === 0){
-        return
+    if (learningPath.length === 0) {
+        return null;
     }
 
     return (
@@ -62,7 +51,7 @@ export const LearningPathSection: React.FC<LearningPathSectionProps> = ({program
             <p className="text-black w-3/5 mt-3">
                 {`Al completar ${article} ${programName} podrás elevar tu aprendizaje con:`}
             </p>
-            <ProgramsScrollSection programs={learningPath}/>
+            <ProgramsScrollSection programs={learningPath} />
         </div>
-    )
-}
+    );
+};
