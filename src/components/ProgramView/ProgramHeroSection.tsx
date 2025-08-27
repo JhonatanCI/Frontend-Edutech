@@ -1,6 +1,7 @@
 import { getCategories } from '../../filters/filters';
 import { FullProgram } from '../../model/types';
 import Button from '../Commons/Button';
+import { API } from "../config/axios";
 import HabilitiesTags from './HabilitiesTags';
 
 interface ProgramHeroSectionProps {
@@ -11,6 +12,9 @@ const ProgramHeroSection: React.FC<ProgramHeroSectionProps> = ({ program }) => {
   const parts = program.name.split(" ");
   const nameFirstPart = parts.slice(0, 2).join(" ");
   const nameSecondPart = parts.slice(2).join(" ");
+
+
+  console.log("Program recibido:", program);
 
   const categories = getCategories(program.programLearningResults) || ["Categoria 1", "Categoria 2"]
 

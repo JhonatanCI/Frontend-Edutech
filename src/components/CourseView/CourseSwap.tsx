@@ -6,7 +6,6 @@ import CurrentVsNew from "./CurrentVsNew";
 import MiniCourseCard from "./MiniCourseCard";
 import Button from "../Commons/Button";
 import useCoursesMatched from "../../hooks/useCoursesMatched";
-
 import { exactCoincidences, filterCourses } from "../../filters/filters";
 
 interface CourseSwapProps {
@@ -16,11 +15,11 @@ interface CourseSwapProps {
 
 const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
     const { state, updateCourses } = useAvailableCoursesContext();
+    
 
-    const response =
-        course.flexibility === "CONDICIONADO"
-            ? useCoursesMatched(course.learningResultsContribution)
-            : state.courses;
+    // Usar siempre useCoursesMatched con los learningResultsContribution del curso actual
+    const response = useCoursesMatched(course.courseId);
+    console.log("Respuesta de useCoursesMatched:", response);
 
     const [newCourse, setNewCourse] = useState<Course | null>(null);
     const [coursesMatch, setCoursesMatched] = useState<Course[] | null>(null);
@@ -30,8 +29,8 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
             const filteredCourses = response.filter(
                 (matchedCourse) => matchedCourse.id !== course.courseId
             );
-            const exactMatched = (course.flexibility === "CONDICIONADO")? exactCoincidences(course, filteredCourses) : filteredCourses
-            setCoursesMatched(exactMatched);
+           console.log("Cursos filtrados para swap:", filteredCourses);
+            setCoursesMatched(filteredCourses);
         }
     }, [response, course.courseId]);
 
@@ -61,11 +60,9 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
                         <p className="text-gray-700 text-sm w-2/5">
                             Si lo deseas puedes cambiar este curso por otro que se adapte más a tus necesidades. Puedes hacer uso del buscador para encontrarlo.
                         </p>
-                        {course.flexibility === "FLEXIBLE" ? (
-                            <div className="w-2/3">
-                                <SearchBar handleClick={handleSearch} search="cursos" by="Gerencia de Proyectos, Formulación de..." />
-                            </div>
-                        ) : null}
+                        <div className="w-2/3">
+                            <SearchBar handleClick={handleSearch} search="cursos" by="Gerencia de Proyectos, Formulación de..." />
+                        </div>
                     </div>
                 </div>
 
@@ -74,7 +71,7 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
                         <CurrentVsNew current={course} newCourse={newCourse} />
                     </div>
                     <div className="w-3/6">
-                        {coursesMatch ? (
+                        {coursesMatch !== null ? (
                             coursesMatch.length > 0 ? (
                                 <>
                                     <div className="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] max-w-[50rem] w-full bg-white overflow-y-auto max-h-[20rem] p-2 scrollbar-blue">

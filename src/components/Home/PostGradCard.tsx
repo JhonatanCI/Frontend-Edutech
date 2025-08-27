@@ -4,13 +4,26 @@ interface CardProps {
     title: string;
     description: string;
     categories: string[];
+    duracion: string;
     credits: number;
+    registroSNIES: string;
+    modalidad: string;
+    tituloOtorga: string;
 }
 
-const PostGradCard: React.FC<CardProps> = ({ title, description, categories, credits}) => {
+const PostGradCard: React.FC<CardProps> = ({
+    title,
+    description,
+    categories,
+    duracion,
+    credits,
+    registroSNIES,
+    modalidad,
+    tituloOtorga
+}) => {
     return (
         <div
-            className={`flex flex-col relative p-24 justify-center bg-white shadow-md rounded-lg border border-gray-200  w-[56rem] h-[39rem] transition-transform hover:scale-105`}
+            className="flex flex-col relative p-24 justify-center bg-white shadow-md rounded-lg border border-gray-200 w-[56rem] h-[39rem] transition-transform hover:scale-105"
         >
             {/* Title */}
             <div className="flex items-center mb-4">
@@ -33,10 +46,14 @@ const PostGradCard: React.FC<CardProps> = ({ title, description, categories, cre
             {/* Description */}
             <p className="text-sm text-black mb-4">{description}</p>
 
-            {/* Credits */}
-            <div className={`absolute bottom-8 right-8 text-right text-black font-regular  text-xs`}>
-                {credits} créditos
-            </div>
+            {/* Detalles */}
+            <ul className="text-sm text-gray-700 mb-6 space-y-1">
+                <li><strong>Duración:</strong> {duracion}</li>
+                <li><strong>Créditos:</strong> {credits}</li>
+                <li><strong>Registro SNIES:</strong> {registroSNIES}</li>
+                <li><strong>Modalidad:</strong> {modalidad}</li>
+                <li><strong>Título que otorga:</strong> {tituloOtorga}</li>
+            </ul>
         </div>
     );
 };

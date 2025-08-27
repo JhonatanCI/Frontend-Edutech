@@ -38,7 +38,30 @@ const CurrentVsNew: React.FC<CurrentVsNewProps> = ({ current, newCourse }) => {
           )}
         </div>
       </div>
-
+          <div className="flex gap-16 mt-8">
+  <div>
+    <h4 className="font-semibold text-black mb-2">Resultados de aprendizaje actuales</h4>
+    <ul className="list-disc ml-6">
+      {(current.learningResultsContribution ?? []).map((lr, idx) => (
+        <li key={`${lr.id}-${idx}`} className="text-gray-700">
+          {lr.name}
+        </li>
+      ))}
+    </ul>
+  </div>
+  {newCourse && (
+    <div>
+      <h4 className="font-semibold text-black mb-2">Nuevos resultados de aprendizaje</h4>
+      <ul className="list-disc ml-6">
+        {(newCourse.learningResults ?? []).map((lr, idx) => (
+          <li key={`${lr}-${idx}`} className="text-gray-700">
+            {lr}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+</div>
       {newCourse ? (
         <div className="w-4/5 mt-14">
           <h3 className="text-3xl font-bold text-black">Perfil de desarrollo de habilidades</h3>

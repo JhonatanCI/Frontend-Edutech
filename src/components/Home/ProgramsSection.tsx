@@ -34,8 +34,8 @@ const ProgramSection: React.FC = () => {
               Conoce <br /> nuestros programas
             </>
           }
-          subheading="Explora EverGrow, con nuestras maestrías, especializaciones, certificaciones y cursos estarás listo para convertirte en el profesional del futuro."
-          variant='tertiary'
+            subheading="Explora EverGrow, con nuestras maestrías, especializaciones, certificaciones y cursos estarás listo para convertirte en el profesional del futuro."
+            variant='tertiary'
         />
 
         {/* Arrows button */}
@@ -58,19 +58,29 @@ const ProgramSection: React.FC = () => {
       </div>
 
       {/* Cards Scroll Nav */}
-      <div className="flex overflow-x-auto scroll-invisible py-16 gap-8 px-16 items-center max-w-full" ref={containerRef}>
-        <div className="flex gap-8">
-          {programs.map(program =>
-            <ProgramCard key={program.id}
-              image={program.image}
-              title={program.name}
-              description={program.description}
-              buttonText="Saber más"
-              path={`/program/${program.name}`}
-            />
-          )}
-        </div>
-      </div>
+    <div
+      className="flex overflow-x-auto scroll-invisible py-16 gap-8 px-16 items-center max-w-full"
+      ref={containerRef}
+    >
+    <div className="flex gap-8">
+      {programs.map(program =>
+       <ProgramCard
+          key={program.id}
+          image={program.image}
+          title={program.name}
+          description={program.description}
+          buttonText="Saber más"
+          path={`/program/${program.name}`}
+          duracion={`${program.semesters} semestres`} 
+          creditos={program.credits}
+          registroSNIES={program.sniesCode}
+          modalidad={program.modality}
+          tituloOtorga={program.degreeTitle}
+        />
+
+      )}
+    </div>
+   </div>
     </div>
   );
 };

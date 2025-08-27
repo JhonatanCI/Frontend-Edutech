@@ -32,6 +32,11 @@ export type Course = {
 }
 
 export type Program = {
+  tags: any;
+  semesters: any;
+  sniesCode: string;
+  modality: string;
+  degreeTitle: string;
   id: UUID,
   name: string,
   description: string,

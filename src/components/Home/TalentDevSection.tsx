@@ -7,6 +7,7 @@ import TalentCycleComponent from "./TalentCycleComponent";
 import { useTalentDevContext } from "../../hooks/useTalentDevContext";
 import { Course, MicroLearning, Program } from "../../model/types";
 import { useNavigate } from "react-router-dom";
+import ProgramCard from "../Commons/ProgramCard";
 
 const TalentDevSection: React.FC = () => {
     const { state } = useTalentDevContext();
@@ -60,26 +61,37 @@ const TalentDevSection: React.FC = () => {
                     />
                 ));
             }
-            case 2: {
-                if (!state.certifications) return renderSpinner;
+            case 2: { 
                 return state.certifications.map((certification: Program) => (
-                    <CourseCard
+                    <ProgramCard
                         key={certification.id}
                         title={certification.name}
                         description={certification.description}
+                        categories={certification.tags?.split(",")}
+                        credits={certification.credits}
+                        duracion={`${certification.semesters} semestres`}
+                        registroSNIES={certification.sniesCode}
+                        modalidad={certification.modality}
+                        tituloOtorga={certification.degreeTitle}
                         variant="medium"
                         onClick={() => navigateTo(`/program/${certification.name}`)}
                     />
                 ));
             }
-            case 3: {
+                        case 3: {
                 if (!state.specializations) return renderSpinner;
                 return state.specializations.map((specialization: Program) => (
-                    <CourseCard
+                    <ProgramCard
                         key={specialization.id}
                         title={specialization.name}
                         description={specialization.description}
-                        variant="large"
+                        categories={specialization.tags?.split(",")}
+                        credits={specialization.credits}
+                        duracion={`${specialization.semesters} semestres`}
+                        registroSNIES={specialization.sniesCode}
+                        modalidad={specialization.modality}
+                        tituloOtorga={specialization.degreeTitle}
+                        variant="medium"
                         onClick={() => navigateTo(`/program/${specialization.name}`)}
                     />
                 ));
@@ -87,11 +99,17 @@ const TalentDevSection: React.FC = () => {
             case 4: {
                 if (!state.masters) return renderSpinner;
                 return state.masters.map((master: Program) => (
-                    <CourseCard
+                    <ProgramCard
                         key={master.id}
                         title={master.name}
                         description={master.description}
-                        variant="large"
+                        categories={master.tags?.split(",")}
+                        credits={master.credits}
+                        duracion={`${master.semesters} semestres`}
+                        registroSNIES={master.sniesCode}
+                        modalidad={master.modality}
+                        tituloOtorga={master.degreeTitle}
+                        variant="medium"
                         onClick={() => navigateTo(`/program/${master.name}`)}
                     />
                 ));
@@ -99,11 +117,17 @@ const TalentDevSection: React.FC = () => {
             case 5: {
                 if (!state.phd) return renderSpinner;
                 return state.phd.map((phd: Program) => (
-                    <CourseCard
+                    <ProgramCard
                         key={phd.id}
                         title={phd.name}
                         description={phd.description}
-                        variant="large"
+                        categories={phd.tags?.split(",")}
+                        credits={phd.credits}
+                        duracion={`${phd.semesters} semestres`}
+                        registroSNIES={phd.sniesCode}
+                        modalidad={phd.modality}
+                        tituloOtorga={phd.degreeTitle}
+                        variant="medium"
                         onClick={() => navigateTo(`/program/${phd.name}`)}
                     />
                 ));

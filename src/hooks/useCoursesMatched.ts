@@ -1,27 +1,21 @@
-import { useState, useEffect } from "react";
-
-import { Course, SimpleLearningResult } from "../model/types";
+import { useEffect, useState } from "react";
 import { getMatched } from "../services/academicCourses";
+import { Course, UUID } from "../model/types";
 
-const useCoursesMatched = (learningResults: SimpleLearningResult[]) => {
-    const [courses, setCourses] = useState<Course[] | null>(null)
-    
+const useCoursesMatched = (courseId: UUID) => {
+    const [matchedCourses, setMatchedCourses] = useState<Course[] | null>(null);
+
     useEffect(() => {
-        const fetchCourses = async () => {
-            try {
-                const response: Course[] = await getMatched(learningResults);
-                setCourses(response);
-            } catch (error) {
-                console.error("No se ha podido cargar las opciones de cursos para intercambiar");
-            }
-        };
-    
-        if (learningResults.length > 0) {
-            fetchCourses();
+        if (!courseId) {
+            setMatchedCourses(null);
+            return;
         }
-    }, [learningResults]);
+        getMatched(courseId)
+            .then(setMatchedCourses)
+            .catch(() => setMatchedCourses([]));
+    }, [courseId]);
 
-    return courses
-}
+    return matchedCourses;
+};
 
-export default useCoursesMatched
+export default useCoursesMatched;
