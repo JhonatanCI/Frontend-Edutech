@@ -1,7 +1,6 @@
 import { getCategories } from '../../filters/filters';
 import { FullProgram } from '../../model/types';
 import Button from '../Commons/Button';
-import { API } from "../config/axios";
 import HabilitiesTags from './HabilitiesTags';
 
 interface ProgramHeroSectionProps {

@@ -87,6 +87,6 @@ export const exactCoincidences = (pc: ProgramCourse, c: Course[]) => {
       return false;
     }
 
-    return course.learningResults.every(lr => programCourseLearningResultsSet.has(lr.name));
+  return course.learningResults.every(lr => programCourseLearningResultsSet.has(lr));
   });
 };

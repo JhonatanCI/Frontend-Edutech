@@ -11,14 +11,15 @@ interface AvailableCoursesProviderProps {
 export type AvailableCoursesContextType = {
     state: AvailableCoursesState,
     setProgramCourses: (courses: ProgramCourse[]) => void,
-    updateCourses: (current: ProgramCourse, newCourse: Course) => void;
+    swapCourse: (current: ProgramCourse, newCourse: Course) => void;
+    resetCourse: (current: ProgramCourse) => void;
     initializeCourses: (name: string) => Promise<void>
 }
 
 const AvailableCoursesContext = createContext<AvailableCoursesContextType | undefined>(undefined)
 
 const AvailableCoursesProvider = ({ children }: AvailableCoursesProviderProps) => {
-    const { state, setProgramCourses, setCourses, updateCourses, initializeCourses } = useAvailableCourses();
+    const { state, setProgramCourses, setCourses, swapCourse, resetCourse, initializeCourses } = useAvailableCourses();
 
     useEffect(() => {
 
@@ -35,7 +36,7 @@ const AvailableCoursesProvider = ({ children }: AvailableCoursesProviderProps) =
     }, [])
 
     return (
-        <AvailableCoursesContext.Provider value={{state, setProgramCourses, updateCourses, initializeCourses}}>
+    <AvailableCoursesContext.Provider value={{state, setProgramCourses, swapCourse, resetCourse, initializeCourses}}>
             {children}
         </AvailableCoursesContext.Provider>
     )

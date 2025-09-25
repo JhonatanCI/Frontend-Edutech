@@ -25,7 +25,7 @@ const CourseCardModal: React.FC<CourseCardModalProps> = ({course, categories, va
     }, [isSelected]);
 
     const handleClick = () => {
-        isEditable && setIsSelected(true)
+        if (isEditable) setIsSelected(true)
     }
 
     return (
@@ -42,7 +42,7 @@ const CourseCardModal: React.FC<CourseCardModalProps> = ({course, categories, va
                 description={course.description}
                 categories={categories}
                 credits={course.credits}
-                isEditable
+                isEditable={isEditable}
                 variantStyle={variantStyle}
                 variant={variant}
                 onClick={handleClick}

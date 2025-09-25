@@ -1,4 +1,4 @@
-import { ProgramCourse, ProgramCourseRaw, SimpleLearningResult } from "../model/types";
+import { ProgramCourse } from "../model/types";
 
 export function toProgramCourse(programCoursesRaw: any[]): ProgramCourse[] {
     const courseMap = new Map();
@@ -15,8 +15,11 @@ export function toProgramCourse(programCoursesRaw: any[]): ProgramCourse[] {
         terminalObjectives,
         modality,
         semester,
-        flexibility,
-        learningResultsContribution = [],
+  flexibility,
+  learningResultsContribution = [],
+  father,
+  is_father,
+  isFather
       } = programCourse;
   
 
@@ -35,12 +38,13 @@ export function toProgramCourse(programCoursesRaw: any[]): ProgramCourse[] {
           name,
           nameMen,
           description,
-          credits,
+          credits: credits ?? 0,
           generalObjective,
           terminalObjectives,
           modality,
           semester,
-          flexibility,
+          flexibility: flexibility ?? 'FLEXIBLE',
+          father: typeof father === "boolean" ? father : (typeof is_father === "boolean" ? is_father : (typeof isFather === "boolean" ? isFather : undefined)),
           learningResultsContribution: learningResults,
         });
       } else {

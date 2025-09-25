@@ -7,7 +7,7 @@ import { getResults } from "../../services/search";
 
 const TalentSearchBar: React.FC = () => {
   const dispatch = useDispatch();
-  const { state, updateItems, reset } = useTalentDevContext();
+  const { updateItems, reset } = useTalentDevContext();
 
   const [val, setVal] = useState('');
   const [debouncedValue, setDebouncedValue] = useState('');

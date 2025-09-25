@@ -47,15 +47,22 @@ export const ProgramsScrollSection: React.FC<ProgramsScrollSectionProps> = ({ pr
             {/* Cards Scroll Nav */}
             <div className="flex overflow-x-auto scroll-invisible py-10 gap-8 items-center max-w-full" ref={containerRef}>
                 <div className="flex gap-8">
-                    {programs.map(program =>
-                        <ProgramCard key={program.id}
+                    {programs.map(program => (
+                        <ProgramCard
+                            key={program.id}
                             image={program.image}
                             title={program.name}
                             description={program.description}
                             buttonText="Saber más"
                             path={`/program/${program.name}`}
+                            // Props opcionales adicionales con valores por defecto para evitar errores de tipado
+                            duracion={`${program.credits || 0} créditos`}
+                            creditos={program.credits}
+                            registroSNIES={program.sniesCode}
+                            modalidad={program.modality}
+                            tituloOtorga={program.degreeTitle}
                         />
-                    )}
+                    ))}
                 </div>
             </div>
         </div>

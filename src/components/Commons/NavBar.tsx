@@ -10,9 +10,7 @@ const NavBar: React.FC = () => {
         {/* Logo Section */}
         <div className="pl-16 flex items-center">
           {/* Logo */}
-          <Link to={"/#"} smooth>
-            <img src={logo} alt="Icesi and EverGrow logo" className="h-8 mr-2" />
-          </Link>
+          
 
           {/* Navigation Links */}
           <div className="hidden md:flex space-x-6 pl-8">

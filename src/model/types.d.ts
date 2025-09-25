@@ -65,7 +65,14 @@ export type ProgramCourse = {
   modality: string,
   semester: number
   flexibility: 'CONDICIONADO' | 'FLEXIBLE',
+    father?: boolean,
   learningResultsContribution: SimpleLearningResult[];
+  // Campos para gestionar intercambios (swap) en frontend sin perder contribuciones originales
+  originalCourseId?: UUID;
+  originalName?: string;
+  originalDescription?: string;
+  originalCredits?: number;
+  swapped?: boolean;
 }
 
 export type ProgramCourseRaw = {

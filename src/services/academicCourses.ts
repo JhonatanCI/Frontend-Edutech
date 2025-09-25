@@ -1,5 +1,5 @@
 import { API } from "../config/axios";
-import { SimpleLearningResult, UUID } from "../model/types";
+import { UUID } from "../model/types";
 
 export const getAllCourses = async() => {
     try {

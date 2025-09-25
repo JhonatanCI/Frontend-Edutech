@@ -16,8 +16,11 @@ const useAvailableCourses = () => {
     const setProgramCourses = (programCourses: ProgramCourse[]) => dispatch({ type: ACActionType.INIT_PROGRAMCOURSES, payload: programCourses });
     const setCourses = (courses: Course[]) => dispatch({type: ACActionType.INIT_COURSES, payload: courses})
 
-    const updateCourses = (current: ProgramCourse, newCourse: Course) => 
-        dispatch({ type: ACActionType.UPDATE_STATE, payload: { current, newCourse } });
+    const swapCourse = (current: ProgramCourse, newCourse: Course) => 
+        dispatch({ type: ACActionType.SWAP_COURSE, payload: { current, newCourse } });
+
+    const resetCourse = (current: ProgramCourse) => 
+        dispatch({ type: ACActionType.RESET_COURSE, payload: { current, newCourse: current as any } });
 
     const initializeCourses = async (name: string) => {
         try {
@@ -32,7 +35,7 @@ const useAvailableCourses = () => {
         }
     };
 
-    return { state, setCourses, setProgramCourses, updateCourses, initializeCourses };
+    return { state, setCourses, setProgramCourses, swapCourse, resetCourse, initializeCourses };
 };
 
 export default useAvailableCourses;

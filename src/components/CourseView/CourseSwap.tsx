@@ -6,7 +6,7 @@ import CurrentVsNew from "./CurrentVsNew";
 import MiniCourseCard from "./MiniCourseCard";
 import Button from "../Commons/Button";
 import useCoursesMatched from "../../hooks/useCoursesMatched";
-import { exactCoincidences, filterCourses } from "../../filters/filters";
+import { filterCourses } from "../../filters/filters";
 
 interface CourseSwapProps {
     course: ProgramCourse;
@@ -14,7 +14,7 @@ interface CourseSwapProps {
 }
 
 const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
-    const { state, updateCourses } = useAvailableCoursesContext();
+    const { swapCourse } = useAvailableCoursesContext();
     
 
     // Usar siempre useCoursesMatched con los learningResultsContribution del curso actual
@@ -46,7 +46,7 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
 
     const swap = () => {
         if (newCourse) {
-            updateCourses(course, newCourse);
+            swapCourse(course, newCourse);
             close();
         }
     };

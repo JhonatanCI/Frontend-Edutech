@@ -30,10 +30,11 @@ const CourseCard: React.FC<CardProps> = ({ title, description, categories, credi
                 ? "border-2 border-solid border-secondaryBlue"
                 : "border-none";
 
+    const interactivityClasses = isEditable ? "transition-transform hover:scale-105 cursor-pointer" : "opacity-80 cursor-default";
     return (
         <div
-            className={`flex flex-col relative bg-white shadow-md rounded-lg border border-gray-200 ${gridClass} ${borderClass} ${heightClass} ${paddingClass} transition-transform hover:scale-105 cursor-pointer`}
-            onClick={onClick}
+            className={`flex flex-col relative bg-white shadow-md rounded-lg border border-gray-200 ${gridClass} ${borderClass} ${heightClass} ${paddingClass} ${interactivityClasses}`}
+            onClick={isEditable ? onClick : undefined}
         >
             {/* Editable Icon */}
             {isEditable && (
