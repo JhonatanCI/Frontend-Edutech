@@ -1,6 +1,6 @@
 import NavBar from "../components/Commons/NavBar"
 import HeroSection from "../components/Home/HeroSection"
-import WorldsSection from "../components/Home/WorldsSection"
+// import WorldsSection from "../components/Home/WorldsSection"
 import ProgramSection from "../components/Home/ProgramsSection"
 import AdventureSection from "../components/Home/AdventureSection"
 import TalentDevSection from "../components/Home/TalentDevSection"
@@ -13,7 +13,7 @@ export const Home = () => {
         <>
             <NavBar />
             <HeroSection />
-            <WorldsSection />
+            {/* <WorldsSection /> */}
             <TalentDevProvider>
                 <TalentDevSection/>
             </TalentDevProvider>
