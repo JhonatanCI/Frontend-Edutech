@@ -12,7 +12,7 @@ export const getGeneralResults = async() => {
 
 export const getResults = async(query: string) => {
     try {
-        const response = await API.get(`/search?query=${query}`)
+        const response = await API.get(`/search/tags?query=${query}`)
         return response.data
     } catch (error) {
         throw error
