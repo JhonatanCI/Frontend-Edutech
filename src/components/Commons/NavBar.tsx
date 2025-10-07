@@ -33,7 +33,7 @@ const NavBar: React.FC = () => {
 
         {/* Right Section with Buttons */}
         <div className="pr-16 flex items-center space-x-4">
-          <a href="#ingresar" className="hover:text-textGray">Ingresar</a>
+          <Link to={"/login"} smooth className="hover:text-textGray">Ingresar</Link>
           <a href="#contacto" className="hover:text-textGray">Contáctanos</a>
           <Button href="#" variant="primary" size="medium" > ¡Comienza ya!  </Button>
         </div>
