@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface HabilitiesTagsProps {
   tags: string[];
@@ -21,7 +21,6 @@ const HabilitiesTags: React.FC<HabilitiesTagsProps> = ({ tags }) => {
         ))}
       </div>
     </div>
-
   );
 };
 
