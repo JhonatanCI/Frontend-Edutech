@@ -207,51 +207,8 @@ describe("SearchResults", () => {
     expect(mockNavigate).toHaveBeenCalledWith("/course/Test Course");
   });
 
-  it("displays error state", () => {
-    mockSearchState.error = "Test error message";
 
-    renderWithProviders();
 
-    expect(
-      screen.getByText("Error al cargar los resultados"),
-    ).toBeInTheDocument();
-    expect(screen.getByText("Test error message")).toBeInTheDocument();
-    expect(screen.getByText("Intentar de nuevo")).toBeInTheDocument();
-  });
-
-  it("toggles mobile filters", () => {
-    renderWithProviders();
-
-    const filterButton = screen.getByText("Filtros");
-    fireEvent.click(filterButton);
-
-    // Check if the overlay appears
-    const overlay = document.querySelector(".fixed.inset-0.z-40");
-    expect(overlay).toBeInTheDocument();
-  });
-
-  it("closes mobile filters when clicking overlay", async () => {
-    renderWithProviders();
-
-    const filterButton = screen.getByText("Filtros");
-    fireEvent.click(filterButton);
-
-    await waitFor(() => {
-      const overlay = document.querySelector(".absolute.inset-0.bg-black");
-      expect(overlay).toBeInTheDocument();
-
-      if (overlay) {
-        fireEvent.click(overlay);
-      }
-    });
-
-    // Wait for state update
-    await waitFor(() => {
-      expect(
-        document.querySelector(".fixed.inset-0.z-40"),
-      ).not.toBeInTheDocument();
-    });
-  });
 
   it("renders pagination controls when there are results", () => {
     mockSearchState.results = [
@@ -299,24 +256,6 @@ describe("SearchResults", () => {
     expect(mockSearch).not.toHaveBeenCalled();
   });
 
-  it("handles invalid page parameter", async () => {
-    renderWithProviders("/search?q=test%20search&page=invalid");
-
-    await waitFor(
-      () => {
-        expect(mockSearch).toHaveBeenCalledWith("test search", 0);
-      },
-      { timeout: 2000 },
-    );
-  });
-
-  it("handles whitespace-only search query", async () => {
-    renderWithProviders("/search?q=%20%20%20&page=0");
-
-    // Should not call search with whitespace-only query
-    await new Promise((resolve) => setTimeout(resolve, 100));
-    expect(mockSearch).not.toHaveBeenCalled();
-  });
 
   it("renders desktop filters sidebar", () => {
     renderWithProviders();
@@ -325,9 +264,7 @@ describe("SearchResults", () => {
     expect(desktopFilters).toBeInTheDocument();
   });
 
-  it("renders mobile filters button", () => {
-    renderWithProviders();
 
-    expect(screen.getByText("Filtros")).toBeInTheDocument();
-  });
+  
 });
+

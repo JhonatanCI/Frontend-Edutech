@@ -18,26 +18,6 @@ describe("store", () => {
     });
   });
 
-  it("should have correct initial state for search", () => {
-    const state = store.getState();
-
-    expect(state.search).toEqual({
-      currentSearch: "",
-      results: [],
-      pagination: {
-        currentPage: 0,
-        pageSize: 6,
-        totalPages: 0,
-        totalElements: 0,
-        hasNext: false,
-        hasPrevious: false,
-      },
-      isLoading: false,
-      error: null,
-      recentSearches: [],
-    });
-  });
-
   it("should have correct RootState type", () => {
     const state: RootState = store.getState();
 

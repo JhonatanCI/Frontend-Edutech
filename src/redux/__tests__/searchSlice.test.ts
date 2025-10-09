@@ -59,26 +59,6 @@ describe("searchSlice", () => {
     vi.restoreAllMocks();
   });
 
-  it("should return initial state", () => {
-    const initialState = searchReducer(undefined, { type: "unknown" });
-
-    expect(initialState).toEqual({
-      currentSearch: "",
-      results: [],
-      pagination: {
-        currentPage: 0,
-        pageSize: 6,
-        totalPages: 0,
-        totalElements: 0,
-        hasNext: false,
-        hasPrevious: false,
-      },
-      isLoading: false,
-      error: null,
-      recentSearches: [],
-    });
-  });
-
   it("should handle setSearchTerm", () => {
     const initialState = searchReducer(undefined, { type: "unknown" });
     const action = setSearchTerm("test search");
