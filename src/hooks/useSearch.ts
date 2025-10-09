@@ -38,34 +38,17 @@ export const useSearch = (): UseSearchReturn => {
 
         const data = response.data;
 
-        const pageSize = 6;
-        const actualTotalPages = Math.ceil(data.totalResults / pageSize);
-
-        const validatedPagination = {
-          currentPage: Math.max(
-            0,
-            Math.min(data.pagination.currentPage, actualTotalPages - 1),
-          ),
-          pageSize: pageSize,
-          totalPages: actualTotalPages,
-          totalElements: data.totalResults,
-          hasNext:
-            data.pagination.currentPage < actualTotalPages - 1 &&
-            data.results.length > 0,
-          hasPrevious: data.pagination.currentPage > 0,
+        const paginationInfo = {
+          currentPage: data.pagination.currentPage,
+          pageSize: 6,
+          totalPages: data.pagination.totalPages,
+          totalElements: data.pagination.totalElements,
+          hasNext: data.pagination.hasNext,
+          hasPrevious: data.pagination.hasPrevious,
         };
 
-        console.log("Search Debug:", {
-          term,
-          page,
-          resultsLength: data.results.length,
-          totalResults: data.totalResults,
-          actualTotalPages,
-          validatedPagination,
-        });
-
         dispatch(setResults(data.results));
-        dispatch(setPagination(validatedPagination));
+        dispatch(setPagination(paginationInfo));
         dispatch(addRecentSearch(term));
       } catch (err) {
         const errorMessage =

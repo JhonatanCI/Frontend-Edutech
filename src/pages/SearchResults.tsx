@@ -40,9 +40,12 @@ const SearchResults: React.FC = () => {
     console.log("Toggle favorite for:", id);
   };
 
-  const handleLearnMore = (id: string) => {
-    // TODO: Navigate to program/course detail page
-    console.log("Learn more about:", id);
+  const handleLearnMore = (id: string, itemType: string, name: string) => {
+    if (itemType === "COURSE") {
+      navigate(`/course/${name}`);
+    } else if (itemType === "PROGRAM") {
+      navigate(`/program/${name}`);
+    }
   };
 
   const handleRetry = () => {
@@ -155,7 +158,7 @@ const SearchResults: React.FC = () => {
               />
             </div>
           )}
-                
+
           {!error && !isLoading && results.length === 0 && query && (
             <div className="max-w-4xl mx-auto text-center py-12">
               <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">

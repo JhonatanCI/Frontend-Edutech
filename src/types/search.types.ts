@@ -59,14 +59,14 @@ export interface SearchResultsHeroProps {
 export interface ProgramCardProps {
   result: SearchResult;
   onFavorite?: (id: string) => void;
-  onLearnMore?: (id: string) => void;
+  onLearnMore?: (id: string, itemType: string, name: string) => void;
 }
 
 export interface SearchResultsGridProps {
   results: SearchResult[];
   isLoading: boolean;
   onFavorite?: (id: string) => void;
-  onLearnMore?: (id: string) => void;
+  onLearnMore?: (id: string, itemType: string, name: string) => void;
 }
 
 export interface PaginationControlsProps {

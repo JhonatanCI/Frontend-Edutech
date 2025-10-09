@@ -31,16 +31,16 @@ const ProgramCard: React.FC<ProgramCardProps> = ({
     }
 
     switch (programType) {
-        case "ESPECIALIZACION":
-            return "bg-[#E4EB60]";
-        case "MAESTRIA":
-            return "bg-[#5454E9]";
-        case "DOCTORADO":
-            return "bg-[#5454E9]";
-        case "CERTIFICACION":
-            return "bg-[#E9683B]";
-        default:
-            return "bg-[#88898C]";
+      case "ESPECIALIZACION":
+        return "bg-[#E4EB60]";
+      case "MAESTRIA":
+        return "bg-[#5454E9]";
+      case "DOCTORADO":
+        return "bg-[#5454E9]";
+      case "CERTIFICACION":
+        return "bg-[#E9683B]";
+      default:
+        return "bg-[#88898C]";
     }
   };
 
@@ -88,12 +88,12 @@ const ProgramCard: React.FC<ProgramCardProps> = ({
     : [];
 
   return (
-    <div className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-200">
+    <div className="bg-white shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-200">
       <div className="relative">
         <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
           {result.imageUrl ? (
             <img
-              src={result.imageUrl}
+              src={`https://res.cloudinary.com/dmmmacrxg/image/upload/${result.imageUrl}`}
               alt={result.name}
               className="w-full h-full object-cover"
               onError={(e) => {
@@ -124,9 +124,9 @@ const ProgramCard: React.FC<ProgramCardProps> = ({
           </div>
         </div>
         <div
-          className={`absolute top-2 right-2 px-2 py-1 rounded-full text-white text-xs font-semibold ${getBadgeColor(
+          className={`absolute top-2 right-2 px-2 py-1 text-white text-xs font-semibold ${getBadgeColor(
             result.itemType,
-            result.programType,
+            result.programType
           )}`}
         >
           {getBadgeText(result.itemType, result.programType)}
@@ -168,13 +168,13 @@ const ProgramCard: React.FC<ProgramCardProps> = ({
             {tags.slice(0, 3).map((tag, index) => (
               <span
                 key={index}
-                className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full"
+                className="px-2 py-1 bg-gray-100 text-gray-700 text-xs"
               >
                 {tag}
               </span>
             ))}
             {tags.length > 3 && (
-              <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
+              <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs">
                 +{tags.length - 3} más
               </span>
             )}
@@ -185,8 +185,8 @@ const ProgramCard: React.FC<ProgramCardProps> = ({
           <div>
             <span className="font-semibold">Modalidad:</span>
             <span
-              className={`ml-1 px-2 py-1 rounded-full text-xs ${getModalityColor(
-                result.modality,
+              className={`ml-1 px-2 py-1 text-xs ${getModalityColor(
+                result.modality
               )}`}
             >
               {getModalityText(result.modality)}
@@ -213,8 +213,10 @@ const ProgramCard: React.FC<ProgramCardProps> = ({
             {formatPrice(result.price)}
           </div>
           <button
-            onClick={() => onLearnMore?.(result.id)}
-            className="bg-[#5454E9] text-white px-4 py-2 rounded-sm hover:bg-[#3d3db5] transition-colors duration-200 text-sm font-medium"
+            onClick={() =>
+              onLearnMore?.(result.id, result.itemType, result.name)
+            }
+            className="bg-[#5454E9] text-white px-4 py-2 hover:bg-[#3d3db5] transition-colors duration-200 text-sm font-medium"
           >
             Conoce más
           </button>

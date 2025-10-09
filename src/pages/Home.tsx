@@ -12,14 +12,16 @@ export const Home = () => {
   return (
     <>
       <NavBar />
-      <HeroSection />
-      {/* <WorldsSection /> */}
-      <TalentDevProvider>
-        <TalentDevSection />
-      </TalentDevProvider>
-      <ProgramSection />
-      <PartnerSection />
-      <AdventureSection />
+      <div className="pt-16">
+        <HeroSection />
+        {/* <WorldsSection /> */}
+        <TalentDevProvider>
+          <TalentDevSection />
+        </TalentDevProvider>
+        <ProgramSection />
+        <PartnerSection />
+        <AdventureSection />
+      </div>
     </>
   );
 };

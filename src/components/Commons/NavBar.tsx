@@ -5,7 +5,7 @@ import logo from "../../assets/Icesi-EverGrow_logo.svg";
 
 const NavBar: React.FC = () => {
   return (
-    <nav className="text-white font-inter shadow-md fixed top-0 z-10 w-full">
+    <nav className="text-white font-inter shadow-md fixed top-0 z-50 w-full bg-black">
       <div className="flex justify-between items-center p-3">
         {/* Logo Section */}
         <div className="pl-16 flex items-center">

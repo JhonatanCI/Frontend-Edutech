@@ -236,7 +236,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ onFilterChange }) => {
               <button
                 key={outcome}
                 onClick={() => handleLearningOutcomeToggle(outcome)}
-                className={`px-2 py-1 rounded text-xs transition-colors duration-200 ${
+                className={`px-2 py-1 text-xs transition-colors duration-200 ${
                   filters.learningOutcomes.includes(outcome)
                     ? "bg-primaryBlue text-white"
                     : "bg-gray-200 text-black hover:bg-gray-300"
@@ -262,7 +262,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ onFilterChange }) => {
               setFilters(resetFilters);
               onFilterChange?.(resetFilters);
             }}
-            className="w-full bg-primaryBlue text-white py-2 px-4 rounded-md hover:bg-primaryBlue-dark transition-colors duration-200 text-sm font-medium"
+            className="w-full bg-primaryBlue text-white py-2 px-4 hover:bg-primaryBlue-dark transition-colors duration-200 text-sm font-medium"
           >
             Limpiar filtros
           </button>
