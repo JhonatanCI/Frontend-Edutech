@@ -15,11 +15,15 @@ const SearchResults: React.FC = () => {
     useSearch();
 
   const query = searchParams.get("q") || "";
-  const page = parseInt(searchParams.get("page") || "0");
+
+  const pageParam = searchParams.get("page");
+  const parsedPage = parseInt(pageParam || "0");
+  const page = isNaN(parsedPage) ? 0 : parsedPage;
 
   useEffect(() => {
-    if (query) {
-      search(query, page);
+    const trimmedQuery = query.trim();
+    if (trimmedQuery) {
+      search(trimmedQuery, page);
     }
   }, [query, page, search]);
 
@@ -50,8 +54,9 @@ const SearchResults: React.FC = () => {
 
   const handleRetry = () => {
     clearError();
-    if (query) {
-      search(query, page);
+    const trimmedQuery = query.trim();
+    if (trimmedQuery) {
+      search(trimmedQuery, page);
     }
   };
 
@@ -159,7 +164,7 @@ const SearchResults: React.FC = () => {
             </div>
           )}
 
-          {!error && !isLoading && results.length === 0 && query && (
+          {!error && !isLoading && results.length === 0 && query.trim() && (
             <div className="max-w-4xl mx-auto text-center py-12">
               <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg

@@ -126,7 +126,7 @@ const ProgramCard: React.FC<ProgramCardProps> = ({
         <div
           className={`absolute top-2 right-2 px-2 py-1 text-white text-xs font-semibold ${getBadgeColor(
             result.itemType,
-            result.programType
+            result.programType,
           )}`}
         >
           {getBadgeText(result.itemType, result.programType)}
@@ -186,7 +186,7 @@ const ProgramCard: React.FC<ProgramCardProps> = ({
             <span className="font-semibold">Modalidad:</span>
             <span
               className={`ml-1 px-2 py-1 text-xs ${getModalityColor(
-                result.modality
+                result.modality,
               )}`}
             >
               {getModalityText(result.modality)}
