@@ -37,6 +37,7 @@ export interface SearchResponse {
 export interface SearchState {
   currentSearch: string;
   results: SearchResult[];
+  allResults: SearchResult[]; 
   pagination: PaginationInfo;
   isLoading: boolean;
   error: string | null;
@@ -80,6 +81,13 @@ export interface UseSearchReturn {
   error: string | null;
   pagination: PaginationInfo;
   searchTerm: string;
-  search: (term: string, page?: number) => Promise<void>;
+  search: (term: string, page?: number, filters?: FilterState) => Promise<void>;
   clearError: () => void;
+}
+export interface FilterState {
+  contentType: string[];
+  academicLevel: string[];
+  modality: string[];
+  priceRange: [number, number];
+  durationRange: [number, number];
 }

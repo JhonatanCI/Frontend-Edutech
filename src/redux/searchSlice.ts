@@ -8,6 +8,7 @@ import {
 const initialState: SearchState = {
   currentSearch: "",
   results: [],
+  allResults: [],
   pagination: {
     currentPage: 0,
     pageSize: 6,
@@ -30,6 +31,9 @@ const searchSlice = createSlice({
     },
     setResults: (state, action: PayloadAction<SearchResult[]>) => {
       state.results = action.payload;
+    },
+    setAllResults: (state, action: PayloadAction<SearchResult[]>) => {
+      state.allResults = action.payload;
     },
     setPagination: (state, action: PayloadAction<PaginationInfo>) => {
       state.pagination = action.payload;
@@ -57,6 +61,7 @@ const searchSlice = createSlice({
     },
     clearResults: (state) => {
       state.results = [];
+      state.allResults = [];
       state.pagination = initialState.pagination;
       state.currentSearch = "";
     },
@@ -71,6 +76,7 @@ const searchSlice = createSlice({
 export const {
   setSearchTerm,
   setResults,
+  setAllResults,
   setPagination,
   setLoading,
   setError,

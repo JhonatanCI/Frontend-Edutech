@@ -1,93 +1,69 @@
-import React, { useState } from "react";
+import React from "react";
+import { FilterState } from "../../types/search.types";
 
 interface SearchFiltersProps {
-  onFilterChange?: (filters: FilterState) => void;
+  filters: FilterState; 
+  onFilterChange: (filters: FilterState) => void; 
 }
 
-interface FilterState {
-  contentType: string[];
-  academicLevel: string[];
-  modality: string[];
-  priceRange: [number, number];
-  durationRange: [number, number];
-  learningOutcomes: string[];
-}
-
-const SearchFilters: React.FC<SearchFiltersProps> = ({ onFilterChange }) => {
-  const [filters, setFilters] = useState<FilterState>({
-    contentType: ["Todo"],
-    academicLevel: [],
-    modality: [],
-    priceRange: [0, 50000000],
-    durationRange: [1, 10],
-    learningOutcomes: [],
-  });
-
+const SearchFilters: React.FC<SearchFiltersProps> = ({
+  filters,
+  onFilterChange,
+}) => {
+  
   const handleContentTypeChange = (value: string) => {
     let newContentType = [...filters.contentType];
 
     if (value === "Todo") {
+    
       newContentType = ["Todo"];
     } else {
-      newContentType = newContentType.filter((item) => item !== "Todo");
+     
+      newContentType = newContentType.filter((item) => item !== "Todo"); 
       if (newContentType.includes(value)) {
+       
         newContentType = newContentType.filter((item) => item !== value);
       } else {
+        
         newContentType.push(value);
       }
 
+      
       if (newContentType.length === 0) {
         newContentType = ["Todo"];
       }
     }
-
-    const newFilters = { ...filters, contentType: newContentType };
-    setFilters(newFilters);
-    onFilterChange?.(newFilters);
+    
+    onFilterChange({ ...filters, contentType: newContentType });
   };
 
+  
   const handleAcademicLevelChange = (value: string) => {
     const newAcademicLevel = filters.academicLevel.includes(value)
-      ? filters.academicLevel.filter((item) => item !== value)
-      : [...filters.academicLevel, value];
-
-    const newFilters = { ...filters, academicLevel: newAcademicLevel };
-    setFilters(newFilters);
-    onFilterChange?.(newFilters);
+      ? filters.academicLevel.filter((item) => item !== value) 
+      : [...filters.academicLevel, value]; 
+    onFilterChange({ ...filters, academicLevel: newAcademicLevel });
   };
 
+  
   const handleModalityChange = (value: string) => {
     const newModality = filters.modality.includes(value)
       ? filters.modality.filter((item) => item !== value)
       : [...filters.modality, value];
-
-    const newFilters = { ...filters, modality: newModality };
-    setFilters(newFilters);
-    onFilterChange?.(newFilters);
+    onFilterChange({ ...filters, modality: newModality });
   };
 
+  
   const handlePriceRangeChange = (value: [number, number]) => {
-    const newFilters = { ...filters, priceRange: value };
-    setFilters(newFilters);
-    onFilterChange?.(newFilters);
+    onFilterChange({ ...filters, priceRange: value });
   };
 
+  
   const handleDurationRangeChange = (value: [number, number]) => {
-    const newFilters = { ...filters, durationRange: value };
-    setFilters(newFilters);
-    onFilterChange?.(newFilters);
+    onFilterChange({ ...filters, durationRange: value });
   };
 
-  const handleLearningOutcomeToggle = (value: string) => {
-    const newLearningOutcomes = filters.learningOutcomes.includes(value)
-      ? filters.learningOutcomes.filter((item) => item !== value)
-      : [...filters.learningOutcomes, value];
-
-    const newFilters = { ...filters, learningOutcomes: newLearningOutcomes };
-    setFilters(newFilters);
-    onFilterChange?.(newFilters);
-  };
-
+  
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("es-CO", {
       style: "currency",
@@ -97,37 +73,31 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ onFilterChange }) => {
     }).format(price);
   };
 
-  const learningOutcomes = [
-    "Liderazgo",
-    "Diseño de proyectos",
-    "Marketing Digital",
-    "Análisis de datos",
-    "Machine Learning",
-    "Python",
-    "Java",
-    "Scrum",
-    "Agilidad",
-    "Innovación",
-    "Metodologías ágiles",
-    "Gestión financiera",
-    "DevOps",
-    "SEO",
-    "Social Media",
-    "Analítica",
-  ];
+ 
+  const clearFilters = () => {
+    const resetFilters: FilterState = {
+      contentType: ["Todo"],
+      academicLevel: [],
+      modality: [],
+      priceRange: [0, 50000000],
+      durationRange: [1, 10],
+    };
+    onFilterChange(resetFilters);
+  };
 
   return (
     <div className="w-80 bg-white border-r border-gray-200 h-full flex flex-col shadow-lg">
       <div className="p-6 flex-1 overflow-y-auto scrollbar-blue scroll-smooth bg-white">
         <h3 className="text-lg font-semibold mb-6 text-black">Filtros</h3>
 
+        {/* Sección: Tipo de contenido */}
         <div className="mb-6">
           <h4 className="text-sm font-medium mb-3 text-black">
             Tipo de contenido
           </h4>
           <div className="space-y-2">
             {["Todo", "Programas", "Cursos"].map((type) => (
-              <label key={type} className="flex items-center">
+              <label key={type} className="flex items-center cursor-pointer">
                 <input
                   type={type === "Todo" ? "radio" : "checkbox"}
                   name="contentType"
@@ -141,42 +111,45 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ onFilterChange }) => {
           </div>
         </div>
 
+        {/* Sección: Nivel académico */}
         <div className="mb-6">
           <h4 className="text-sm font-medium mb-3 text-black">
             Nivel académico
           </h4>
           <div className="space-y-2">
-            {["Especialización", "Maestría", "Doctorado"].map((level) => (
-              <label key={level} className="flex items-center">
+            {["Especializacion", "Maestria", "Doctorado"].map((level) => (
+              <label key={level} className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
                   checked={filters.academicLevel.includes(level)}
                   onChange={() => handleAcademicLevelChange(level)}
                   className="mr-3 accent-primaryBlue"
                 />
-                <span className="text-sm text-black">{level}</span>
+                <span className="text-sm text-black">{level.replace("izacion", "ización")}</span>
               </label>
             ))}
           </div>
         </div>
 
+        {/* Sección: Modalidad */}
         <div className="mb-6">
           <h4 className="text-sm font-medium mb-3 text-black">Modalidad</h4>
           <div className="space-y-2">
-            {["Virtual", "Presencial", "Híbrido"].map((modality) => (
-              <label key={modality} className="flex items-center">
+            {["Virtual", "Presencial", "Hibrido"].map((modality) => (
+              <label key={modality} className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
                   checked={filters.modality.includes(modality)}
                   onChange={() => handleModalityChange(modality)}
                   className="mr-3 accent-primaryBlue"
                 />
-                <span className="text-sm text-black">{modality}</span>
+                <span className="text-sm text-black">{modality.replace("Hibrido", "Híbrido")}</span>
               </label>
             ))}
           </div>
         </div>
 
+        {/* Sección: Rango de precios */}
         <div className="mb-6">
           <h4 className="text-sm font-medium mb-3 text-black">
             Rango de precios
@@ -203,8 +176,9 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ onFilterChange }) => {
           </div>
         </div>
 
+        {/* Sección: Duración */}
         <div className="mb-6">
-          <h4 className="text-sm font-medium mb-3 text-black">Duración</h4>
+          <h4 className="text-sm font-medium mb-3 text-black">Duración (semestres)</h4>
           <div className="px-2">
             <input
               type="range"
@@ -227,41 +201,10 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({ onFilterChange }) => {
           </div>
         </div>
 
-        <div className="mb-6">
-          <h4 className="text-sm font-medium mb-3 text-black">
-            Resultados de aprendizaje
-          </h4>
-          <div className="grid grid-cols-2 gap-2">
-            {learningOutcomes.map((outcome) => (
-              <button
-                key={outcome}
-                onClick={() => handleLearningOutcomeToggle(outcome)}
-                className={`px-2 py-1 text-xs transition-colors duration-200 ${
-                  filters.learningOutcomes.includes(outcome)
-                    ? "bg-primaryBlue text-white"
-                    : "bg-gray-200 text-black hover:bg-gray-300"
-                }`}
-              >
-                {outcome}
-              </button>
-            ))}
-          </div>
-        </div>
-
+        {/* Botón para limpiar filtros */}
         <div className="mt-8 pt-4 border-t border-gray-200">
           <button
-            onClick={() => {
-              const resetFilters: FilterState = {
-                contentType: ["Todo"],
-                academicLevel: [],
-                modality: [],
-                priceRange: [0, 50000000] as [number, number],
-                durationRange: [1, 10] as [number, number],
-                learningOutcomes: [],
-              };
-              setFilters(resetFilters);
-              onFilterChange?.(resetFilters);
-            }}
+            onClick={clearFilters}
             className="w-full bg-primaryBlue text-white py-2 px-4 hover:bg-primaryBlue-dark transition-colors duration-200 text-sm font-medium"
           >
             Limpiar filtros
