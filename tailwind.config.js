@@ -1,76 +1,73 @@
 module.exports = {
-  content: [
-    './index.html',
-    './src/**/*.{js,ts,jsx,tsx}',
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
         primaryBlue: {
-          DEFAULT: '#865CF0',
-          dark: '#6d4bc1',
+          DEFAULT: "#5454E9",
+          dark: "#4343BA",
         },
         secondaryBlue: {
-          DEFAULT: "#5454E9"
+          DEFAULT: "#5454E9",
         },
         secondaryTeal: {
-          DEFAULT: '#06DDB1',
+          DEFAULT: "#06DDB1",
         },
         black: {
-          DEFAULT: '#080808',
+          DEFAULT: "#080808",
         },
         offsetBlack: {
-          DEFAULT: '#1E1E1E',
-          light: '#343434',
+          DEFAULT: "#1E1E1E",
+          light: "#343434",
         },
         white: {
-          DEFAULT: '#FFFFFF',
+          DEFAULT: "#FFFFFF",
         },
         gray: {
-          DEFAULT: '#D8D8D8',
+          DEFAULT: "#D8D8D8",
         },
         lightGray: {
-          DEFAULT: '#F5F5F5',
+          DEFAULT: "#F5F5F5",
         },
         textGray: {
-          DEFAULT: '#A7A5A5',
+          DEFAULT: "#A7A5A5",
         },
       },
       fontFamily: {
-        inter: ['Inter', 'sans-serif'],
-        calsans: ['calsans', 'sans-serif'],
+        inter: ["Inter", "sans-serif"],
+        calsans: ["calsans", "sans-serif"],
       },
     },
   },
   plugins: [
     function ({ addUtilities }) {
       addUtilities({
-        '.scroll-invisible': {
+        ".scroll-invisible": {
           /* Oculta el scroll en navegadores WebKit */
-          '-webkit-scrollbar': 'none',
+          "-webkit-scrollbar": "none",
           /* Internet Explorer 10+ */
-          '-ms-overflow-style': 'none',
+          "-ms-overflow-style": "none",
           /* Firefox */
-          'scrollbar-width': 'none',
+          "scrollbar-width": "none",
         },
-        '.no-scroll': {
-          overflow: 'hidden',
-          height: '100vh',
+        ".no-scroll": {
+          overflow: "hidden",
+          height: "100vh",
         },
-        '.modal-scrollable': {
-          'max-height': '90vh', /* Limita la altura máxima del modal */
-          'overflow-y': 'auto', /* Habilita scroll interno */
+        ".modal-scrollable": {
+          "max-height": "90vh" /* Limita la altura máxima del modal */,
+          "overflow-y": "auto" /* Habilita scroll interno */,
         },
-        '.scrollbar-blue': {
-          '&::-webkit-scrollbar': {
-            width: '8px',
+        ".scrollbar-blue": {
+          "&::-webkit-scrollbar": {
+            width: "8px",
           },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: '#865CF0', // Azul
-            borderRadius: '9999px',
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "#5454E9", // Azul principal
+            borderRadius: "9999px",
           },
-          '&::-webkit-scrollbar-track': {
-            backgroundColor: '#f0f0f0', // Gris
+          "&::-webkit-scrollbar-track": {
+            backgroundColor: "#f0f0f0", // Gris
           },
         },
       });

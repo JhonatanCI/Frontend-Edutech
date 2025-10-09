@@ -1,41 +1,57 @@
-import React from 'react';
-import Button from '../Commons/Button';
+import React from "react";
+import Button from "../Commons/Button";
 import { HashLink as Link } from "react-router-hash-link";
-import logo from '../../assets/Icesi-EverGrow_logo.svg'; // Ajusta la ruta según la ubicación real
+import logo from "../../assets/Icesi-EverGrow_logo.svg";
 
 const NavBar: React.FC = () => {
   return (
-    <nav className="text-white font-inter shadow-md fixed top-0 z-10 w-full">
+    <nav className="text-white font-inter shadow-md fixed top-0 z-50 w-full bg-black">
       <div className="flex justify-between items-center p-3">
         {/* Logo Section */}
         <div className="pl-16 flex items-center">
           {/* Logo */}
-          
 
           {/* Navigation Links */}
           <div className="hidden md:flex space-x-6 pl-8">
             <Link to={"/#mundos"} smooth className=" hover:text-textGray">
               Mundos
             </Link>
-            <Link to={"/#desarrolla-tu-talento"} smooth className="custom-link hover:text-textGray">
+            <Link
+              to={"/#desarrolla-tu-talento"}
+              smooth
+              className="custom-link hover:text-textGray"
+            >
               Desarrolla tu talento
             </Link>
-            <Link to={"/#programas"} smooth className="custom-link hover:text-textGray">
+            <Link
+              to={"/#programas"}
+              smooth
+              className="custom-link hover:text-textGray"
+            >
               Programas
             </Link>
-            <Link to={"/#organizaciones"} smooth className="custom-link hover:text-textGray">
+            <Link
+              to={"/#organizaciones"}
+              smooth
+              className="custom-link hover:text-textGray"
+            >
               Organizaciones
             </Link>
           </div>
         </div>
 
-
-
         {/* Right Section with Buttons */}
         <div className="pr-16 flex items-center space-x-4">
-          <Link to={"/login"} smooth className="hover:text-textGray">Ingresar</Link>
-          <a href="#contacto" className="hover:text-textGray">Contáctanos</a>
-          <Button href="#" variant="primary" size="medium" > ¡Comienza ya!  </Button>
+          <a href="#ingresar" className="hover:text-textGray">
+            Ingresar
+          </a>
+          <a href="#contacto" className="hover:text-textGray">
+            Contáctanos
+          </a>
+          <Button href="#" variant="primary" size="medium">
+            {" "}
+            ¡Comienza ya!{" "}
+          </Button>
         </div>
       </div>
     </nav>

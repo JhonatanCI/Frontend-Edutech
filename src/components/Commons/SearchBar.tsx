@@ -1,25 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface SearchBarProps {
   search: string;
   by: string;
   handleClick: (inputValue: string) => void;
+  initialValue?: string;
+  navigateToSearch?: boolean;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ search, by, handleClick }) => {
-  const [inputValue, setInputValue] = useState('');
+const SearchBar: React.FC<SearchBarProps> = ({
+  search,
+  by,
+  handleClick,
+  initialValue = "",
+  navigateToSearch = false,
+}) => {
+  const [inputValue, setInputValue] = useState(initialValue);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setInputValue(initialValue);
+  }, [initialValue]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
   const handleButtonClick = () => {
-    handleClick(inputValue);
+    if (navigateToSearch && inputValue.trim()) {
+      navigate(`/search?q=${encodeURIComponent(inputValue.trim())}&page=0`);
+    } else {
+      handleClick(inputValue);
+    }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      handleButtonClick(); // Ejecutar el botón al presionar Enter
+    if (event.key === "Enter") {
+      handleButtonClick();
     }
   };
 
@@ -31,7 +49,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ search, by, handleClick }) => {
         className="bg-white font-inter text-sm text-textGray px-4 py-2 w-full rounded-l-sm border border-gray-300 focus:outline-none focus:ring-0 flex-grow"
         value={inputValue}
         onChange={handleInputChange}
-        onKeyDown={handleKeyDown} // Agregar el evento onKeyDown
+        onKeyDown={handleKeyDown}
       />
       <button
         onClick={handleButtonClick}

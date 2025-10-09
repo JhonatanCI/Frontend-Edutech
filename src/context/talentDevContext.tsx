@@ -5,39 +5,46 @@ import { getGeneralResults } from "../services/search";
 import { Course, MicroLearning, Program } from "../model/types";
 
 interface TalentDevProviderProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 export interface TalentDevContextType {
-    state: TalentDevState;
-    updateItemSelected: (itemSelected: number) => void;
-    updateItems: (items: (MicroLearning | Course | Program)[]) => void;
-    reset: () => void;
+  state: TalentDevState;
+  updateItemSelected: (itemSelected: number) => void;
+  updateItems: (items: (MicroLearning | Course | Program)[]) => void;
+  reset: () => void;
 }
 
-const TalentDevContext = createContext<TalentDevContextType | undefined>(undefined);
+const TalentDevContext = createContext<TalentDevContextType | undefined>(
+  undefined,
+);
 
 const TalentDevProvider = ({ children }: TalentDevProviderProps) => {
-    const {state, updateItemSelected, setItems, updateItems, reset} = useTalentDev();
+  const { state, updateItemSelected, setItems, updateItems, reset } =
+    useTalentDev();
 
-    useEffect(() => {
-        async function setInitialState() {
-            try {
-                const response = await getGeneralResults();
-                setItems(response)
-            } catch (error) {
-                console.error("No se pudo cargar los resultados de la sección Desarrolla tu Talento");
-            }
-        };
+  useEffect(() => {
+    async function setInitialState() {
+      try {
+        const response = await getGeneralResults();
+        setItems(response);
+      } catch (error) {
+        console.error(
+          "No se pudo cargar los resultados de la sección Desarrolla tu Talento",
+        );
+      }
+    }
 
-        setInitialState()
-    }, [])
+    setInitialState();
+  }, []);
 
-    return (
-        <TalentDevContext.Provider value={{ state, updateItemSelected, updateItems, reset }}>
-            {children}
-        </TalentDevContext.Provider>
-    );
+  return (
+    <TalentDevContext.Provider
+      value={{ state, updateItemSelected, updateItems, reset }}
+    >
+      {children}
+    </TalentDevContext.Provider>
+  );
 };
 
 export { TalentDevContext };

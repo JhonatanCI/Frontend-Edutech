@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { PencilIcon, SparklesIcon, MapIcon, UpArrowIcon} from "../../assets/Icons/programnavIcons";
+import {
+  PencilIcon,
+  SparklesIcon,
+  MapIcon,
+  UpArrowIcon,
+} from "../../assets/Icons/programnavIcons";
 
 interface NavItem {
   label: string;
@@ -28,7 +33,10 @@ const ProgramNavbar: React.FC = () => {
         if (section) {
           const rect = section.getBoundingClientRect();
           // Check if the section is in the viewport
-          if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+          if (
+            rect.top <= window.innerHeight / 2 &&
+            rect.bottom >= window.innerHeight / 2
+          ) {
             currentSection = item.id;
           }
         }

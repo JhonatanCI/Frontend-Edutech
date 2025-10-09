@@ -12,30 +12,39 @@ import { FullProgram } from "../../model/types";
 import { useAvailableCoursesContext } from "../../hooks/useAvailableCoursesContext";
 
 interface ProgramViewContentProps {
-    program: FullProgram
+  program: FullProgram;
 }
 
 const ProgramViewContent: React.FC<ProgramViewContentProps> = ({ program }) => {
-    const {initializeCourses} = useAvailableCoursesContext()
+  const { initializeCourses } = useAvailableCoursesContext();
 
-    useEffect(() => {
-        if (program) {
-            console.log("Nombre del programa usado para cursos:", program.name);
-            initializeCourses(program.name);
-        }
-    }, [program]);
+  useEffect(() => {
+    if (program) {
+      console.log("Nombre del programa usado para cursos:", program.name);
+      initializeCourses(program.name);
+    }
+  }, [program]);
 
-    return (
-        <>
-            <NavBar />
-            <ProgramHeroSection program={program} />
-            <ProgramNavbar />
-            <AvailableCoursesSection semesters={program.semesters} programLearningResult={program.programLearningResults} />
-            <AchievementsSection programUUID={program.id} programName={program.name} />
-            <LearningPathSection programUUID={program.id} programName={program.name} />
-            <KeepLearningSection />
-        </>
-    );
+  return (
+    <>
+      <NavBar />
+      <ProgramHeroSection program={program} />
+      <ProgramNavbar />
+      <AvailableCoursesSection
+        semesters={program.semesters}
+        programLearningResult={program.programLearningResults}
+      />
+      <AchievementsSection
+        programUUID={program.id}
+        programName={program.name}
+      />
+      <LearningPathSection
+        programUUID={program.id}
+        programName={program.name}
+      />
+      <KeepLearningSection />
+    </>
+  );
 };
 
-export default ProgramViewContent
+export default ProgramViewContent;

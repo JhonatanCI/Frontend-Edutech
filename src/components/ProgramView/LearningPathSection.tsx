@@ -4,54 +4,59 @@ import { Program, UUID } from "../../model/types";
 import { getLearningPath } from "../../services/academicPrograms";
 
 interface LearningPathSectionProps {
-    programUUID: UUID;
-    programName: string;
+  programUUID: UUID;
+  programName: string;
 }
 
-export const LearningPathSection: React.FC<LearningPathSectionProps> = ({ programUUID, programName }) => {
-    const [learningPath, setLearningPath] = useState<Program[] | null>(null);
-    const article = programName.startsWith("Doctorado") ? "el" : "la";
+export const LearningPathSection: React.FC<LearningPathSectionProps> = ({
+  programUUID,
+  programName,
+}) => {
+  const [learningPath, setLearningPath] = useState<Program[] | null>(null);
+  const article = programName.startsWith("Doctorado") ? "el" : "la";
 
-    useEffect(() => {
-        async function fetchLearningPath() {
-            try {
-                const response: Program[] = await getLearningPath(programUUID);
-                const filteredPrograms = response.filter(
-                    (program) => program.id !== programUUID
-                );
-
-                const programsWithImagePath = filteredPrograms.map(program => ({
-                    ...program,
-                    image: `${import.meta.env.VITE_API_URL}${program.image}`
-                }));
-
-                setLearningPath(programsWithImagePath);
-            } catch (error) {
-                console.error("No se pudo traer la ruta de aprendizaje");
-            }
-        }
-        fetchLearningPath();
-    }, [programUUID]);
-
-    if (!learningPath) {
-        return (
-            <div className="flex items-center justify-center h-screen">
-                <div className="w-16 h-16 border-4 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
-            </div>
+  useEffect(() => {
+    async function fetchLearningPath() {
+      try {
+        const response: Program[] = await getLearningPath(programUUID);
+        const filteredPrograms = response.filter(
+          (program) => program.id !== programUUID,
         );
-    }
 
-    if (learningPath.length === 0) {
-        return null;
-    }
+        const programsWithImagePath = filteredPrograms.map((program) => ({
+          ...program,
+          image: `${import.meta.env.VITE_API_URL}${program.image}`,
+        }));
 
+        setLearningPath(programsWithImagePath);
+      } catch (error) {
+        console.error("No se pudo traer la ruta de aprendizaje");
+      }
+    }
+    fetchLearningPath();
+  }, [programUUID]);
+
+  if (!learningPath) {
     return (
-        <div id="learning-path" className="h-screen w-full flex flex-col px-28">
-            <h2 className="text-black text-4xl font-calsans leading-tight max-w-md pt-24">Ruta de aprendizaje</h2>
-            <p className="text-black w-3/5 mt-3">
-                {`Al completar ${article} ${programName} podrás elevar tu aprendizaje con:`}
-            </p>
-            <ProgramsScrollSection programs={learningPath} />
-        </div>
+      <div className="flex items-center justify-center h-screen">
+        <div className="w-16 h-16 border-4 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
+      </div>
     );
+  }
+
+  if (learningPath.length === 0) {
+    return null;
+  }
+
+  return (
+    <div id="learning-path" className="h-screen w-full flex flex-col px-28">
+      <h2 className="text-black text-4xl font-calsans leading-tight max-w-md pt-24">
+        Ruta de aprendizaje
+      </h2>
+      <p className="text-black w-3/5 mt-3">
+        {`Al completar ${article} ${programName} podrás elevar tu aprendizaje con:`}
+      </p>
+      <ProgramsScrollSection programs={learningPath} />
+    </div>
+  );
 };

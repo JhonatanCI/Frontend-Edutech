@@ -33,9 +33,7 @@ const MiniCourseCard: React.FC<SmallCardProps> = ({
           style={{ textOverflow: "ellipsis", maxWidth: "100%" }}
           title={categories.sort().join(", ")}
         >
-          <span className="truncate">
-            {categories.sort().join(", ")}
-          </span>
+          <span className="truncate">{categories.sort().join(", ")}</span>
         </div>
       ) : null}
 

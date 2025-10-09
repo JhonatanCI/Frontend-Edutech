@@ -3,7 +3,7 @@ import learningItems from "../../consts/learningItems.d";
 import { useTalentDevContext } from "../../hooks/useTalentDevContext";
 
 const TalentCycleComponent: React.FC = () => {
-  const {state, updateItemSelected} = useTalentDevContext()
+  const { state, updateItemSelected } = useTalentDevContext();
 
   const handleSwitch = (index: number) => {
     updateItemSelected(index);

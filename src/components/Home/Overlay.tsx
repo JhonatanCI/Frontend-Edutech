@@ -1,8 +1,8 @@
 // components/Overlay.tsx
 interface OverlayProps {
-    backgroundImageUrl: string;
-  }
-  
+  backgroundImageUrl: string;
+}
+
 const Overlay: React.FC<OverlayProps> = ({ backgroundImageUrl }) => {
   return (
     <div
@@ -13,6 +13,5 @@ const Overlay: React.FC<OverlayProps> = ({ backgroundImageUrl }) => {
     </div>
   );
 };
-  
+
 export default Overlay;
-  
