@@ -1,18 +1,18 @@
-import { Course, MicroLearning, Program, Result } from "../../model/types"
+import { Course, MicroLearning, Program, Result } from "../../model/types";
 
 export interface TalentDevState {
-    initialValue: Result,
-    item: number,
-    items: (MicroLearning | Course | Program)[],
-    microLearnings: MicroLearning[],
-    courses: Course[],
-    certifications: Program[],
-    specializations: Program[],
-    masters: Program[],
-    phd: Program[]
+  initialValue: Result;
+  item: number;
+  items: (MicroLearning | Course | Program)[];
+  microLearnings: MicroLearning[];
+  courses: Course[];
+  certifications: Program[];
+  specializations: Program[];
+  masters: Program[];
+  phd: Program[];
 }
 
 export interface TalentDevAction {
-    type: ActionType,
-    payload: Result | any
+  type: ActionType;
+  payload: Result | any;
 }

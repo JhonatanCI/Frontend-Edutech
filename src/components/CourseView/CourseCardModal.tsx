@@ -4,51 +4,53 @@ import { ProgramCourse } from "../../model/types";
 import CourseCard from "../Commons/CourseCard";
 
 interface CourseCardModalProps {
-    course: ProgramCourse,
-    categories: string[],
-    variant: "small" | "medium" | "large",
-    variantStyle?: "solid" | "dashed",
-    isEditable?: boolean
+  course: ProgramCourse;
+  categories: string[];
+  variant: "small" | "medium" | "large";
+  variantStyle?: "solid" | "dashed";
+  isEditable?: boolean;
 }
 
-const CourseCardModal: React.FC<CourseCardModalProps> = ({course, categories, variant, variantStyle, isEditable}) => {
+const CourseCardModal: React.FC<CourseCardModalProps> = ({
+  course,
+  categories,
+  variant,
+  variantStyle,
+  isEditable,
+}) => {
+  const [isSelected, setIsSelected] = useState(false);
 
-    const [isSelected, setIsSelected] = useState(false);
-
-    useEffect(() => {
-        if (isSelected) {
-            document.body.classList.add("no-scroll");
-        } else {
-            document.body.classList.remove("no-scroll");
-        }
-        return () => document.body.classList.remove("no-scroll");
-    }, [isSelected]);
-
-    const handleClick = () => {
-        if (isEditable) setIsSelected(true)
+  useEffect(() => {
+    if (isSelected) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
     }
+    return () => document.body.classList.remove("no-scroll");
+  }, [isSelected]);
 
-    return (
-        <div>
-            {(isEditable && isSelected) && (
-                <CourseModal
-                    course={course}
-                    onClose={() => setIsSelected(false)}
-                />
-            )}
-            <CourseCard
-                key={course.courseId}
-                title={course.name}
-                description={course.description}
-                categories={categories}
-                credits={course.credits}
-                isEditable={isEditable}
-                variantStyle={variantStyle}
-                variant={variant}
-                onClick={handleClick}
-            />
-        </div>
-    )
-}
+  const handleClick = () => {
+    if (isEditable) setIsSelected(true);
+  };
 
-export default CourseCardModal
+  return (
+    <div>
+      {isEditable && isSelected && (
+        <CourseModal course={course} onClose={() => setIsSelected(false)} />
+      )}
+      <CourseCard
+        key={course.courseId}
+        title={course.name}
+        description={course.description}
+        categories={categories}
+        credits={course.credits}
+        isEditable={isEditable}
+        variantStyle={variantStyle}
+        variant={variant}
+        onClick={handleClick}
+      />
+    </div>
+  );
+};
+
+export default CourseCardModal;

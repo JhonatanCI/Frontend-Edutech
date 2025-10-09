@@ -3,11 +3,13 @@ import { useContext } from "react";
 import { TalentDevContext } from "../context/talentDevContext";
 
 export const useTalentDevContext = (): TalentDevContextType => {
-    const context = useContext(TalentDevContext);
+  const context = useContext(TalentDevContext);
 
-    if (!context) {
-        throw new Error("useDevTalentContext must be used within a DevTalentProvider");
-    }
+  if (!context) {
+    throw new Error(
+      "useDevTalentContext must be used within a DevTalentProvider",
+    );
+  }
 
-    return context;
+  return context;
 };

@@ -1,10 +1,10 @@
-import { getCategories } from '../../filters/filters';
-import { FullProgram } from '../../model/types';
-import Button from '../Commons/Button';
-import HabilitiesTags from './HabilitiesTags';
+import { getCategories } from "../../filters/filters";
+import { FullProgram } from "../../model/types";
+import Button from "../Commons/Button";
+import HabilitiesTags from "./HabilitiesTags";
 
 interface ProgramHeroSectionProps {
-  program: FullProgram
+  program: FullProgram;
 }
 
 const ProgramHeroSection: React.FC<ProgramHeroSectionProps> = ({ program }) => {
@@ -12,35 +12,39 @@ const ProgramHeroSection: React.FC<ProgramHeroSectionProps> = ({ program }) => {
   const nameFirstPart = parts.slice(0, 2).join(" ");
   const nameSecondPart = parts.slice(2).join(" ");
 
-
   console.log("Program recibido:", program);
 
-  const categories = getCategories(program.programLearningResults) || ["Categoria 1", "Categoria 2"]
+  const categories = getCategories(program.programLearningResults) || [
+    "Categoria 1",
+    "Categoria 2",
+  ];
 
   return (
     <div
       className="relative w-full h-screen bg-center flex flex-col items-center justify-center text-white"
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6)), url(${program.image})`,
-        backgroundSize: 'cover',
+        backgroundSize: "cover",
       }}
     >
-      <div className='flex flex-col px-52 mt-32 h-full'>
-        <span className='text-6xl font-calsans text-white leading-tight max-w-6xl'>{nameFirstPart}</span>
-        <span className='text-6xl font-calsans text-white leading-tight max-w-6xl'>{nameSecondPart}</span>
-        <p className='text text-white w-full mb-6'>
-          {program.graduateProfile}
-        </p>
+      <div className="flex flex-col px-52 pt-20 h-full">
+        <span className="text-6xl font-calsans text-white leading-tight max-w-6xl">
+          {nameFirstPart}
+        </span>
+        <span className="text-6xl font-calsans text-white leading-tight max-w-6xl">
+          {nameSecondPart}
+        </span>
+        <p className="text text-white w-full mb-6">{program.graduateProfile}</p>
 
-        <HabilitiesTags
-          tags={categories.slice(0, 4)}
-        />
-        <div className='w-1/3 pt-10'>
-          <Button href="#" variant="tertiary" size="medium" withArrow={true} > Inscribirme ya  </Button>
+        <HabilitiesTags tags={categories.slice(0, 4)} />
+        <div className="w-1/3 pt-10">
+          <Button href="#" variant="tertiary" size="medium" withArrow={true}>
+            {" "}
+            Inscribirme ya{" "}
+          </Button>
         </div>
       </div>
     </div>
-
   );
 };
 

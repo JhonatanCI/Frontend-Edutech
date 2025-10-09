@@ -9,7 +9,8 @@ const learningItems: LearningItem[] = [
   },
   {
     title: "Comienza con un Curso",
-    description: "Da el primer paso en tu aprendizaje con una amplia variedad de cursos diseñados para desarrollar tus habilidades.",
+    description:
+      "Da el primer paso en tu aprendizaje con una amplia variedad de cursos diseñados para desarrollar tus habilidades.",
     icon: <span>🧠</span>,
   },
   {
