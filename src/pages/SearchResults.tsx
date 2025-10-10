@@ -50,11 +50,11 @@ const SearchResults: React.FC = () => {
 
   const handleFilterChange = (newFilters: FilterState) => {
     setFilters(newFilters);
-    handlePageChange(0); // Reset to first page on filter change
+    handlePageChange(0); 
   };
 
   const handleFavorite = (id: string) => {
-    // TODO: Implement favorite functionality
+  
     console.log("Toggle favorite for:", id);
   };
 
