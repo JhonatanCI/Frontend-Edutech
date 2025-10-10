@@ -19,7 +19,7 @@ const SearchResults: React.FC = () => {
     contentType: ["Todo"],
     academicLevel: [],
     modality: [],
-    priceRange: [0, 50000000],
+    priceRange: [1000000, 50000000],
     durationRange: [1, 10],
   });
 

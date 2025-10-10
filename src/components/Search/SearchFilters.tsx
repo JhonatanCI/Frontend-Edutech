@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FilterState } from "../../types/search.types";
 
 interface SearchFiltersProps {
@@ -10,6 +10,18 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
   filters,
   onFilterChange,
 }) => {
+  const [localPriceRange, setLocalPriceRange] = useState(filters.priceRange);
+  const [localDurationRange, setLocalDurationRange] = useState(filters.durationRange);
+  const priceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const durationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    setLocalPriceRange(filters.priceRange);
+  }, [filters.priceRange]);
+
+  useEffect(() => {
+    setLocalDurationRange(filters.durationRange);
+  }, [filters.durationRange]);
   const handleContentTypeChange = (value: string) => {
     let newContentType = [...filters.contentType];
     let newAcademicLevel = [...filters.academicLevel];
@@ -54,11 +66,30 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
   };
 
   const handlePriceRangeChange = (value: [number, number]) => {
-    onFilterChange({ ...filters, priceRange: value });
+    const adjustedValue: [number, number] = 
+      value[1] === 0 ? [0, 1000000] : value;
+    
+    setLocalPriceRange(adjustedValue);
+    
+    if (priceTimeoutRef.current) {
+      clearTimeout(priceTimeoutRef.current);
+    }
+    
+    priceTimeoutRef.current = setTimeout(() => {
+      onFilterChange({ ...filters, priceRange: adjustedValue });
+    }, 500);
   };
 
   const handleDurationRangeChange = (value: [number, number]) => {
-    onFilterChange({ ...filters, durationRange: value });
+    setLocalDurationRange(value);
+    
+    if (durationTimeoutRef.current) {
+      clearTimeout(durationTimeoutRef.current);
+    }
+    
+    durationTimeoutRef.current = setTimeout(() => {
+      onFilterChange({ ...filters, durationRange: value });
+    }, 500);
   };
 
   const formatPrice = (price: number) => {
@@ -163,21 +194,21 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
           <div className="px-2">
             <input
               type="range"
-              min="0"
+              min="1000000"
               max="50000000"
               step="1000000"
-              value={filters.priceRange[1]}
+              value={localPriceRange[1]}
               onChange={(e) =>
                 handlePriceRangeChange([
-                  filters.priceRange[0],
+                  localPriceRange[0],
                   parseInt(e.target.value),
                 ])
               }
               className="w-full mb-2 accent-primaryBlue"
             />
             <div className="flex justify-between text-xs text-[#88898C]">
-              <span>{formatPrice(filters.priceRange[0])}</span>
-              <span>{formatPrice(filters.priceRange[1])}</span>
+              <span>{formatPrice(localPriceRange[0])}</span>
+              <span>{formatPrice(localPriceRange[1])}</span>
             </div>
           </div>
         </div>
@@ -193,18 +224,18 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
               min="1"
               max="10"
               step="1"
-              value={filters.durationRange[1]}
+              value={localDurationRange[1]}
               onChange={(e) =>
                 handleDurationRangeChange([
-                  filters.durationRange[0],
+                  localDurationRange[0],
                   parseInt(e.target.value),
                 ])
               }
               className="w-full mb-2 accent-primaryBlue"
             />
             <div className="flex justify-between text-xs text-[#88898C]">
-              <span>{filters.durationRange[0]}</span>
-              <span>{filters.durationRange[1]}</span>
+              <span>{localDurationRange[0]}</span>
+              <span>{localDurationRange[1]}</span>
             </div>
           </div>
         </div>

@@ -80,8 +80,8 @@ export const useSearch = (): UseSearchReturn => {
         }
 
         if (
-          result.price < priceRange[0] ||
-          result.price > priceRange[1]
+          priceRange[0] !== priceRange[1] &&
+          (result.price < priceRange[0] || result.price > priceRange[1])
         ) {
           return false;
         }
