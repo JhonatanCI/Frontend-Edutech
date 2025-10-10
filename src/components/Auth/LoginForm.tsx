@@ -1,42 +1,62 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import { loginUser } from "../../services/auth"; // Asegúrate que exista el servicio
 
 interface LoginFormData {
-  username: string;
+  email: string; // usamos email porque el backend recibe `LoginRequestDTO` con email
   password: string;
-  remember: boolean;
 }
 
 const LoginForm: React.FC = () => {
   const [form, setForm] = useState<LoginFormData>({
-    username: "",
+    email: "",
     password: "",
-    remember: false,
   });
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, type, value, checked } = e.target;
-    setForm({ ...form, [name]: type === "checkbox" ? checked : value });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log("Credenciales:", form);
+    setError(null);
+    setLoading(true);
+    setSuccess(false);
+
+    try {
+      const response = await loginUser(form);
+      console.log("✅ Login exitoso:", response);
+
+      // Aquí podrías guardar un token JWT si el backend lo devuelve
+      // localStorage.setItem("token", response.token);
+
+      setSuccess(true);
+    } catch (err) {
+      setError("Credenciales incorrectas.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <h1 className="text-3xl font-bold mb-2 text-black">¡Bienvenido de vuelta!</h1>
 
-      {/* Usuario */}
+      {/* Correo electrónico */}
       <div>
-        <label className="block text-gray-700">Usuario</label>
+        <label className="block text-gray-700">Correo electrónico</label>
         <input
-          type="text"
-          name="username"
-          value={form.username}
+          type="email"
+          name="email"
+          value={form.email}
           onChange={handleChange}
-          placeholder="Digita tu nombre y apellidos"
+          placeholder="Digita tu correo electrónico"
           className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
+          required
         />
       </div>
 
@@ -50,24 +70,31 @@ const LoginForm: React.FC = () => {
           onChange={handleChange}
           placeholder="Digita tu contraseña"
           className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
+          required
         />
       </div>
 
-      {/* Recordarme / Olvidar contraseña */}
-      <div className="flex items-center justify-between text-sm">
-        <label className="flex items-center gap-2 text-black">
-        
-          <a href="/reset-password" >¿Has olvidado tu contraseña?</a>
-        </label>
+      {/* Olvidar contraseña */}
+      <div className="text-right text-sm">
+        <a
+          href="/reset-password"
+          className="text-purple-600 hover:text-purple-800"
+        >
+          ¿Has olvidado tu contraseña?
+        </a>
       </div>
 
       {/* Botón */}
       <button
         type="submit"
-        className="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition"
+        disabled={loading}
+        className="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition disabled:bg-gray-400"
       >
-        Iniciar sesión
+        {loading ? "Iniciando sesión..." : "Iniciar sesión"}
       </button>
+
+      {error && <p className="text-red-600 text-center">{error}</p>}
+      {success && <p className="text-green-600 text-center">¡Inicio de sesión exitoso!</p>}
 
       <p className="text-sm text-center mt-2 text-black">
         No tengo cuenta{" "}
