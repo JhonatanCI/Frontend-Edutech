@@ -62,7 +62,7 @@ export const useSearch = (): UseSearchReturn => {
           !academicLevel.some(
             (al) =>
               result.programType?.toLowerCase().replace("í", "i") ===
-              al.toLowerCase(),
+              al.toLowerCase().replace("í", "i"),
           )
         ) {
           return false;
@@ -73,7 +73,7 @@ export const useSearch = (): UseSearchReturn => {
           !modality.some(
             (m) =>
               result.modality.toLowerCase().replace("í", "i") ===
-              m.toLowerCase(),
+              m.toLowerCase().replace("í", "i"),
           )
         ) {
           return false;
@@ -86,7 +86,6 @@ export const useSearch = (): UseSearchReturn => {
           return false;
         }
 
-        
         if (result.durationUnit === "SEMESTERS") {
           if (
             result.duration < durationRange[0] ||
@@ -131,12 +130,11 @@ export const useSearch = (): UseSearchReturn => {
         dispatch(clearError());
         dispatch(setSearchTerm(term));
 
-        
         const response = await API.get<SearchResponse>("/SearchAll", {
           params: {
             term: term.trim(),
-            page: 0, 
-            size: 1000, 
+            page: 0,
+            size: 1000,
           },
         });
 
@@ -146,7 +144,6 @@ export const useSearch = (): UseSearchReturn => {
         if (filters) {
           applyFiltersAndPaginate(data.results, filters, page);
         } else {
-          
           const pageSize = 6;
           const totalElements = data.results.length;
           const totalPages = Math.ceil(totalElements / pageSize);
