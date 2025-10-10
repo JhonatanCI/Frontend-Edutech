@@ -48,3 +48,7 @@ export default tseslint.config({
   },
 });
 ```
+**Instalar las dependencias de desarrollo:**
+
+    `npm install --save-dev @types/node`
+
