@@ -12,8 +12,13 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 }) => {
   const [localPriceRange, setLocalPriceRange] = useState(filters.priceRange);
   const [localDurationRange, setLocalDurationRange] = useState(filters.durationRange);
+  const [localDurationHoursRange, setLocalDurationHoursRange] = useState(
+    filters.durationHoursRange || [1, 100]
+  );
+  
   const priceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const durationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const durationHoursTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     setLocalPriceRange(filters.priceRange);
@@ -22,6 +27,11 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
   useEffect(() => {
     setLocalDurationRange(filters.durationRange);
   }, [filters.durationRange]);
+
+  useEffect(() => {
+    setLocalDurationHoursRange(filters.durationHoursRange || [1, 100]);
+  }, [filters.durationHoursRange]);
+
   const handleContentTypeChange = (value: string) => {
     let newContentType = [...filters.contentType];
     let newAcademicLevel = [...filters.academicLevel];
@@ -92,6 +102,18 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
     }, 500);
   };
 
+  const handleDurationHoursRangeChange = (value: [number, number]) => {
+    setLocalDurationHoursRange(value);
+    
+    if (durationHoursTimeoutRef.current) {
+      clearTimeout(durationHoursTimeoutRef.current);
+    }
+    
+    durationHoursTimeoutRef.current = setTimeout(() => {
+      onFilterChange({ ...filters, durationHoursRange: value });
+    }, 500);
+  };
+
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("es-CO", {
       style: "currency",
@@ -108,11 +130,20 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
       modality: [],
       priceRange: [0, 50000000],
       durationRange: [1, 10],
+      durationHoursRange: [1, 100],
     };
     onFilterChange(resetFilters);
   };
 
   const showAcademicLevel = filters.contentType.includes("Programas") && !filters.contentType.includes("Todo");
+  
+  const showSemestersDuration = 
+    filters.contentType.includes("Todo") || 
+    filters.contentType.includes("Programas");
+  
+  const showHoursDuration = 
+    filters.contentType.includes("Todo") || 
+    filters.contentType.includes("Cursos");
 
   return (
     <div className="w-80 bg-white border-r border-gray-200 h-full flex flex-col shadow-lg">
@@ -213,32 +244,63 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
           </div>
         </div>
 
-        {/* Sección: Duración */}
-        <div className="mb-6">
-          <h4 className="text-sm font-medium mb-3 text-black">
-            Duración (semestres)
-          </h4>
-          <div className="px-2">
-            <input
-              type="range"
-              min="1"
-              max="10"
-              step="1"
-              value={localDurationRange[1]}
-              onChange={(e) =>
-                handleDurationRangeChange([
-                  localDurationRange[0],
-                  parseInt(e.target.value),
-                ])
-              }
-              className="w-full mb-2 accent-primaryBlue"
-            />
-            <div className="flex justify-between text-xs text-[#88898C]">
-              <span>{localDurationRange[0]}</span>
-              <span>{localDurationRange[1]}</span>
+        {/* Sección: Duración en semestres (condicional) */}
+        {showSemestersDuration && (
+          <div className="mb-6">
+            <h4 className="text-sm font-medium mb-3 text-black">
+              Duración (Semestres)
+            </h4>
+            <div className="px-2">
+              <input
+                type="range"
+                min="1"
+                max="10"
+                step="1"
+                value={localDurationRange[1]}
+                onChange={(e) =>
+                  handleDurationRangeChange([
+                    localDurationRange[0],
+                    parseInt(e.target.value),
+                  ])
+                }
+                className="w-full mb-2 accent-primaryBlue"
+              />
+              <div className="flex justify-between text-xs text-[#88898C]">
+                <span>{localDurationRange[0]}</span>
+                <span>{localDurationRange[1]}</span>
+              </div>
             </div>
           </div>
-        </div>
+        )}
+
+        {/* Sección: Duración en horas (condicional) */}
+        {showHoursDuration && (
+          <div className="mb-6">
+            <h4 className="text-sm font-medium mb-3 text-black">
+              Duración (Horas)
+            </h4>
+            <div className="px-2">
+              <input
+                type="range"
+                min="1"
+                max="100"
+                step="1"
+                value={localDurationHoursRange[1]}
+                onChange={(e) =>
+                  handleDurationHoursRangeChange([
+                    localDurationHoursRange[0],
+                    parseInt(e.target.value),
+                  ])
+                }
+                className="w-full mb-2 accent-primaryBlue"
+              />
+              <div className="flex justify-between text-xs text-[#88898C]">
+                <span>{localDurationHoursRange[0]}h</span>
+                <span>{localDurationHoursRange[1]}h</span>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Botón para limpiar filtros */}
         <div className="mt-8 pt-4 border-t border-gray-200">

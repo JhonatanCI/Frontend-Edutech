@@ -90,4 +90,5 @@ export interface FilterState {
   modality: string[];
   priceRange: [number, number];
   durationRange: [number, number];
+  durationHoursRange: [number, number];
 }

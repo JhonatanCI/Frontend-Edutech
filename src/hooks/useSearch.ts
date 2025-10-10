@@ -43,8 +43,10 @@ export const useSearch = (): UseSearchReturn => {
           modality,
           priceRange,
           durationRange,
+          durationHoursRange,
         } = filters;
 
+      
         if (
           contentType.length > 0 &&
           !contentType.includes("Todo") &&
@@ -57,6 +59,7 @@ export const useSearch = (): UseSearchReturn => {
           return false;
         }
 
+       
         if (
           academicLevel.length > 0 &&
           !academicLevel.some(
@@ -68,6 +71,7 @@ export const useSearch = (): UseSearchReturn => {
           return false;
         }
 
+       
         if (
           modality.length > 0 &&
           !modality.some(
@@ -79,6 +83,7 @@ export const useSearch = (): UseSearchReturn => {
           return false;
         }
 
+      
         if (
           priceRange[0] !== priceRange[1] &&
           (result.price < priceRange[0] || result.price > priceRange[1])
@@ -86,12 +91,35 @@ export const useSearch = (): UseSearchReturn => {
           return false;
         }
 
+
         if (result.durationUnit === "SEMESTERS") {
+        
           if (
-            result.duration < durationRange[0] ||
-            result.duration > durationRange[1]
+            (contentType.includes("Todo") || contentType.includes("Programas")) &&
+            result.itemType === "PROGRAM"
           ) {
-            return false;
+            if (
+              result.duration < durationRange[0] ||
+              result.duration > durationRange[1]
+            ) {
+              return false;
+            }
+          }
+        }
+
+      
+        if (result.durationUnit === "HOURS") {
+      
+          if (
+            (contentType.includes("Todo") || contentType.includes("Cursos")) &&
+            result.itemType === "COURSE"
+          ) {
+            if (
+              result.duration < durationHoursRange[0] ||
+              result.duration > durationHoursRange[1]
+            ) {
+              return false;
+            }
           }
         }
 
