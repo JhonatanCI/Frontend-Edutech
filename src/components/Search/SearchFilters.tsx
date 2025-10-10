@@ -146,7 +146,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
     filters.contentType.includes("Cursos");
 
   const sectionClass = "bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow";
-  const titleClass = "text-base font-semibold mb-4 text-gray-800";
+  const titleClass = "text-sm font-semibold mb-3 text-gray-800";
 
   return (
     <div className="w-80 bg-gradient-to-b from-gray-50 to-white border-r border-gray-300 h-full flex flex-col shadow-xl">
