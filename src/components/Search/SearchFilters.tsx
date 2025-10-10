@@ -145,17 +145,20 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
     filters.contentType.includes("Todo") || 
     filters.contentType.includes("Cursos");
 
+  const sectionClass = "bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow";
+  const titleClass = "text-base font-semibold mb-4 text-gray-800";
+
   return (
-    <div className="w-80 bg-white border-r border-gray-200 h-full flex flex-col shadow-lg">
-      <div className="p-6 flex-1 overflow-y-auto scrollbar-blue scroll-smooth bg-white">
-        <h3 className="text-lg font-semibold mb-6 text-black">Filtros</h3>
+    <div className="w-80 bg-gradient-to-b from-gray-50 to-white border-r border-gray-300 h-full flex flex-col shadow-xl">
+      <div className="p-6 flex-1 overflow-y-auto scrollbar-blue scroll-smooth">
+        <h3 className="text-2xl font-bold mb-8 text-gray-800 border-b-2 border-primaryBlue pb-3">Filtros</h3>
 
         {/* Sección: Tipo de contenido */}
-        <div className="mb-6">
-          <h4 className="text-sm font-medium mb-3 text-black">
+        <div className={`${sectionClass} mb-4`}>
+          <h4 className={titleClass}>
             Tipo de contenido
           </h4>
-          <div className="space-y-2">
+          <div className="space-y-3">
             {["Todo", "Programas", "Cursos"].map((type) => (
               <label key={type} className="flex items-center cursor-pointer">
                 <input
@@ -165,7 +168,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
                   onChange={() => handleContentTypeChange(type)}
                   className="mr-3 accent-primaryBlue"
                 />
-                <span className="text-sm text-black">{type}</span>
+                <span className="text-base text-black">{type}</span>
               </label>
             ))}
           </div>
@@ -173,11 +176,11 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 
         {/* Sección: Nivel académico (condicional) */}
         {showAcademicLevel && (
-          <div className="mb-6">
-            <h4 className="text-sm font-medium mb-3 text-black">
+          <div className={`${sectionClass} mb-4`}>
+            <h4 className={titleClass}>
               Nivel académico
             </h4>
-            <div className="space-y-2">
+            <div className="space-y-3">
               {["Especializacion", "Maestria", "Doctorado", "Certificacion"].map((level) => (
                 <label key={level} className="flex items-center cursor-pointer">
                   <input
@@ -186,7 +189,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
                     onChange={() => handleAcademicLevelChange(level)}
                     className="mr-3 accent-primaryBlue"
                   />
-                  <span className="text-sm text-black">
+                  <span className="text-base text-black">
                     {level === "Especializacion" ? "Especialización" : 
                      level === "Maestria" ? "Maestría" : 
                      level === "Certificacion" ? "Certificación" : level}
@@ -198,9 +201,9 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
         )}
 
         {/* Sección: Modalidad */}
-        <div className="mb-6">
-          <h4 className="text-sm font-medium mb-3 text-black">Modalidad</h4>
-          <div className="space-y-2">
+        <div className={`${sectionClass} mb-4`}>
+          <h4 className={titleClass}>Modalidad</h4>
+          <div className="space-y-3">
             {["Virtual", "Presencial", "Hibrido"].map((modality) => (
               <label key={modality} className="flex items-center cursor-pointer">
                 <input
@@ -209,7 +212,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
                   onChange={() => handleModalityChange(modality)}
                   className="mr-3 accent-primaryBlue"
                 />
-                <span className="text-sm text-black">
+                <span className="text-base text-black">
                   {modality === "Hibrido" ? "Híbrido" : modality}
                 </span>
               </label>
@@ -218,8 +221,8 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
         </div>
 
         {/* Sección: Rango de precios */}
-        <div className="mb-6">
-          <h4 className="text-sm font-medium mb-3 text-black">
+        <div className={`${sectionClass} mb-4`}>
+          <h4 className={titleClass}>
             Rango de precios
           </h4>
           <div className="px-2">
@@ -235,9 +238,9 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
                   parseInt(e.target.value),
                 ])
               }
-              className="w-full mb-2 accent-primaryBlue"
+              className="w-full mb-3 accent-primaryBlue"
             />
-            <div className="flex justify-between text-xs text-[#88898C]">
+            <div className="flex justify-between text-sm text-[#88898C]">
               <span>{formatPrice(localPriceRange[0])}</span>
               <span>{formatPrice(localPriceRange[1])}</span>
             </div>
@@ -246,9 +249,9 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 
         {/* Sección: Duración en semestres (condicional) */}
         {showSemestersDuration && (
-          <div className="mb-6">
-            <h4 className="text-sm font-medium mb-3 text-black">
-              Duración (Semestres)
+          <div className={`${sectionClass} mb-4`}>
+            <h4 className={titleClass}>
+              Duración (semestres)
             </h4>
             <div className="px-2">
               <input
@@ -263,9 +266,9 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
                     parseInt(e.target.value),
                   ])
                 }
-                className="w-full mb-2 accent-primaryBlue"
+                className="w-full mb-3 accent-primaryBlue"
               />
-              <div className="flex justify-between text-xs text-[#88898C]">
+              <div className="flex justify-between text-sm text-[#88898C]">
                 <span>{localDurationRange[0]}</span>
                 <span>{localDurationRange[1]}</span>
               </div>
@@ -275,9 +278,9 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
 
         {/* Sección: Duración en horas (condicional) */}
         {showHoursDuration && (
-          <div className="mb-6">
-            <h4 className="text-sm font-medium mb-3 text-black">
-              Duración (Horas)
+          <div className={`${sectionClass} mb-4`}>
+            <h4 className={titleClass}>
+              Duración (horas)
             </h4>
             <div className="px-2">
               <input
@@ -292,9 +295,9 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
                     parseInt(e.target.value),
                   ])
                 }
-                className="w-full mb-2 accent-primaryBlue"
+                className="w-full mb-3 accent-primaryBlue"
               />
-              <div className="flex justify-between text-xs text-[#88898C]">
+              <div className="flex justify-between text-sm text-[#88898C]">
                 <span>{localDurationHoursRange[0]}h</span>
                 <span>{localDurationHoursRange[1]}h</span>
               </div>
@@ -306,7 +309,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
         <div className="mt-8 pt-4 border-t border-gray-200">
           <button
             onClick={clearFilters}
-            className="w-full bg-primaryBlue text-white py-2 px-4 hover:bg-primaryBlue-dark transition-colors duration-200 text-sm font-medium"
+            className="w-full bg-primaryBlue text-white py-2 px-4 hover:bg-primaryBlue-dark transition-colors duration-200 text-base font-medium rounded"
           >
             Limpiar filtros
           </button>
