@@ -251,7 +251,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
         {showSemestersDuration && (
           <div className={`${sectionClass} mb-4`}>
             <h4 className={titleClass}>
-              Duración (semestres)
+              Duración (Semestres)
             </h4>
             <div className="px-2">
               <input
@@ -280,7 +280,7 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
         {showHoursDuration && (
           <div className={`${sectionClass} mb-4`}>
             <h4 className={titleClass}>
-              Duración (horas)
+              Duración (Horas)
             </h4>
             <div className="px-2">
               <input
