@@ -102,7 +102,7 @@ describe("SearchFilters", () => {
 
     expect(screen.getByText("$ 0")).toBeInTheDocument(); // espacio no-break del Intl
   });
-it("renders all main sections", () => {
+  it("renders all main sections", () => {
     render(<SearchFilters filters={initialFilters} onFilterChange={mockOnFilterChange} />);
     expect(screen.getByText("Filtros")).toBeInTheDocument();
     expect(screen.getByText("Tipo de contenido")).toBeInTheDocument();

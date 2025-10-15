@@ -1,19 +1,26 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { loginUser } from "../../services/auth"; // Asegúrate que exista el servicio
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../services/auth";
+import { loginStart, loginSuccess, loginFailure } from "../../redux/authSlice";
+import { isValidToken } from "../../utils/jwt";
+import { RootState } from "../../redux/store";
 
 interface LoginFormData {
-  email: string; // usamos email porque el backend recibe `LoginRequestDTO` con email
+  email: string;
   password: string;
 }
 
 const LoginForm: React.FC = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loading, error } = useSelector((state: RootState) => state.auth);
+  
   const [form, setForm] = useState<LoginFormData>({
     email: "",
     password: "",
   });
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,22 +30,40 @@ const LoginForm: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setError(null);
-    setLoading(true);
-    setSuccess(false);
+    dispatch(loginStart());
 
     try {
       const response = await loginUser(form);
       console.log("✅ Login exitoso:", response);
 
-      // Aquí podrías guardar un token JWT si el backend lo devuelve
-      // localStorage.setItem("token", response.token);
-
-      setSuccess(true);
-    } catch (err) {
-      setError("Credenciales incorrectas.");
-    } finally {
-      setLoading(false);
+      // Verificar que el backend envía un token
+      if (response.token) {
+        // El backend ya envía los datos del usuario, usamos esos directamente
+        if (response.user && isValidToken(response.token)) {
+          dispatch(loginSuccess({ 
+            user: {
+              id: response.user.id,
+              username: response.user.username,
+              email: response.user.email
+            }, 
+            token: response.token 
+          }));
+          
+          setSuccess(true);
+          
+          // Redirigir al home después de 1 segundo
+          setTimeout(() => {
+            navigate("/");
+          }, 1000);
+        } else {
+          dispatch(loginFailure("Datos de usuario incompletos"));
+        }
+      } else {
+        dispatch(loginFailure("No se recibió token del servidor"));
+      }
+    } catch (err: any) {
+      const errorMessage = err.response?.data?.message || "Credenciales incorrectas";
+      dispatch(loginFailure(errorMessage));
     }
   };
 
@@ -94,7 +119,7 @@ const LoginForm: React.FC = () => {
       </button>
 
       {error && <p className="text-red-600 text-center">{error}</p>}
-      {success && <p className="text-green-600 text-center">¡Inicio de sesión exitoso!</p>}
+      {success && <p className="text-green-600 text-center">¡Inicio de sesión exitoso! Redirigiendo...</p>}
 
       <p className="text-sm text-center mt-2 text-black">
         No tengo cuenta{" "}

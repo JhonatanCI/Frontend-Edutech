@@ -21,7 +21,7 @@ vi.mock("react-router-dom", async () => {
 });
 
 // Mock del hook useSearch - Importante: definir antes de los imports
-let mockSearchState = {
+const mockSearchState = {
   results: [],
   isLoading: false,
   error: null,

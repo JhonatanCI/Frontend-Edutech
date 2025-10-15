@@ -34,104 +34,104 @@ const TalentDevSection: React.FC = () => {
 
     // Si NO hay resultados de búsqueda, mostrar normalmente según sección
     switch (state.item) {
-      case 0: {
-        if (!state.microLearnings) return renderSpinner;
-        return state.microLearnings.map((micro: MicroLearning) => (
-          <CourseCard
-            key={micro.id}
-            title={micro.name}
-            description={micro.description}
-            variant="small"
-            onClick={() => navigateTo(`/microlearning/${micro.name}`)}
-          />
-        ));
-      }
-      case 1: {
-        if (!state.courses) return renderSpinner;
-        return state.courses.map((course: Course) => (
-          <CourseCard
-            key={course.id}
-            title={course.name}
-            description={course.description}
-            variant="small"
-            onClick={() => navigateTo(`/course/${course.name}`)}
-          />
-        ));
-      }
-      case 2: {
-        return state.certifications.map((certification: Program) => (
-          <ProgramCard
-            key={certification.id}
-            title={certification.name}
-            description={certification.description}
-            categories={certification.tags?.split(",")}
-            credits={certification.credits}
-            duracion={`${certification.semesters} semestres`}
-            registroSNIES={certification.sniesCode}
-            modalidad={certification.modality}
-            tituloOtorga={certification.degreeTitle}
-            variant="medium"
-            onClick={() => navigateTo(`/program/${certification.name}`)}
-          />
-        ));
-      }
-      case 3: {
-        if (!state.specializations) return renderSpinner;
-        return state.specializations.map((specialization: Program) => (
-          <ProgramCard
-            key={specialization.id}
-            title={specialization.name}
-            description={specialization.description}
-            categories={specialization.tags?.split(",")}
-            credits={specialization.credits}
-            duracion={`${specialization.semesters} semestres`}
-            registroSNIES={specialization.sniesCode}
-            modalidad={specialization.modality}
-            tituloOtorga={specialization.degreeTitle}
-            variant="medium"
-            onClick={() => navigateTo(`/program/${specialization.name}`)}
-          />
-        ));
-      }
-      case 4: {
-        if (!state.masters) return renderSpinner;
-        return state.masters.map((master: Program) => (
-          <ProgramCard
-            key={master.id}
-            title={master.name}
-            description={master.description}
-            categories={master.tags?.split(",")}
-            credits={master.credits}
-            duracion={`${master.semesters} semestres`}
-            registroSNIES={master.sniesCode}
-            modalidad={master.modality}
-            tituloOtorga={master.degreeTitle}
-            variant="medium"
-            onClick={() => navigateTo(`/program/${master.name}`)}
-          />
-        ));
-      }
-      case 5: {
-        if (!state.phd) return renderSpinner;
-        return state.phd.map((phd: Program) => (
-          <ProgramCard
-            key={phd.id}
-            title={phd.name}
-            description={phd.description}
-            categories={phd.tags?.split(",")}
-            credits={phd.credits}
-            duracion={`${phd.semesters} semestres`}
-            registroSNIES={phd.sniesCode}
-            modalidad={phd.modality}
-            tituloOtorga={phd.degreeTitle}
-            variant="medium"
-            onClick={() => navigateTo(`/program/${phd.name}`)}
-          />
-        ));
-      }
-      default: {
-        return renderSpinner;
-      }
+    case 0: {
+      if (!state.microLearnings) return renderSpinner;
+      return state.microLearnings.map((micro: MicroLearning) => (
+        <CourseCard
+          key={micro.id}
+          title={micro.name}
+          description={micro.description}
+          variant="small"
+          onClick={() => navigateTo(`/microlearning/${micro.name}`)}
+        />
+      ));
+    }
+    case 1: {
+      if (!state.courses) return renderSpinner;
+      return state.courses.map((course: Course) => (
+        <CourseCard
+          key={course.id}
+          title={course.name}
+          description={course.description}
+          variant="small"
+          onClick={() => navigateTo(`/course/${course.name}`)}
+        />
+      ));
+    }
+    case 2: {
+      return state.certifications.map((certification: Program) => (
+        <ProgramCard
+          key={certification.id}
+          title={certification.name}
+          description={certification.description}
+          categories={certification.tags?.split(",")}
+          credits={certification.credits}
+          duracion={`${certification.semesters} semestres`}
+          registroSNIES={certification.sniesCode}
+          modalidad={certification.modality}
+          tituloOtorga={certification.degreeTitle}
+          variant="medium"
+          onClick={() => navigateTo(`/program/${certification.name}`)}
+        />
+      ));
+    }
+    case 3: {
+      if (!state.specializations) return renderSpinner;
+      return state.specializations.map((specialization: Program) => (
+        <ProgramCard
+          key={specialization.id}
+          title={specialization.name}
+          description={specialization.description}
+          categories={specialization.tags?.split(",")}
+          credits={specialization.credits}
+          duracion={`${specialization.semesters} semestres`}
+          registroSNIES={specialization.sniesCode}
+          modalidad={specialization.modality}
+          tituloOtorga={specialization.degreeTitle}
+          variant="medium"
+          onClick={() => navigateTo(`/program/${specialization.name}`)}
+        />
+      ));
+    }
+    case 4: {
+      if (!state.masters) return renderSpinner;
+      return state.masters.map((master: Program) => (
+        <ProgramCard
+          key={master.id}
+          title={master.name}
+          description={master.description}
+          categories={master.tags?.split(",")}
+          credits={master.credits}
+          duracion={`${master.semesters} semestres`}
+          registroSNIES={master.sniesCode}
+          modalidad={master.modality}
+          tituloOtorga={master.degreeTitle}
+          variant="medium"
+          onClick={() => navigateTo(`/program/${master.name}`)}
+        />
+      ));
+    }
+    case 5: {
+      if (!state.phd) return renderSpinner;
+      return state.phd.map((phd: Program) => (
+        <ProgramCard
+          key={phd.id}
+          title={phd.name}
+          description={phd.description}
+          categories={phd.tags?.split(",")}
+          credits={phd.credits}
+          duracion={`${phd.semesters} semestres`}
+          registroSNIES={phd.sniesCode}
+          modalidad={phd.modality}
+          tituloOtorga={phd.degreeTitle}
+          variant="medium"
+          onClick={() => navigateTo(`/program/${phd.name}`)}
+        />
+      ));
+    }
+    default: {
+      return renderSpinner;
+    }
     }
   };
 

@@ -181,18 +181,18 @@ const SearchResults: React.FC = () => {
             !isLoading &&
             results.length === 0 &&
             activeFilters.length > 0 && (
-              <div className="text-center py-12">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            <div className="text-center py-12">
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   No se encontraron resultados con los filtros aplicados
-                </h3>
-                <button
-                  onClick={clearFilters}
-                  className="mt-4 bg-primaryBlue text-white px-4 py-2 rounded-md hover:bg-primaryBlue-dark transition-colors duration-200"
-                >
+              </h3>
+              <button
+                onClick={clearFilters}
+                className="mt-4 bg-primaryBlue text-white px-4 py-2 rounded-md hover:bg-primaryBlue-dark transition-colors duration-200"
+              >
                   Limpiar todos los filtros
-                </button>
-              </div>
-            )}
+              </button>
+            </div>
+          )}
 
           {!error && !isLoading && results.length > 0 && (
             <div className="max-w-4xl mx-auto">
@@ -208,10 +208,10 @@ const SearchResults: React.FC = () => {
             results.length === 0 &&
             query &&
             activeFilters.length === 0 && (
-              <div className="max-w-4xl mx-auto text-center py-12">
-                {/* ... (no results for query UI) ... */}
-              </div>
-            )}
+            <div className="max-w-4xl mx-auto text-center py-12">
+              {/* ... (no results for query UI) ... */}
+            </div>
+          )}
         </div>
       </div>
     </div>
