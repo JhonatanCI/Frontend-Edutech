@@ -29,8 +29,8 @@ const NavBar: React.FC = () => {
 
           {/* Navigation Links */}
           <div className="hidden md:flex space-x-6 pl-8">
-            <Link to={"/#mundos"} smooth className=" hover:text-textGray">
-              Mundos
+            <Link to={"/"} smooth className=" hover:text-textGray">
+              Home
             </Link>
             <Link
               to={"/#desarrolla-tu-talento"}
@@ -78,11 +78,11 @@ const NavBar: React.FC = () => {
               <a href="/login" className="hover:text-textGray">
                 Ingresar
               </a>
-              <a href="#contacto" className="hover:text-textGray">
+              <a href="/contact" className="hover:text-textGray">
                 Contáctanos
               </a>
               <Button href="/register" variant="primary" size="medium">
-                ¡Comienza ya!
+                ¡Registrate!
               </Button>
             </>
           )}
