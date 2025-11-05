@@ -1,0 +1,205 @@
+import React, { useEffect, useMemo, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import AuthLayout from "../components/Layouts/AuthLayout";
+import loginPhoto from "../assets/LoginImage.png";
+import { requestPasswordReset, resetPassword } from "../services/auth";
+
+// UI contract
+// - When there is NO token in query: show the Email Request screen
+// - When there IS token: show an "Identidad verificada" screen briefly, then the Change Password form
+
+const ResetPassword: React.FC = () => {
+  const [params] = useSearchParams();
+  const token = params.get("token");
+  const navigate = useNavigate();
+
+  const initialStage: "request" | "verify" | "change" = useMemo(() => {
+    return token ? "verify" : "request";
+  }, [token]);
+
+  const [stage, setStage] = useState<"request" | "verify" | "change">(initialStage);
+  const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Intentionally left blank: replaced automatic transition with an explicit button for accessibility and
+    // to avoid surprising navigation on small screens. Use the "Continuar" button to move to the change form.
+  }, [initialStage]);
+
+  const onSubmitEmail = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setMessage(null);
+    setError(null);
+    try {
+      await requestPasswordReset(email.trim());
+      // Always show a generic success (backend also does so) to avoid user enumeration
+      setMessage("Si el correo existe, te enviaremos un enlace para restablecer tu contraseña.");
+    } catch (err: any) {
+      // Still show generic success to avoid leaking whether an email exists
+      setMessage("Si el correo existe, te enviaremos un enlace para restablecer tu contraseña.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const onSubmitNewPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setError(null);
+    setMessage(null);
+    try {
+      if (!token) {
+        setError("Falta el token de restablecimiento.");
+        return;
+      }
+      if (newPassword.length < 8) {
+        setError("La contraseña debe tener al menos 8 caracteres.");
+        return;
+      }
+      if (newPassword !== confirmPassword) {
+        setError("Las contraseñas no coinciden.");
+        return;
+      }
+    await resetPassword(token, newPassword);
+    setMessage("¡Contraseña actualizada! Redirigiendo al inicio de sesión...");
+    setTimeout(() => navigate("/login?reset=success"), 1200);
+    } catch (err: any) {
+      const status = err?.response?.status;
+      if (status === 410) {
+        setError("El enlace expiró. Solicita uno nuevo.");
+      } else if (status === 400) {
+        setError("El enlace no es válido o ya fue usado.");
+      } else {
+        setError("No se pudo restablecer la contraseña. Intenta de nuevo.");
+      }
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  // Screen 1: Email input (no token)
+  if (stage === "request") {
+    return (
+      <AuthLayout imageSrc={loginPhoto}>
+  <div className="space-y-6 text-black max-w-lg">
+          <h1 className="text-3xl font-bold">Recuperación de contraseña</h1>
+          <p className="text-gray-600">
+            Escribe tu correo electrónico para que podamos confirmar tu identidad y ayudarte a recuperar tu contraseña.
+          </p>
+          <form onSubmit={onSubmitEmail} className="space-y-4">
+            <div>
+              <label className="block text-gray-700">Correo electrónico</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Digita tu correo electrónico"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={submitting}
+              className="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition disabled:bg-gray-400"
+            >
+              {submitting ? "Enviando..." : "Confirmar"}
+            </button>
+          </form>
+          {message && (
+            <p className="text-green-700 border border-green-200 bg-green-50 rounded-md p-3" role="status" aria-live="polite">
+              {message}
+            </p>
+          )}
+        </div>
+      </AuthLayout>
+    );
+  }
+
+  // Screen 2: Identity Verified (token present; brief screen)
+  if (stage === "verify") {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="bg-white p-10 rounded-xl shadow-sm text-center w-full max-w-xl">
+          <div className="flex items-center justify-center mb-6">
+            {/* Mail icon */}
+            <svg width="90" height="90" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 6h16a1 1 0 0 1 .8 1.6l-8 9.5a1 1 0 0 1-1.6 0l-8-9.5A1 1 0 0 1 4 6Z" stroke="#7C3AED" strokeWidth="2" strokeLinejoin="round"/>
+              <path d="M3 7l9 6 9-6" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+          </div>
+          <h2 className="text-3xl font-bold text-black mb-2">¡Identidad verificada!</h2>
+          <p className="text-gray-600">Gracias por ayudarnos a verificar tu identidad.</p>
+          <div className="mt-6">
+            <button
+              onClick={() => setStage("change")}
+              className="w-full max-w-xs mx-auto bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition"
+            >
+              Continuar
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Screen 3: Change password form
+  return (
+    <AuthLayout imageSrc={loginPhoto}>
+  <div className="space-y-6 text-black max-w-lg">
+        <h1 className="text-3xl font-bold">Recuperación de contraseña</h1>
+        <form onSubmit={onSubmitNewPassword} className="space-y-4">
+          <div>
+            <label className="block text-gray-700">Nueva contraseña</label>
+            <input
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder="Digita tu nueva contraseña"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
+              required
+              minLength={8}
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700">Confirmar contraseña</label>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirma tu contraseña"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
+              required
+              minLength={8}
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={submitting}
+            className="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition disabled:bg-gray-400"
+          >
+            {submitting ? "Actualizando..." : "Confirmar"}
+          </button>
+        </form>
+        {error && (
+          <p className="text-red-700 border border-red-200 bg-red-50 rounded-md p-3" role="alert" aria-live="assertive">
+            {error}
+          </p>
+        )}
+        {message && (
+          <p className="text-green-700 border border-green-200 bg-green-50 rounded-md p-3" role="status" aria-live="polite">
+            {message}
+          </p>
+        )}
+      </div>
+    </AuthLayout>
+  );
+};
+
+export default ResetPassword;
