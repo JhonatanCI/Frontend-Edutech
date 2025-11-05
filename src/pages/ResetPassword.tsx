@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import AuthLayout from "../components/Layouts/AuthLayout";
 import loginPhoto from "../assets/LoginImage.png";
+// Add the verified-envelope image to assets at src/assets/envelope_verified.png
+import envelopeVerified from "../assets/envelope_verified.png";
 import { requestPasswordReset, resetPassword } from "../services/auth";
 
 // UI contract
@@ -128,11 +130,8 @@ const ResetPassword: React.FC = () => {
       <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="bg-white p-10 rounded-xl shadow-sm text-center w-full max-w-xl">
           <div className="flex items-center justify-center mb-6">
-            {/* Mail icon */}
-            <svg width="90" height="90" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 6h16a1 1 0 0 1 .8 1.6l-8 9.5a1 1 0 0 1-1.6 0l-8-9.5A1 1 0 0 1 4 6Z" stroke="#7C3AED" strokeWidth="2" strokeLinejoin="round"/>
-              <path d="M3 7l9 6 9-6" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
+            {/* Mail icon — use provided image file at src/assets/envelope_verified.png */}
+            <img src={envelopeVerified} alt="Sobre verificado" className="h-[150px] w-[150px] object-contain" />
           </div>
           <h2 className="text-3xl font-bold text-black mb-2">¡Identidad verificada!</h2>
           <p className="text-gray-600">Gracias por ayudarnos a verificar tu identidad.</p>
