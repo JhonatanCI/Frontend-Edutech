@@ -6,11 +6,13 @@ import { Register } from "../pages/Register";
 import CourseView from "../pages/CourseView";
 import MicroLearningView from "../pages/MicroLearningView";
 import { Login } from "../pages/Login";
+import SearchResults from "../pages/SearchResults";
 
 export const AppRoutes = () => {
   return (
     <Switch>
       <Route path="/" element={<Home/>} />
+      <Route path="/search" element={<SearchResults/>} />
       <Route path="/course/:name" element={<CourseView/>} />
       <Route path="/microlearning/:name" element={<MicroLearningView/>} />
       <Route path="/program/:name" element={<ProgramView/>} />
