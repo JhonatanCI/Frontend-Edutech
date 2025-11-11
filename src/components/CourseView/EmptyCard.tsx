@@ -22,9 +22,9 @@ const EmptyCard: React.FC<EmptyCardProps> = ({ variant, scalable = false }) => {
 
   const scaleStyle = scalable
     ? {
-        transform: "scale(0.8)", // Cambia este valor según el tamaño deseado
-        transformOrigin: "top left", // Opcional: desde dónde se escalará
-      }
+      transform: "scale(0.8)", // Cambia este valor según el tamaño deseado
+      transformOrigin: "top left", // Opcional: desde dónde se escalará
+    }
     : {};
 
   return (

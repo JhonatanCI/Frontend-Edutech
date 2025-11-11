@@ -27,8 +27,8 @@ describe("SearchFilters", () => {
     expect(screen.getByText("Tipo de contenido")).toBeInTheDocument();
     expect(screen.getByText("Modalidad")).toBeInTheDocument();
     expect(screen.getByText("Rango de precios")).toBeInTheDocument();
-    expect(screen.getByText("Duración (semestres)")).toBeInTheDocument();
-    expect(screen.getByText("Duración (horas)")).toBeInTheDocument();
+    expect(screen.getByText("Duración (Semestres)")).toBeInTheDocument();
+    expect(screen.getByText("Duración (Horas)")).toBeInTheDocument();
   });
 
   it("renders content type options", () => {

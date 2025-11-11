@@ -35,7 +35,8 @@ const ProgramCard: React.FC<ProgramCardProps> = ({
       return "bg-[#E4EB60]";
     case "MAESTRIA":
       return "bg-[#5454E9]";
-    case "DOCTORADO":        return "bg-[#5454E9]";
+    case "DOCTORADO":
+      return "bg-[#5454E9]";
     case "CERTIFICACION":
       return "bg-[#E9683B]";
     default:
@@ -72,7 +73,8 @@ const ProgramCard: React.FC<ProgramCardProps> = ({
       return "Virtual";
     case "PRESENCIAL":
       return "Presencial";
-    case "HIBRIDO":        return "Híbrido";
+    case "HIBRIDO":
+      return "Híbrido";
     default:
       return modality;
     }
