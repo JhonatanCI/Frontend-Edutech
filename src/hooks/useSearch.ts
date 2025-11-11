@@ -43,8 +43,10 @@ export const useSearch = (): UseSearchReturn => {
           modality,
           priceRange,
           durationRange,
+          durationHoursRange,
         } = filters;
 
+      
         if (
           contentType.length > 0 &&
           !contentType.includes("Todo") &&
@@ -57,42 +59,67 @@ export const useSearch = (): UseSearchReturn => {
           return false;
         }
 
+       
         if (
           academicLevel.length > 0 &&
           !academicLevel.some(
             (al) =>
               result.programType?.toLowerCase().replace("í", "i") ===
-              al.toLowerCase(),
+              al.toLowerCase().replace("í", "i"),
           )
         ) {
           return false;
         }
 
+       
         if (
           modality.length > 0 &&
           !modality.some(
             (m) =>
               result.modality.toLowerCase().replace("í", "i") ===
-              m.toLowerCase(),
+              m.toLowerCase().replace("í", "i"),
           )
         ) {
           return false;
         }
 
+      
         if (
-          result.price < priceRange[0] ||
-          result.price > priceRange[1]
+          priceRange[0] !== priceRange[1] &&
+          (result.price < priceRange[0] || result.price > priceRange[1])
         ) {
           return false;
         }
 
-        
+
         if (result.durationUnit === "SEMESTERS") {
+        
           if (
-            result.duration < durationRange[0] ||
-            result.duration > durationRange[1]
+            (contentType.includes("Todo") || contentType.includes("Programas")) &&
+            result.itemType === "PROGRAM"
           ) {
-            return false;
+            if (
+              result.duration < durationRange[0] ||
+              result.duration > durationRange[1]
+            ) {
+              return false;
+            }
+          }
+        }
+
+      
+        if (result.durationUnit === "HOURS") {
+      
+          if (
+            (contentType.includes("Todo") || contentType.includes("Cursos")) &&
+            result.itemType === "COURSE"
+          ) {
+            if (
+              result.duration < durationHoursRange[0] ||
+              result.duration > durationHoursRange[1]
+            ) {
+              return false;
+            }
           }
         }
 
@@ -131,12 +158,11 @@ export const useSearch = (): UseSearchReturn => {
         dispatch(clearError());
         dispatch(setSearchTerm(term));
 
-        
         const response = await API.get<SearchResponse>("/SearchAll", {
           params: {
             term: term.trim(),
-            page: 0, 
-            size: 1000, 
+            page: 0,
+            size: 1000,
           },
         });
 
@@ -146,7 +172,6 @@ export const useSearch = (): UseSearchReturn => {
         if (filters) {
           applyFiltersAndPaginate(data.results, filters, page);
         } else {
-          
           const pageSize = 6;
           const totalElements = data.results.length;
           const totalPages = Math.ceil(totalElements / pageSize);

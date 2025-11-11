@@ -21,6 +21,7 @@ const SearchResults: React.FC = () => {
     modality: [],
     priceRange: [0, 50000000],
     durationRange: [1, 10],
+    durationHoursRange: [1, 100], 
   });
 
   const query = searchParams.get("q") || "";
@@ -53,7 +54,7 @@ const SearchResults: React.FC = () => {
   };
 
   const handleFavorite = (id: string) => {
-    // TODO: Implement favorite functionality
+  
     console.log("Toggle favorite for:", id);
   };
 
@@ -72,6 +73,7 @@ const SearchResults: React.FC = () => {
       modality: [],
       priceRange: [0, 50000000],
       durationRange: [1, 10],
+      durationHoursRange: [1, 100],
     };
     setFilters(resetFilters);
   };
@@ -127,7 +129,7 @@ const SearchResults: React.FC = () => {
           />
         </div>
 
-        {/* ... (mobile filters button and modal) ... */}
+        {/* Mobile filters button and modal */}
 
         <div className="flex-1 px-4 py-8">
           {activeFilters.length > 0 && (
@@ -156,7 +158,7 @@ const SearchResults: React.FC = () => {
           )}
 
           {error && (
-            <div className="max-w-4xl mx-auto mb-8">{/* ... (error UI) ... */}</div>
+            <div className="max-w-4xl mx-auto mb-8">{/* Error UI */}</div>
           )}
 
           {!error && (

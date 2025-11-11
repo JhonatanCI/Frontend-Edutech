@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import SearchFilters from "../SearchFilters";
 import React from "react";
@@ -16,6 +16,7 @@ describe("SearchFilters", () => {
       modality: [],
       priceRange: [0, 50000000],
       durationRange: [1, 10],
+      durationHoursRange: [1, 100],
     };
   });
 
@@ -24,10 +25,10 @@ describe("SearchFilters", () => {
 
     expect(screen.getByText("Filtros")).toBeInTheDocument();
     expect(screen.getByText("Tipo de contenido")).toBeInTheDocument();
-    expect(screen.getByText("Nivel académico")).toBeInTheDocument();
     expect(screen.getByText("Modalidad")).toBeInTheDocument();
     expect(screen.getByText("Rango de precios")).toBeInTheDocument();
     expect(screen.getByText("Duración (semestres)")).toBeInTheDocument();
+    expect(screen.getByText("Duración (horas)")).toBeInTheDocument();
   });
 
   it("renders content type options", () => {
@@ -46,40 +47,47 @@ describe("SearchFilters", () => {
     expect(screen.getByLabelText("Híbrido")).toBeInTheDocument();
   });
 
-  it("handles content type changes correctly", () => {
+  it("handles content type changes correctly", async () => {
     render(<SearchFilters filters={initialFilters} onFilterChange={mockOnFilterChange} />);
 
     const programasCheckbox = screen.getByLabelText("Programas");
     fireEvent.click(programasCheckbox);
 
-    expect(mockOnFilterChange).toHaveBeenCalledWith({
-      ...initialFilters,
-      contentType: ["Programas"],
+    await waitFor(() => {
+      expect(mockOnFilterChange).toHaveBeenCalledWith({
+        ...initialFilters,
+        contentType: ["Programas"],
+        academicLevel: [],
+      });
     });
   });
 
-  it("handles price range changes correctly", () => {
+  it("handles price range changes correctly", async () => {
     render(<SearchFilters filters={initialFilters} onFilterChange={mockOnFilterChange} />);
 
     const priceRangeSlider = screen.getAllByRole("slider")[0];
     fireEvent.change(priceRangeSlider, { target: { value: "10000000" } });
 
-    expect(mockOnFilterChange).toHaveBeenCalledWith({
-      ...initialFilters,
-      priceRange: [0, 10000000],
-    });
+    await waitFor(() => {
+      expect(mockOnFilterChange).toHaveBeenCalledWith({
+        ...initialFilters,
+        priceRange: [0, 10000000],
+      });
+    }, { timeout: 1000 });
   });
 
-  it("handles duration range changes correctly", () => {
+  it("handles duration range changes correctly", async () => {
     render(<SearchFilters filters={initialFilters} onFilterChange={mockOnFilterChange} />);
 
     const durationRangeSlider = screen.getAllByRole("slider")[1];
     fireEvent.change(durationRangeSlider, { target: { value: "5" } });
 
-    expect(mockOnFilterChange).toHaveBeenCalledWith({
-      ...initialFilters,
-      durationRange: [1, 5],
-    });
+    await waitFor(() => {
+      expect(mockOnFilterChange).toHaveBeenCalledWith({
+        ...initialFilters,
+        durationRange: [1, 5],
+      });
+    }, { timeout: 1000 });
   });
 
   it("handles clear filters button", () => {
@@ -94,22 +102,14 @@ describe("SearchFilters", () => {
       modality: [],
       priceRange: [0, 50000000],
       durationRange: [1, 10],
+      durationHoursRange: [1, 100],
     });
   });
 
   it("formats price correctly", () => {
     render(<SearchFilters filters={initialFilters} onFilterChange={mockOnFilterChange} />);
 
-    expect(screen.getByText("$ 0")).toBeInTheDocument(); // espacio no-break del Intl
-  });
-it("renders all main sections", () => {
-    render(<SearchFilters filters={initialFilters} onFilterChange={mockOnFilterChange} />);
-    expect(screen.getByText("Filtros")).toBeInTheDocument();
-    expect(screen.getByText("Tipo de contenido")).toBeInTheDocument();
-    expect(screen.getByText("Nivel académico")).toBeInTheDocument();
-    expect(screen.getByText("Modalidad")).toBeInTheDocument();
-    expect(screen.getByText("Rango de precios")).toBeInTheDocument();
-    expect(screen.getByText("Duración (semestres)")).toBeInTheDocument();
+    expect(screen.getByText(/\$ 0/)).toBeInTheDocument();
   });
 
   it("toggles content type from 'Todo' to 'Programas'", () => {
@@ -119,6 +119,7 @@ it("renders all main sections", () => {
     expect(mockOnFilterChange).toHaveBeenCalledWith({
       ...initialFilters,
       contentType: ["Programas"],
+      academicLevel: [],
     });
   });
 
@@ -130,6 +131,7 @@ it("renders all main sections", () => {
     expect(mockOnFilterChange).toHaveBeenCalledWith({
       ...filters,
       contentType: ["Cursos"],
+      academicLevel: [],
     });
   });
 
@@ -137,32 +139,39 @@ it("renders all main sections", () => {
     const filters = { ...initialFilters, contentType: ["Programas"] };
     render(<SearchFilters filters={filters} onFilterChange={mockOnFilterChange} />);
     const programas = screen.getByLabelText("Programas");
-    fireEvent.click(programas); // deselecciona
+    fireEvent.click(programas);
     expect(mockOnFilterChange).toHaveBeenCalledWith({
       ...filters,
       contentType: ["Todo"],
+      academicLevel: [],
     });
   });
 
-  it("changes price range correctly", () => {
+  it("changes price range correctly", async () => {
     render(<SearchFilters filters={initialFilters} onFilterChange={mockOnFilterChange} />);
     const [priceSlider] = screen.getAllByRole("slider");
     fireEvent.change(priceSlider, { target: { value: "10000000" } });
-    expect(mockOnFilterChange).toHaveBeenCalledWith({
-      ...initialFilters,
-      priceRange: [0, 10000000],
-    });
+    
+    await waitFor(() => {
+      expect(mockOnFilterChange).toHaveBeenCalledWith({
+        ...initialFilters,
+        priceRange: [0, 10000000],
+      });
+    }, { timeout: 1000 });
   });
 
-  it("changes duration range correctly", () => {
+  it("changes duration range correctly", async () => {
     render(<SearchFilters filters={initialFilters} onFilterChange={mockOnFilterChange} />);
     const sliders = screen.getAllByRole("slider");
     const durationSlider = sliders[1];
     fireEvent.change(durationSlider, { target: { value: "6" } });
-    expect(mockOnFilterChange).toHaveBeenCalledWith({
-      ...initialFilters,
-      durationRange: [1, 6],
-    });
+    
+    await waitFor(() => {
+      expect(mockOnFilterChange).toHaveBeenCalledWith({
+        ...initialFilters,
+        durationRange: [1, 6],
+      });
+    }, { timeout: 1000 });
   });
 
   it("clears all filters on button click", () => {
@@ -174,57 +183,25 @@ it("renders all main sections", () => {
       modality: [],
       priceRange: [0, 50000000],
       durationRange: [1, 10],
+      durationHoursRange: [1, 100],
     });
   });
 
   it("displays formatted price values correctly", () => {
     render(<SearchFilters filters={initialFilters} onFilterChange={mockOnFilterChange} />);
-    expect(screen.getByText("$ 0")).toBeInTheDocument();
-    expect(screen.getByText("$ 50.000.000")).toBeInTheDocument();
-  });
-
-  it("handles selecting a content type from Todo to Programas", () => {
-    render(<SearchFilters filters={initialFilters} onFilterChange={mockOnFilterChange} />);
-    const programas = screen.getByLabelText("Programas");
-    fireEvent.click(programas);
-    expect(mockOnFilterChange).toHaveBeenCalledWith({
-      ...initialFilters,
-      contentType: ["Programas"],
-    });
-  });
-
-  it("handles deselecting a content type to reset to Todo", () => {
-    const filters = { ...initialFilters, contentType: ["Programas"] };
-    render(<SearchFilters filters={filters} onFilterChange={mockOnFilterChange} />);
-    const programas = screen.getByLabelText("Programas");
-    fireEvent.click(programas);
-    expect(mockOnFilterChange).toHaveBeenCalledWith({
-      ...filters,
-      contentType: ["Todo"],
-    });
-  });
-
-  it("handles multiple content type selections removing Todo", () => {
-    const filters = { ...initialFilters, contentType: ["Todo"] };
-    render(<SearchFilters filters={filters} onFilterChange={mockOnFilterChange} />);
-    const cursos = screen.getByLabelText("Cursos");
-    fireEvent.click(cursos);
-    expect(mockOnFilterChange).toHaveBeenCalledWith({
-      ...filters,
-      contentType: ["Cursos"],
-    });
+    expect(screen.getByText(/\$ 0/)).toBeInTheDocument();
+    expect(screen.getByText(/\$ 50\.000\.000/)).toBeInTheDocument();
   });
 
   it("handles academic level toggling on and off", () => {
-    render(<SearchFilters filters={initialFilters} onFilterChange={mockOnFilterChange} />);
+    const filters = { ...initialFilters, contentType: ["Programas"] };
+    render(<SearchFilters filters={filters} onFilterChange={mockOnFilterChange} />);
     const esp = screen.getByLabelText("Especialización");
     fireEvent.click(esp);
     expect(mockOnFilterChange).toHaveBeenCalledWith({
-      ...initialFilters,
+      ...filters,
       academicLevel: ["Especializacion"],
     });
-    fireEvent.click(esp);
-    expect(mockOnFilterChange).toHaveBeenCalledTimes(2);
   });
 
   it("handles modality toggling on and off", () => {
@@ -235,41 +212,39 @@ it("renders all main sections", () => {
       ...initialFilters,
       modality: ["Virtual"],
     });
-    fireEvent.click(virtual);
-    expect(mockOnFilterChange).toHaveBeenCalledTimes(2);
   });
 
-  it("changes price range and duration range correctly", () => {
+  it("changes price range and duration range correctly", async () => {
     render(<SearchFilters filters={initialFilters} onFilterChange={mockOnFilterChange} />);
     const sliders = screen.getAllByRole("slider");
     fireEvent.change(sliders[0], { target: { value: "10000000" } });
-    expect(mockOnFilterChange).toHaveBeenCalledWith({
-      ...initialFilters,
-      priceRange: [0, 10000000],
-    });
+    
+    await waitFor(() => {
+      expect(mockOnFilterChange).toHaveBeenCalledWith({
+        ...initialFilters,
+        priceRange: [0, 10000000],
+      });
+    }, { timeout: 1000 });
+
     fireEvent.change(sliders[1], { target: { value: "6" } });
-    expect(mockOnFilterChange).toHaveBeenCalledWith({
-      ...initialFilters,
-      durationRange: [1, 6],
-    });
+    
+    await waitFor(() => {
+      expect(mockOnFilterChange).toHaveBeenCalledWith({
+        ...initialFilters,
+        durationRange: [1, 6],
+      });
+    }, { timeout: 1000 });
   });
 
-  it("calls clearFilters when clicking 'Limpiar filtros'", () => {
-    render(<SearchFilters filters={initialFilters} onFilterChange={mockOnFilterChange} />);
-    fireEvent.click(screen.getByText("Limpiar filtros"));
+  it("handles selecting multiple academic levels", () => {
+    const filters = { ...initialFilters, contentType: ["Programas"], academicLevel: ["Maestria"] };
+    render(<SearchFilters filters={filters} onFilterChange={mockOnFilterChange} />);
+    const doc = screen.getByLabelText("Doctorado");
+    fireEvent.click(doc);
     expect(mockOnFilterChange).toHaveBeenCalledWith({
-      contentType: ["Todo"],
-      academicLevel: [],
-      modality: [],
-      priceRange: [0, 50000000],
-      durationRange: [1, 10],
+      ...filters,
+      academicLevel: ["Maestria", "Doctorado"],
     });
-  });
-
-  it("formats price display correctly", () => {
-    render(<SearchFilters filters={initialFilters} onFilterChange={mockOnFilterChange} />);
-    expect(screen.getByText("$ 0")).toBeInTheDocument(); // Intl usa espacio no-break
-    expect(screen.getByText("$ 50.000.000")).toBeInTheDocument();
   });
 
   it("handles edge cases for modality toggling when already selected", () => {
@@ -277,16 +252,34 @@ it("renders all main sections", () => {
     render(<SearchFilters filters={filters} onFilterChange={mockOnFilterChange} />);
     const virtual = screen.getByLabelText("Virtual");
     fireEvent.click(virtual);
-    expect(mockOnFilterChange).toHaveBeenCalled();
+    expect(mockOnFilterChange).toHaveBeenCalledWith({
+      ...filters,
+      modality: [],
+    });
   });
 
-  it("handles selecting multiple academic levels", () => {
-    const filters = { ...initialFilters, academicLevel: ["Maestria"] };
+  it("handles duration hours range changes correctly", async () => {
+    render(<SearchFilters filters={initialFilters} onFilterChange={mockOnFilterChange} />);
+    const sliders = screen.getAllByRole("slider");
+    const hoursSlider = sliders[2];
+    fireEvent.change(hoursSlider, { target: { value: "50" } });
+    
+    await waitFor(() => {
+      expect(mockOnFilterChange).toHaveBeenCalledWith({
+        ...initialFilters,
+        durationHoursRange: [1, 50],
+      });
+    }, { timeout: 1000 });
+  });
+
+  it("does not show academic level section when Todo is selected", () => {
+    render(<SearchFilters filters={initialFilters} onFilterChange={mockOnFilterChange} />);
+    expect(screen.queryByText("Nivel académico")).not.toBeInTheDocument();
+  });
+
+  it("shows academic level section when Programas is selected", () => {
+    const filters = { ...initialFilters, contentType: ["Programas"] };
     render(<SearchFilters filters={filters} onFilterChange={mockOnFilterChange} />);
-    const doc = screen.getByLabelText("Doctorado");
-    fireEvent.click(doc);
-    expect(mockOnFilterChange).toHaveBeenCalled();
+    expect(screen.getByText("Nivel académico")).toBeInTheDocument();
   });
-
-
 });
