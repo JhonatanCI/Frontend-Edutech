@@ -6,12 +6,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import SearchResults from "../../pages/SearchResults";
 import searchReducer from "../../redux/searchSlice";
 
-// Crear mocks de funciones
 const mockSearch = vi.fn();
 const mockClearError = vi.fn();
 const mockNavigate = vi.fn();
 
-// Mock de react-router-dom
 vi.mock("react-router-dom", async () => {
   const actual = await vi.importActual("react-router-dom");
   return {
@@ -20,8 +18,22 @@ vi.mock("react-router-dom", async () => {
   };
 });
 
-// Mock del hook useSearch - Importante: definir antes de los imports
-let mockSearchState = {
+const mockSearchState: {
+  results: { id: string; name?: string; itemType?: string }[];
+  isLoading: boolean;
+  error: unknown | null;
+  pagination: {
+    currentPage: number;
+    pageSize: number;
+    totalPages: number;
+    totalElements: number;
+    hasNext: boolean;
+    hasPrevious: boolean;
+  };
+  search: typeof mockSearch;
+  clearError: typeof mockClearError;
+  searchTerm: string;
+} = {
   results: [],
   isLoading: false,
   error: null,
@@ -42,17 +54,16 @@ vi.mock("../../hooks/useSearch", () => ({
   useSearch: () => mockSearchState,
 }));
 
-// Mock de componentes
 vi.mock("../../components/Commons/NavBar", () => ({
   default: () => <div data-testid="navbar">NavBar</div>,
 }));
 
 vi.mock("../../components/Search/SearchResultsHero", () => ({
-  default: ({ searchTerm, totalResults, onSearch }: any) => (
+  default: ({ searchTerm, totalResults, onSearch }: { searchTerm?: string; totalResults?: number; onSearch?: (term: string) => void }) => (
     <div data-testid="search-results-hero">
       <span data-testid="search-term">{searchTerm}</span>
       <span data-testid="total-results">{totalResults}</span>
-      <button data-testid="hero-search-button" onClick={() => onSearch("test")}>
+      <button data-testid="hero-search-button" onClick={() => onSearch && onSearch("test")}>
         Search
       </button>
     </div>
@@ -60,21 +71,31 @@ vi.mock("../../components/Search/SearchResultsHero", () => ({
 }));
 
 vi.mock("../../components/Search/SearchResultsGrid", () => ({
-  default: ({ results, isLoading, onFavorite, onLearnMore }: any) => (
+  default: ({
+    results = [],
+    isLoading = false,
+    onFavorite,
+    onLearnMore,
+  }: {
+    results?: { id: string; name?: string; itemType?: string }[];
+    isLoading?: boolean;
+    onFavorite?: (id: string) => void;
+    onLearnMore?: (itemType?: string, name?: string) => void;
+  }) => (
     <div data-testid="search-results-grid">
       <span data-testid="results-count">{results.length}</span>
       <span data-testid="loading-state">{isLoading.toString()}</span>
-      {results.map((result: any) => (
+      {results.map((result) => (
         <div key={result.id} data-testid={`result-${result.id}`}>
           <button
             data-testid="favorite-button"
-            onClick={() => onFavorite(result.id)}
+            onClick={() => onFavorite && onFavorite(result.id)}
           >
             Favorite
           </button>
           <button
             data-testid="learn-more-button"
-            onClick={() => onLearnMore(result.id, result.itemType, result.name)}
+            onClick={() => onLearnMore && onLearnMore(result.itemType, result.name)}
           >
             Learn More
           </button>
@@ -85,15 +106,18 @@ vi.mock("../../components/Search/SearchResultsGrid", () => ({
 }));
 
 vi.mock("../../components/Search/PaginationControls", () => ({
-  default: ({ pagination, onPageChange }: any) => (
+  default: ({ pagination, onPageChange }: {
+    pagination?: { totalPages?: number };
+    onPageChange?: (page: number) => void;
+  }) => (
     <div data-testid="pagination-controls">
-      {pagination.totalPages > 0 && (
+      {(pagination?.totalPages ?? 0) > 0 && (
         <>
-          {Array.from({ length: pagination.totalPages }, (_, i) => (
+          {Array.from({ length: (pagination?.totalPages ?? 0) }, (_, i) => (
             <button
               key={i}
               data-testid={`page-${i}`}
-              onClick={() => onPageChange(i)}
+              onClick={() => onPageChange && onPageChange(i)}
             >
               {i + 1}
             </button>
@@ -108,7 +132,6 @@ vi.mock("../../components/Search/SearchFilters", () => ({
   default: () => <div data-testid="search-filters">Filters</div>,
 }));
 
-// Helper para renderizar con router y store
 const renderWithProviders = (initialRoute = "/search?q=&page=0") => {
   const store = configureStore({
     reducer: {
@@ -251,7 +274,6 @@ describe("SearchResults", () => {
   it("handles empty query parameter", async () => {
     renderWithProviders("/search?q=&page=0");
 
-    // Should not call search with empty query
     await new Promise((resolve) => setTimeout(resolve, 100));
     expect(mockSearch).not.toHaveBeenCalled();
   });

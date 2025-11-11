@@ -17,3 +17,12 @@ export const getResults = async (query: string) => {
     throw error;
   }
 };
+
+export const getTopSearchKeywords = async (limit = 5) => {
+  try {
+    const response = await API.get(`/SearchKeywords/top`, { params: { limit } });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

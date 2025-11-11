@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { getGeneralResults, getResults } from "../search";
+import { getGeneralResults, getResults, getTopSearchKeywords } from "../search";
 import { API } from "../../config/axios";
 
 // Mock the API
@@ -292,6 +292,7 @@ describe("search service", () => {
 
       vi.mocked(API.get).mockResolvedValueOnce(mockResponse);
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const result = await getResults(null as any);
 
       expect(API.get).toHaveBeenCalledWith("/search/tags?query=null");
@@ -307,6 +308,7 @@ describe("search service", () => {
 
       vi.mocked(API.get).mockResolvedValueOnce(mockResponse);
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const result = await getResults(undefined as any);
 
       expect(API.get).toHaveBeenCalledWith("/search/tags?query=undefined");
@@ -346,6 +348,155 @@ describe("search service", () => {
 
       expect(result1).toEqual(mockResponse.data);
       expect(API.get).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  describe("getTopSearchKeywords", () => {
+    it("should fetch top search keywords with default limit", async () => {
+      const mockData = ["React", "TypeScript", "JavaScript", "Node.js", "Python"];
+      const mockResponse = { data: mockData };
+      vi.mocked(API.get).mockResolvedValueOnce(mockResponse);
+
+      const result = await getTopSearchKeywords();
+
+      expect(API.get).toHaveBeenCalledWith("/SearchKeywords/top", {
+        params: { limit: 5 },
+      });
+      expect(result).toEqual(mockData);
+    });
+
+    it("should fetch top search keywords with custom limit", async () => {
+      const mockData = ["React", "TypeScript", "JavaScript"];
+      const mockResponse = { data: mockData };
+      const customLimit = 3;
+      vi.mocked(API.get).mockResolvedValueOnce(mockResponse);
+
+      const result = await getTopSearchKeywords(customLimit);
+
+      expect(API.get).toHaveBeenCalledWith("/SearchKeywords/top", {
+        params: { limit: customLimit },
+      });
+      expect(result).toEqual(mockData);
+    });
+
+    it("should handle limit of 10", async () => {
+      const mockData = Array(10).fill("keyword");
+      const mockResponse = { data: mockData };
+      vi.mocked(API.get).mockResolvedValueOnce(mockResponse);
+
+      const result = await getTopSearchKeywords(10);
+
+      expect(API.get).toHaveBeenCalledWith("/SearchKeywords/top", {
+        params: { limit: 10 },
+      });
+      expect(result).toEqual(mockData);
+    });
+
+    it("should return objects with keyword field", async () => {
+      const mockData = [
+        { keyword: "React", count: 100 },
+        { keyword: "TypeScript", count: 85 },
+      ];
+      const mockResponse = { data: mockData };
+      vi.mocked(API.get).mockResolvedValueOnce(mockResponse);
+
+      const result = await getTopSearchKeywords(2);
+
+      expect(result).toEqual(mockData);
+    });
+
+    it("should return empty array when no keywords available", async () => {
+      const mockData: string[] = [];
+      const mockResponse = { data: mockData };
+      vi.mocked(API.get).mockResolvedValueOnce(mockResponse);
+
+      const result = await getTopSearchKeywords();
+
+      expect(result).toEqual([]);
+    });
+
+    it("should throw error when API call fails", async () => {
+      const error = new Error("Failed to fetch keywords");
+      vi.mocked(API.get).mockRejectedValueOnce(error);
+
+      await expect(getTopSearchKeywords()).rejects.toThrow(
+        "Failed to fetch keywords",
+      );
+      expect(API.get).toHaveBeenCalledWith("/SearchKeywords/top", {
+        params: { limit: 5 },
+      });
+    });
+
+    it("should throw error on network timeout", async () => {
+      const error = new Error("Request timeout");
+      vi.mocked(API.get).mockRejectedValueOnce(error);
+
+      await expect(getTopSearchKeywords(5)).rejects.toThrow("Request timeout");
+    });
+
+    it("should handle 404 error", async () => {
+      const error = {
+        response: {
+          status: 404,
+          data: { message: "Not found" },
+        },
+      };
+      vi.mocked(API.get).mockRejectedValueOnce(error);
+
+      await expect(getTopSearchKeywords()).rejects.toEqual(error);
+    });
+
+    it("should handle 500 server error", async () => {
+      const error = {
+        response: {
+          status: 500,
+          data: { message: "Internal server error" },
+        },
+      };
+      vi.mocked(API.get).mockRejectedValueOnce(error);
+
+      await expect(getTopSearchKeywords()).rejects.toEqual(error);
+    });
+
+    it("should handle limit of 1", async () => {
+      const mockData = ["React"];
+      const mockResponse = { data: mockData };
+      vi.mocked(API.get).mockResolvedValueOnce(mockResponse);
+
+      const result = await getTopSearchKeywords(1);
+
+      expect(API.get).toHaveBeenCalledWith("/SearchKeywords/top", {
+        params: { limit: 1 },
+      });
+      expect(result).toEqual(mockData);
+    });
+
+    it("should handle very large limit", async () => {
+      const mockData = Array(100).fill("keyword");
+      const mockResponse = { data: mockData };
+      vi.mocked(API.get).mockResolvedValueOnce(mockResponse);
+
+      const result = await getTopSearchKeywords(100);
+
+      expect(API.get).toHaveBeenCalledWith("/SearchKeywords/top", {
+        params: { limit: 100 },
+      });
+      expect(result).toEqual(mockData);
+    });
+
+    it("should return null when response data is null", async () => {
+      const mockResponse = { data: null };
+      vi.mocked(API.get).mockResolvedValueOnce(mockResponse);
+
+      const result = await getTopSearchKeywords();
+
+      expect(result).toBeNull();
+    });
+
+    it("should handle non-Error exceptions", async () => {
+      vi.mocked(API.get).mockRejectedValueOnce("String error");
+
+      await expect(getTopSearchKeywords()).rejects.toBe("String error");
     });
   });
 });

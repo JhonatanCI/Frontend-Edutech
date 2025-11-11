@@ -31,16 +31,15 @@ const ProgramCard: React.FC<ProgramCardProps> = ({
     }
 
     switch (programType) {
-      case "ESPECIALIZACION":
-        return "bg-[#E4EB60]";
-      case "MAESTRIA":
-        return "bg-[#5454E9]";
-      case "DOCTORADO":
-        return "bg-[#5454E9]";
-      case "CERTIFICACION":
-        return "bg-[#E9683B]";
-      default:
-        return "bg-[#88898C]";
+    case "ESPECIALIZACION":
+      return "bg-[#E4EB60]";
+    case "MAESTRIA":
+      return "bg-[#5454E9]";
+    case "DOCTORADO":        return "bg-[#5454E9]";
+    case "CERTIFICACION":
+      return "bg-[#E9683B]";
+    default:
+      return "bg-[#88898C]";
     }
   };
 
@@ -56,35 +55,34 @@ const ProgramCard: React.FC<ProgramCardProps> = ({
 
   const getModalityColor = (modality: string): string => {
     switch (modality) {
-      case "VIRTUAL":
-        return "bg-blue-100 text-blue-800";
-      case "PRESENCIAL":
-        return "bg-green-100 text-green-800";
-      case "HIBRIDO":
-        return "bg-orange-100 text-orange-800";
-      default:
-        return "bg-gray-100 text-gray-800";
+    case "VIRTUAL":
+      return "bg-blue-100 text-blue-800";
+    case "PRESENCIAL":
+      return "bg-green-100 text-green-800";
+    case "HIBRIDO":
+      return "bg-orange-100 text-orange-800";
+    default:
+      return "bg-gray-100 text-gray-800";
     }
   };
 
   const getModalityText = (modality: string): string => {
     switch (modality) {
-      case "VIRTUAL":
-        return "Virtual";
-      case "PRESENCIAL":
-        return "Presencial";
-      case "HIBRIDO":
-        return "Híbrido";
-      default:
-        return modality;
+    case "VIRTUAL":
+      return "Virtual";
+    case "PRESENCIAL":
+      return "Presencial";
+    case "HIBRIDO":        return "Híbrido";
+    default:
+      return modality;
     }
   };
 
   const tags = result.tags
     ? result.tags
-        .split(",")
-        .map((tag) => tag.trim())
-        .filter((tag) => tag)
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter((tag) => tag)
     : [];
 
   return (
