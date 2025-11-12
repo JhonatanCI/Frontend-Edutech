@@ -8,6 +8,7 @@ type ButtonProps = {
   block?: boolean;
   loading?: boolean;
   withArrow?: boolean;
+  type?: "button" | "submit" | "reset";
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -20,6 +21,7 @@ const Button: React.FC<ButtonProps> = ({
   block = false,
   loading = false,
   withArrow = false,
+  type = "button",
 }) => {
   const baseStyles =
     "font-inter font-semibold rounded transition-all duration-300";
@@ -67,6 +69,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
+      type={type}
       className={combinedStyles}
       onClick={onClick}
       disabled={disabled || loading}

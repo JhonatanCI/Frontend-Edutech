@@ -5,6 +5,7 @@ import loginPhoto from "../assets/LoginImage.png";
 // Add the verified-envelope image to assets at src/assets/envelope_verified.png
 import envelopeVerified from "../assets/envelope_verified.png";
 import { requestPasswordReset, resetPassword } from "../services/auth";
+import Button from "../components/Commons/Button";
 
 // UI contract
 // - When there is NO token in query: show the Email Request screen
@@ -96,23 +97,26 @@ const ResetPassword: React.FC = () => {
           </p>
           <form onSubmit={onSubmitEmail} className="space-y-4">
             <div>
-              <label className="block text-gray-700">Correo electrónico</label>
+              <label className="block text-gray-700 font-medium">Correo electrónico</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Digita tu correo electrónico"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-primaryBlue focus:border-primaryBlue outline-none"
                 required
               />
             </div>
-            <button
+            <Button
               type="submit"
               disabled={submitting}
-              className="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition disabled:bg-gray-400"
+              variant="primary"
+              size="medium"
+              block={true}
+              loading={submitting}
             >
-              {submitting ? "Enviando..." : "Confirmar"}
-            </button>
+              Confirmar
+            </Button>
           </form>
           {message && (
             <p className="text-green-700 border border-green-200 bg-green-50 rounded-md p-3" role="status" aria-live="polite">
@@ -136,12 +140,14 @@ const ResetPassword: React.FC = () => {
           <h2 className="text-3xl font-bold text-black mb-2">¡Identidad verificada!</h2>
           <p className="text-gray-600">Gracias por ayudarnos a verificar tu identidad.</p>
           <div className="mt-6">
-            <button
+            <Button
               onClick={() => setStage("change")}
-              className="w-full max-w-xs mx-auto bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition"
+              variant="primary"
+              size="medium"
+              block={false}
             >
               Continuar
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -155,36 +161,39 @@ const ResetPassword: React.FC = () => {
         <h1 className="text-3xl font-bold">Recuperación de contraseña</h1>
         <form onSubmit={onSubmitNewPassword} className="space-y-4">
           <div>
-            <label className="block text-gray-700">Nueva contraseña</label>
+            <label className="block text-gray-700 font-medium">Nueva contraseña</label>
             <input
               type="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder="Digita tu nueva contraseña"
-              className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-primaryBlue focus:border-primaryBlue outline-none"
               required
               minLength={8}
             />
           </div>
           <div>
-            <label className="block text-gray-700">Confirmar contraseña</label>
+            <label className="block text-gray-700 font-medium">Confirmar contraseña</label>
             <input
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirma tu contraseña"
-              className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-primaryBlue focus:border-primaryBlue outline-none"
               required
               minLength={8}
             />
           </div>
-          <button
+          <Button
             type="submit"
             disabled={submitting}
-            className="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition disabled:bg-gray-400"
+            variant="primary"
+            size="medium"
+            block={true}
+            loading={submitting}
           >
-            {submitting ? "Actualizando..." : "Confirmar"}
-          </button>
+            Confirmar
+          </Button>
         </form>
         {error && (
           <p className="text-red-700 border border-red-200 bg-red-50 rounded-md p-3" role="alert" aria-live="assertive">

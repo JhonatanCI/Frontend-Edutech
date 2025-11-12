@@ -1,6 +1,7 @@
 // src/components/Auth/RegisterForm.tsx
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { registerUser } from "../../services/auth"; // ajusta la ruta según tu estructura
+import Button from "../Commons/Button";
 
 interface RegisterFormData {
   username: string;
@@ -215,7 +216,7 @@ const RegisterForm: React.FC = () => {
           value={form.username}
           onChange={handleChange}
           placeholder="Digita tu nombre y apellidos"
-          className={`w-full border rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none ${
+          className={`w-full border rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-primaryBlue focus:border-primaryBlue outline-none ${
             fieldErrors.username ? 'border-red-500' : 'border-gray-300'
           }`}
           required
@@ -238,7 +239,7 @@ const RegisterForm: React.FC = () => {
           value={form.email}
           onChange={handleChange}
           placeholder="Digita tu correo electrónico"
-          className={`w-full border rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none ${
+          className={`w-full border rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-primaryBlue focus:border-primaryBlue outline-none ${
             fieldErrors.email ? 'border-red-500' : 'border-gray-300'
           }`}
           required
@@ -261,7 +262,7 @@ const RegisterForm: React.FC = () => {
           value={form.password}
           onChange={handleChange}
           placeholder="Digita tu contraseña"
-          className={`w-full border rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none ${
+          className={`w-full border rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-primaryBlue focus:border-primaryBlue outline-none ${
             fieldErrors.password ? 'border-red-500' : 'border-gray-300'
           }`}
           required
@@ -279,27 +280,20 @@ const RegisterForm: React.FC = () => {
         </p>
       </div>
 
-      <button
+      <Button
         type="submit"
         disabled={loading}
-        className="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+        variant="primary"
+        size="medium"
+        block={true}
+        loading={loading}
       >
-        {loading ? (
-          <span className="flex items-center justify-center">
-            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            Registrando...
-          </span>
-        ) : (
-          "Registrarse"
-        )}
-      </button>
+        Registrarse
+      </Button>
 
       <p className="text-sm text-center mt-2 text-black">
         Ya tengo cuenta{" "}
-        <a href="/login" className="text-purple-600 font-medium hover:underline">
+        <a href="/login" className="text-primaryBlue font-medium hover:underline">
           iniciar sesión
         </a>
       </p>
