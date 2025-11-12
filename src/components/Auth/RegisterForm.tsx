@@ -69,32 +69,62 @@ const RegisterForm: React.FC = () => {
     if (err.response) {
       const { status, data } = err.response;
       
-      // Errores específicos por código de estado
+      let backendMessage = null;
+      
+      if (data?.message) {
+        backendMessage = data.message;
+      } else if (typeof data === 'string') {
+        backendMessage = data;
+      } else if (data?.error) {
+        backendMessage = data.error;
+      } else if (data?.errors && Array.isArray(data.errors) && data.errors.length > 0) {
+        backendMessage = data.errors[0].message || data.errors[0];
+      }
+      
+
+      if (backendMessage) {
+
+        if (backendMessage.toLowerCase().includes("usuario ya existe")) {
+          return "Este nombre de usuario ya está registrado. Por favor elige otro.";
+        }
+        if (backendMessage.toLowerCase().includes("email ya está en uso") || 
+            backendMessage.toLowerCase().includes("correo ya está en uso")) {
+          return "Este correo electrónico ya está registrado. ¿Deseas iniciar sesión?";
+        }
+        
+        if (!backendMessage.includes("java.") && 
+            !backendMessage.includes("Exception") && 
+            backendMessage.length < 200) {
+          return backendMessage;
+        }
+      }
+      
       switch (status) {
         case 400:
-          if (data?.message) {
-            // Mensaje personalizado del backend
-            return data.message;
-          }
-          return "Datos inválidos. Por favor verifica la información ingresada.";
+          return backendMessage || "Datos inválidos. Por favor verifica la información ingresada.";
         
         case 409:
-          if (data?.message?.includes("email")) {
+          if (backendMessage?.toLowerCase().includes("email")) {
             return "Este correo electrónico ya está registrado. ¿Deseas iniciar sesión?";
           }
-          if (data?.message?.includes("username")) {
+          if (backendMessage?.toLowerCase().includes("username") || 
+              backendMessage?.toLowerCase().includes("usuario")) {
             return "Este nombre de usuario ya está en uso. Prueba con otro.";
           }
           return "El usuario ya existe en el sistema.";
         
         case 422:
-          return "Los datos enviados no cumplen con los requisitos. Revisa todos los campos.";
+          return backendMessage || "Los datos enviados no cumplen con los requisitos. Revisa todos los campos.";
         
         case 500:
+          // Para errores 500, solo usar el mensaje del backend si es claro
+          if (backendMessage && !backendMessage.includes("java.") && backendMessage.length < 100) {
+            return backendMessage;
+          }
           return "Error en el servidor. Por favor intenta más tarde.";
         
         default:
-          return data?.message || "Error al registrar el usuario. Intenta nuevamente.";
+          return backendMessage || "Error al registrar el usuario. Intenta nuevamente.";
       }
     }
     
