@@ -5,14 +5,14 @@ import SearchResultsHero from "../components/Search/SearchResultsHero";
 import SearchResultsGrid from "../components/Search/SearchResultsGrid";
 import PaginationControls from "../components/Search/PaginationControls";
 import SearchFilters from "../components/Search/SearchFilters";
+import PopularTags from "../components/Home/PopularTags";
 import { useSearch } from "../hooks/useSearch";
 import { FilterState } from "../types/search.types";
 
 const SearchResults: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const [showFilters, setShowFilters] = useState(false);
-  const { results, isLoading, error, pagination, search, clearError } =
+  const { results, isLoading, error, pagination, search } =
     useSearch();
 
   const [filters, setFilters] = useState<FilterState>({
@@ -50,7 +50,7 @@ const SearchResults: React.FC = () => {
 
   const handleFilterChange = (newFilters: FilterState) => {
     setFilters(newFilters);
-    handlePageChange(0); 
+    handlePageChange(0);
   };
 
   const handleFavorite = (id: string) => {
@@ -58,18 +58,11 @@ const SearchResults: React.FC = () => {
     console.log("Toggle favorite for:", id);
   };
 
-  const handleLearnMore = (id: string, itemType: string, name: string) => {
+  const handleLearnMore = (itemType: string, name: string) => {
     if (itemType === "COURSE") {
       navigate(`/course/${name}`);
     } else if (itemType === "PROGRAM") {
       navigate(`/program/${name}`);
-    }
-  };
-
-  const handleRetry = () => {
-    clearError();
-    if (query) {
-      search(query, page, filters);
     }
   };
 
@@ -210,10 +203,17 @@ const SearchResults: React.FC = () => {
             results.length === 0 &&
             query &&
             activeFilters.length === 0 && (
-              <div className="max-w-4xl mx-auto text-center py-12">
-                {/* No results UI */}
+            <div className="max-w-4xl mx-auto text-center py-12">
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">No se encontraron resultados para "{query}"</h3>
+              <p className="text-gray-600 mb-6">Intenta con otra palabra clave o elige una de las búsquedas populares:</p>
+
+              <div className="flex justify-center">
+                <div className="w-full sm:w-3/4 lg:w-1/2">
+                  <PopularTags />
+                </div>
               </div>
-            )}
+            </div>
+          )}
         </div>
       </div>
     </div>

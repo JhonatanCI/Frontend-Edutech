@@ -1,15 +1,9 @@
 import HeroTitle from "./HeroTitle";
 import SearchBar from "../Commons/SearchBar";
 import PopularTags from "./PopularTags";
-import { useSelector } from "react-redux";
-import { TagsState } from "../../redux/tagsSlice";
 import icesiImage from "../../assets/Icesi.jpg";
 
 const HeroSection: React.FC = () => {
-  const recentSearches = useSelector(
-    (state: { tags: TagsState }) => state.tags.tags,
-  );
-
   return (
     <div
       className="relative w-full h-screen flex flex-col items-center justify-center text-white overflow-hidden"
@@ -40,7 +34,7 @@ const HeroSection: React.FC = () => {
           />
         </div>
 
-        <PopularTags tags={recentSearches.slice(-5)} />
+        <PopularTags />
       </div>
     </div>
   );
