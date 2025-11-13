@@ -5,6 +5,7 @@ import { loginUser } from "../../services/auth";
 import { loginStart, loginSuccess, loginFailure } from "../../redux/authSlice";
 import { isValidToken } from "../../utils/jwt";
 import { RootState } from "../../redux/store";
+import Button from "../Commons/Button";
 
 interface LoginFormData {
   email: string;
@@ -73,28 +74,28 @@ const LoginForm: React.FC = () => {
 
       {/* Correo electrónico */}
       <div>
-        <label className="block text-gray-700">Correo electrónico</label>
+        <label className="block text-gray-700 font-medium">Correo electrónico</label>
         <input
           type="email"
           name="email"
           value={form.email}
           onChange={handleChange}
           placeholder="Digita tu correo electrónico"
-          className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
+          className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-primaryBlue focus:border-primaryBlue outline-none"
           required
         />
       </div>
 
       {/* Contraseña */}
       <div>
-        <label className="block text-gray-700">Contraseña</label>
+        <label className="block text-gray-700 font-medium">Contraseña</label>
         <input
           type="password"
           name="password"
           value={form.password}
           onChange={handleChange}
           placeholder="Digita tu contraseña"
-          className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
+          className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 bg-white text-black focus:ring-2 focus:ring-primaryBlue focus:border-primaryBlue outline-none"
           required
         />
       </div>
@@ -103,27 +104,30 @@ const LoginForm: React.FC = () => {
       <div className="text-right text-sm">
         <a
           href="/reset-password"
-          className="text-purple-600 hover:text-purple-800"
+          className="text-primaryBlue hover:text-primaryBlue-dark font-medium"
         >
           ¿Has olvidado tu contraseña?
         </a>
       </div>
 
       {/* Botón */}
-      <button
+      <Button
         type="submit"
         disabled={loading}
-        className="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition disabled:bg-gray-400"
+        variant="primary"
+        size="medium"
+        block={true}
+        loading={loading}
       >
-        {loading ? "Iniciando sesión..." : "Iniciar sesión"}
-      </button>
+        Iniciar sesión
+      </Button>
 
       {error && <p className="text-red-600 text-center">{error}</p>}
       {success && <p className="text-green-600 text-center">¡Inicio de sesión exitoso! Redirigiendo...</p>}
 
       <p className="text-sm text-center mt-2 text-black">
         No tengo cuenta{" "}
-        <a href="/register" className="text-purple-600 font-medium">
+        <a href="/register" className="text-primaryBlue font-medium hover:underline">
           Registrarme
         </a>
       </p>
