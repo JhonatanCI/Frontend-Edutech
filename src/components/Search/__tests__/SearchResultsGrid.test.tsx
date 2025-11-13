@@ -1,7 +1,35 @@
 import { render, screen } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
 import SearchResultsGrid from "../SearchResultsGrid";
 import { SearchResult } from "../../../types/search.types";
+import authReducer from "../../../redux/authSlice";
+import React from "react";
+
+vi.mock("../../../services/favorites");
+
+const createMockStore = () => {
+  return configureStore({
+    reducer: {
+      auth: authReducer,
+    },
+    preloadedState: {
+      auth: {
+        user: { id: "1", username: "testuser", email: "test@test.com" },
+        token: "fake-token",
+        isAuthenticated: true,
+        loading: false,
+        error: null,
+      },
+    },
+  });
+};
+
+const renderWithProviders = (component: React.ReactElement) => {
+  const store = createMockStore();
+  return render(<Provider store={store}>{component}</Provider>);
+};
 
 const mockResults: SearchResult[] = [
   {
@@ -37,7 +65,6 @@ const mockResults: SearchResult[] = [
 ];
 
 describe("SearchResultsGrid", () => {
-  const mockOnFavorite = vi.fn();
   const mockOnLearnMore = vi.fn();
 
   beforeEach(() => {
@@ -45,13 +72,8 @@ describe("SearchResultsGrid", () => {
   });
 
   it("renders loading skeletons when isLoading is true", () => {
-    render(
-      <SearchResultsGrid
-        results={[]}
-        isLoading={true}
-        onFavorite={mockOnFavorite}
-        onLearnMore={mockOnLearnMore}
-      />,
+    renderWithProviders(
+      <SearchResultsGrid results={[]} isLoading={true} onLearnMore={mockOnLearnMore} />
     );
 
     const skeletons = screen
@@ -61,26 +83,20 @@ describe("SearchResultsGrid", () => {
   });
 
   it("renders nothing when results array is empty and not loading", () => {
-    const { container } = render(
-      <SearchResultsGrid
-        results={[]}
-        isLoading={false}
-        onFavorite={mockOnFavorite}
-        onLearnMore={mockOnLearnMore}
-      />,
+    const { container } = renderWithProviders(
+      <SearchResultsGrid results={[]} isLoading={false} onLearnMore={mockOnLearnMore} />
     );
 
     expect(container.firstChild).toBeNull();
   });
 
   it("renders results when provided", () => {
-    render(
+    renderWithProviders(
       <SearchResultsGrid
         results={mockResults}
         isLoading={false}
-        onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     expect(screen.getByText("Test Course 1")).toBeInTheDocument();
@@ -94,13 +110,12 @@ describe("SearchResultsGrid", () => {
   });
 
   it("renders correct number of results", () => {
-    render(
+    renderWithProviders(
       <SearchResultsGrid
         results={mockResults}
         isLoading={false}
-        onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     const courseCards = screen.getAllByText(/Test (Course|Program) \d/);
@@ -108,13 +123,12 @@ describe("SearchResultsGrid", () => {
   });
 
   it("passes correct props to ProgramCard components", () => {
-    render(
+    renderWithProviders(
       <SearchResultsGrid
         results={mockResults}
         isLoading={false}
-        onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     expect(screen.getByText("Test Course 1")).toBeInTheDocument();
@@ -127,20 +141,15 @@ describe("SearchResultsGrid", () => {
   });
 
   it("works without optional callback props", () => {
-    render(<SearchResultsGrid results={mockResults} isLoading={false} />);
+    renderWithProviders(<SearchResultsGrid results={mockResults} isLoading={false} />);
 
     expect(screen.getByText("Test Course 1")).toBeInTheDocument();
     expect(screen.getByText("Test Program 1")).toBeInTheDocument();
   });
 
   it("renders loading state with correct grid layout", () => {
-    const { container } = render(
-      <SearchResultsGrid
-        results={[]}
-        isLoading={true}
-        onFavorite={mockOnFavorite}
-        onLearnMore={mockOnLearnMore}
-      />,
+    const { container } = renderWithProviders(
+      <SearchResultsGrid results={[]} isLoading={true} onLearnMore={mockOnLearnMore} />
     );
 
     const gridContainer = container.firstChild;
@@ -154,13 +163,12 @@ describe("SearchResultsGrid", () => {
   });
 
   it("renders results with correct grid layout", () => {
-    const { container } = render(
+    const { container } = renderWithProviders(
       <SearchResultsGrid
         results={mockResults}
         isLoading={false}
-        onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     const gridContainer = container.firstChild;
@@ -176,13 +184,12 @@ describe("SearchResultsGrid", () => {
   it("handles single result correctly", () => {
     const singleResult = [mockResults[0]];
 
-    render(
+    renderWithProviders(
       <SearchResultsGrid
         results={singleResult}
         isLoading={false}
-        onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     expect(screen.getByText("Test Course 1")).toBeInTheDocument();
@@ -196,13 +203,12 @@ describe("SearchResultsGrid", () => {
       name: `Test Course ${index + 1}`,
     }));
 
-    render(
+    renderWithProviders(
       <SearchResultsGrid
         results={manyResults}
         isLoading={false}
-        onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     // Should render all 10 results
