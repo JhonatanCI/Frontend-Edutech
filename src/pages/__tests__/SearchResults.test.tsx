@@ -538,28 +538,6 @@ describe("SearchResults", () => {
     });
   });
 
-  describe("Edge Cases", () => {
-    it("should handle favorite functionality", async () => {
-      const user = userEvent.setup();
-      const consoleSpy = vi.spyOn(console, "log");
-      mockUseSearch.results = [
-        { id: "1", name: "Test Course", itemType: "COURSE" },
-      ];
-
-      render(
-        <BrowserRouter>
-          <SearchResults />
-        </BrowserRouter>,
-      );
-
-      const favoriteButton = screen.getByTestId("favorite-1");
-      await user.click(favoriteButton);
-
-      expect(consoleSpy).toHaveBeenCalledWith("Toggle favorite for:", "1");
-      consoleSpy.mockRestore();
-    });
-  });
-
   describe("Filter State Management", () => {
     it("should reset to page 0 when filters change", async () => {
       const user = userEvent.setup();

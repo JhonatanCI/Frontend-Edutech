@@ -53,11 +53,6 @@ const SearchResults: React.FC = () => {
     handlePageChange(0);
   };
 
-  const handleFavorite = (id: string) => {
-  
-    console.log("Toggle favorite for:", id);
-  };
-
   const handleLearnMore = (itemType: string, name: string) => {
     if (itemType === "COURSE") {
       navigate(`/course/${name}`);
@@ -166,7 +161,6 @@ const SearchResults: React.FC = () => {
               <SearchResultsGrid
                 results={results}
                 isLoading={isLoading}
-                onFavorite={handleFavorite}
                 onLearnMore={handleLearnMore}
               />
             </div>
