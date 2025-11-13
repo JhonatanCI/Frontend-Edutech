@@ -5,7 +5,6 @@ import { SearchResultsGridProps } from "../../types/search.types";
 const SearchResultsGrid: React.FC<SearchResultsGridProps> = ({
   results,
   isLoading,
-  onFavorite,
   onLearnMore,
 }) => {
   const LoadingSkeleton = () => (
@@ -54,7 +53,6 @@ const SearchResultsGrid: React.FC<SearchResultsGridProps> = ({
         <ProgramCard
           key={result.id}
           result={result}
-          onFavorite={onFavorite}
           onLearnMore={onLearnMore}
         />
       ))}

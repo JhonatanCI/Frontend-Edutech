@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Button from "../Commons/Button";
 import { HashLink as Link } from "react-router-hash-link";
 import logo from "../../assets/Icesi-EverGrow_logo.svg";
@@ -8,6 +9,7 @@ import { loadUserFromStorage, logout } from "../../redux/authSlice";
 
 const NavBar: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isAuthenticated, user } = useSelector((state: RootState) => state.auth);
 
   // Cargar usuario del localStorage al montar el componente
@@ -61,9 +63,12 @@ const NavBar: React.FC = () => {
           {isAuthenticated && user ? (
             // Usuario logueado
             <>
-              <span className="text-white font-medium">
+              <button
+                onClick={() => navigate("/profile")}
+                className="text-white font-medium hover:text-textGray transition-colors duration-200 cursor-pointer"
+              >
                 ¡Hola, {user.username}!
-              </span>
+              </button>
               <Button 
                 onClick={handleLogout}
                 variant="danger"

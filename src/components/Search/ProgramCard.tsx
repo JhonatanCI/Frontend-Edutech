@@ -1,11 +1,31 @@
 import React from "react";
 import { ProgramCardProps } from "../../types/search.types";
+import { useFavorites } from "../../hooks/useFavorites";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 const ProgramCard: React.FC<ProgramCardProps> = ({
   result,
-  onFavorite,
   onLearnMore,
 }) => {
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+  const { toggleFavorite, isFavorite } = useFavorites();
+  const isItemFavorite = isFavorite(result.id);
+
+  const handleFavoriteClick = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    
+    if (!isAuthenticated) {
+      alert("Debes iniciar sesión para guardar favoritos");
+      return;
+    }
+
+    try {
+      await toggleFavorite(result.id, result.itemType);
+    } catch (error) {
+      console.error("Error al actualizar favorito:", error);
+    }
+  };
   const formatPrice = (price: number): string => {
     return new Intl.NumberFormat("es-CO", {
       style: "currency",
@@ -139,13 +159,13 @@ const ProgramCard: React.FC<ProgramCardProps> = ({
             {result.name}
           </h3>
           <button
-            onClick={() => onFavorite?.(result.id)}
+            onClick={handleFavoriteClick}
             className="ml-2 text-gray-400 hover:text-red-500 transition-colors duration-200"
-            aria-label="Agregar a favoritos"
+            aria-label={isItemFavorite ? "Quitar de favoritos" : "Agregar a favoritos"}
           >
             <svg
               className="w-5 h-5"
-              fill="none"
+              fill={isItemFavorite ? "currentColor" : "none"}
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
