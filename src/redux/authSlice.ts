@@ -49,14 +49,30 @@ const authSlice = createSlice({
       state.token = null;
       state.error = action.payload;
     },
+    setCredentials: (
+      state,
+      action: PayloadAction<{ user: User; token: string }>
+    ) => {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      state.isAuthenticated = true;
+      state.loading = false;
+      state.error = null;
+    
+      localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("user", JSON.stringify(action.payload.user));
+    },
+    updateUser: (state, action: PayloadAction<User>) => {
+      state.user = action.payload;
+      localStorage.setItem("user", JSON.stringify(action.payload));
+    },
     logout: (state) => {
       state.user = null;
       state.token = null;
       state.isAuthenticated = false;
       state.loading = false;
       state.error = null;
-      
-      // Limpiar localStorage
+    
       localStorage.removeItem("token");
       localStorage.removeItem("user");
     },
@@ -72,7 +88,6 @@ const authSlice = createSlice({
             state.user = user;
             state.isAuthenticated = true;
           } else {
-            // Token expirado, limpiar todo
             localStorage.removeItem("token");
             localStorage.removeItem("user");
             state.token = null;
@@ -80,7 +95,6 @@ const authSlice = createSlice({
             state.isAuthenticated = false;
           }
         } catch {
-          // Si hay error al parsear o validar, limpiar localStorage
           localStorage.removeItem("token");
           localStorage.removeItem("user");
           state.token = null;
@@ -99,6 +113,8 @@ export const {
   loginStart,
   loginSuccess,
   loginFailure,
+  setCredentials,
+  updateUser,
   logout,
   loadUserFromStorage,
   clearError,
