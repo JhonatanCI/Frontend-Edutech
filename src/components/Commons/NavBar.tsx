@@ -33,10 +33,8 @@ const NavBar: React.FC = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // --- LÓGICA DEL BANNER DE BIENVENIDA (CORREGIDA Y ROBUSTA) ---
   useEffect(() => {
-    // La clave es esperar a que el objeto 'user' exista.
-    // Esto asegura que toda la información del login ya se cargó.
+  
     if (user && location.pathname === "/") {
       const bannerShown = sessionStorage.getItem("homeBannerShown");
       
@@ -46,21 +44,19 @@ const NavBar: React.FC = () => {
         
         const timer = setTimeout(() => {
           setShowWelcomeBanner(false);
-        }, 7); // Se oculta automáticamente después de 7 segundos
+        }, 7);
         
-        // Limpia el temporizador si el componente se desmonta
+        
         return () => clearTimeout(timer);
       }
     } else {
-      // Si no hay usuario o no estamos en Home, nos aseguramos de que el banner esté oculto.
+     
       setShowWelcomeBanner(false);
     }
-  }, [user, location.pathname]); // La dependencia es 'user' y 'location.pathname'
-
+  }, [user, location.pathname]); 
   const handleLogout = () => {
     dispatch(logout());
     setIsDropdownOpen(false);
-    // Limpiamos el sessionStorage para que el banner se muestre en el próximo login
     sessionStorage.removeItem("homeBannerShown"); 
     navigate("/");
   };
@@ -70,7 +66,6 @@ const NavBar: React.FC = () => {
     setIsDropdownOpen(false);
   };
 
-  // Genera un color consistente basado en el username
   const getColorFromUsername = (username: string) => {
     const colors = [
       "from-pink-500 to-pink-700",
@@ -154,7 +149,7 @@ const NavBar: React.FC = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-sm md:text-base">
-                      ¡Bienvenido de vuelta, {user?.username}! 👋
+                      ¡Bienvenido, {user?.username}! 👋
                     </p>
                     <p className="text-xs md:text-sm text-white/90 mt-0.5">
                       Haz clic en tu inicial ({user?.username.charAt(0).toUpperCase()}) para visitar tu perfil y ver tus favoritos.
