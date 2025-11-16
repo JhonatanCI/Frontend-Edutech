@@ -1,10 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { isValidToken } from "../utils/jwt";
 
+// Tu interfaz User es un poco diferente a la de UserInfo de la página de perfil.
+// Usaremos Partial<User> para permitir actualizar solo algunos campos.
 interface User {
   id: string;
   username: string;
   email: string;
+  phone?: string; // Añadimos campos opcionales para que coincida
+  city?: string;  // Añadimos campos opcionales
 }
 
 interface AuthState {
@@ -38,7 +42,6 @@ const authSlice = createSlice({
       state.token = action.payload.token;
       state.error = null;
       
-      // Guardar en localStorage
       localStorage.setItem("token", action.payload.token);
       localStorage.setItem("user", JSON.stringify(action.payload.user));
     },
@@ -62,10 +65,18 @@ const authSlice = createSlice({
       localStorage.setItem("token", action.payload.token);
       localStorage.setItem("user", JSON.stringify(action.payload.user));
     },
-    updateUser: (state, action: PayloadAction<User>) => {
-      state.user = action.payload;
-      localStorage.setItem("user", JSON.stringify(action.payload));
+    
+    // --- ACCIÓN updateUser MEJORADA ---
+    // Acepta una actualización parcial del usuario (Partial<User>)
+    updateUser: (state, action: PayloadAction<Partial<User>>) => {
+      if (state.user) {
+        // 1. Fusiona el usuario actual con los nuevos datos
+        state.user = { ...state.user, ...action.payload };
+        // 2. Actualiza también el localStorage para mantener la persistencia
+        localStorage.setItem("user", JSON.stringify(state.user));
+      }
     },
+
     logout: (state) => {
       state.user = null;
       state.token = null;
