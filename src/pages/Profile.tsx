@@ -645,7 +645,7 @@ const Profile: React.FC = () => {
                       value={editForm.phone}
                       onChange={handleInputChange}
                       className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5454E9] focus:border-transparent transition-all bg-white text-gray-700"
-                      placeholder="3001234567"
+                      placeholder="Agrega tu teléfono"
                       maxLength={10}
                     />
                   </div>
