@@ -223,7 +223,7 @@ const Profile: React.FC = () => {
     setError("");
     setSuccessMessage("");
 
-    // Validación de campos requeridos
+   
     if (!editForm.username.trim()) {
       setError("El nombre de usuario es obligatorio");
       setLoading(false);

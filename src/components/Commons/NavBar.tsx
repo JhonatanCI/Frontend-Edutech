@@ -5,7 +5,7 @@ import { HashLink as Link } from "react-router-hash-link";
 import logo from "../../assets/Icesi-EverGrow_logo.svg";
 import { RootState } from "../../redux/store";
 import { loadUserFromStorage, logout } from "../../redux/authSlice";
-import Button from "../Commons/Button"; // Asegúrate de que la ruta a tu componente Button sea correcta
+import Button from "../Commons/Button"; 
 
 const NavBar: React.FC = () => {
   const dispatch = useDispatch();
@@ -16,12 +16,10 @@ const NavBar: React.FC = () => {
   const [showWelcomeBanner, setShowWelcomeBanner] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Carga el usuario desde el almacenamiento local al iniciar la app
   useEffect(() => {
     dispatch(loadUserFromStorage());
   }, [dispatch]);
 
-  // Cierra el menú desplegable si se hace clic fuera de él
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
