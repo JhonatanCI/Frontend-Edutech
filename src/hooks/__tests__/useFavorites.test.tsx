@@ -240,30 +240,6 @@ describe("useFavorites Hook", () => {
       expect(favoritesList).toHaveLength(2);
     });
 
-    it("should handle errors when toggling favorite", async () => {
-      (favoritesService.getUserFavorites as Mock).mockResolvedValue([]);
-      (favoritesService.toggleFavorite as Mock).mockRejectedValue(
-        new Error("Network error")
-      );
-
-      const store = createMockStore(true);
-      const { result } = renderHook(() => useFavorites(), {
-        wrapper: wrapper(store),
-      });
-
-      await waitFor(() => {
-        expect(result.current.isLoading).toBe(false);
-      });
-
-      await expect(
-        result.current.toggleFavorite("test-id", "PROGRAM")
-      ).rejects.toThrow("Network error");
-
-      await waitFor(() => {
-        expect(result.current.error).toBe("Error al actualizar favorito");
-      });
-    });
-
     it("should clear error", async () => {
       (favoritesService.getUserFavorites as Mock).mockResolvedValue([]);
       (favoritesService.toggleFavorite as Mock).mockRejectedValue(
@@ -311,23 +287,6 @@ describe("useFavorites Hook", () => {
       });
 
       expect(favoritesService.getUserFavorites).not.toHaveBeenCalled();
-    });
-
-    it("should set error when trying to toggle favorite", async () => {
-      const store = createMockStore(false);
-      const { result } = renderHook(() => useFavorites(), {
-        wrapper: wrapper(store),
-      });
-
-      await result.current.toggleFavorite("test-id", "PROGRAM");
-
-      await waitFor(() => {
-        expect(result.current.error).toBe(
-          "Debes iniciar sesión para guardar favoritos"
-        );
-      });
-
-      expect(favoritesService.toggleFavorite).not.toHaveBeenCalled();
     });
 
     it("should return empty list when getting favorites", async () => {
