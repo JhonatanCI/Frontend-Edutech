@@ -1,10 +1,12 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
 import ProgramCard from "../ProgramCard";
 import { SearchResult } from "../../../types/search.types";
 import authReducer from "../../../redux/authSlice";
+import { FavoritesProvider } from "../../../context/favoritesContext";
 import React from "react";
 
 type TestProgramCardProps = {
@@ -15,8 +17,6 @@ type TestProgramCardProps = {
 
 const ProgramCardAny = ProgramCard as React.ComponentType<TestProgramCardProps>;
 
-vi.mock("../../../services/favorites");
-
 const createMockStore = (isAuthenticated = false) => {
   return configureStore({
     reducer: {
@@ -24,11 +24,12 @@ const createMockStore = (isAuthenticated = false) => {
     },
     preloadedState: {
       auth: {
-        user: isAuthenticated ? { id: "1", username: "testuser", email: "test@test.com" } : null,
+        user: isAuthenticated ? { id: 1, username: "testuser", email: "test@test.com" } : null,
         token: isAuthenticated ? "fake-token" : null,
         isAuthenticated,
         loading: false,
         error: null,
+        favoriteMessage: null,
       },
     },
   });
@@ -39,7 +40,15 @@ const renderWithProviders = (
   isAuthenticated = false
 ) => {
   const store = createMockStore(isAuthenticated);
-  return render(<Provider store={store}>{component}</Provider>);
+  return render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <FavoritesProvider>
+          {component}
+        </FavoritesProvider>
+      </BrowserRouter>
+    </Provider>
+  );
 };
 
 const mockCourseResult: SearchResult = {
@@ -74,7 +83,7 @@ const mockProgramResult: SearchResult = {
   durationUnit: "SEMESTERS",
 };
 
-describe.skip("ProgramCard", () => {
+describe("ProgramCard", () => {
   let mockOnFavorite: ReturnType<typeof vi.fn>;
   let mockOnLearnMore: ReturnType<typeof vi.fn>;
 
@@ -84,12 +93,12 @@ describe.skip("ProgramCard", () => {
   });
 
   it("renders course card correctly", () => {
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={mockCourseResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     expect(screen.getByText("React Fundamentals")).toBeInTheDocument();
@@ -100,12 +109,12 @@ describe.skip("ProgramCard", () => {
   });
 
   it("renders program card correctly", () => {
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={mockProgramResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     expect(screen.getByText("Data Science Specialization")).toBeInTheDocument();
@@ -117,12 +126,12 @@ describe.skip("ProgramCard", () => {
   });
 
   it("formats price correctly", () => {
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={mockCourseResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     // Check for the formatted price - the actual format is $ 150.000
@@ -130,24 +139,24 @@ describe.skip("ProgramCard", () => {
   });
 
   it("formats duration correctly for hours", () => {
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={mockCourseResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     expect(screen.getByText("40 horas")).toBeInTheDocument();
   });
 
   it("formats duration correctly for semesters", () => {
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={mockProgramResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     expect(screen.getByText("2 semestres")).toBeInTheDocument();
@@ -159,12 +168,12 @@ describe.skip("ProgramCard", () => {
       duration: 1,
     };
 
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={singleSemesterResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     expect(screen.getByText("1 semestre")).toBeInTheDocument();
@@ -176,24 +185,24 @@ describe.skip("ProgramCard", () => {
       duration: 1,
     };
 
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={singleHourResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     expect(screen.getByText("1 hora")).toBeInTheDocument();
   });
 
   it("displays tags correctly", () => {
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={mockCourseResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     expect(screen.getByText("React")).toBeInTheDocument();
@@ -207,36 +216,36 @@ describe.skip("ProgramCard", () => {
       tags: "React,JavaScript,Frontend,TypeScript,Node.js,Express",
     };
 
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={manyTagsResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     expect(screen.getByText("+3 más")).toBeInTheDocument();
   });
 
   it("displays modality correctly", () => {
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={mockCourseResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     expect(screen.getByText("Virtual")).toBeInTheDocument();
   });
 
   it("displays presencial modality correctly", () => {
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={mockProgramResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     expect(screen.getByText("Presencial")).toBeInTheDocument();
@@ -248,39 +257,41 @@ describe.skip("ProgramCard", () => {
       modality: "HIBRIDO" as const,
     };
 
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={hibridoResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     expect(screen.getByText("Híbrido")).toBeInTheDocument();
   });
 
   it("calls onFavorite when favorite button is clicked", () => {
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={mockCourseResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
       />,
+      false // unauthenticated - will show AuthModal
     );
 
     const favoriteButton = screen.getByLabelText("Agregar a favoritos");
     fireEvent.click(favoriteButton);
 
-    expect(mockOnFavorite).toHaveBeenCalledWith("1");
+    // Now it opens AuthModal instead of calling callback directly
+    expect(screen.getByText(/Inicia sesión para guardar/)).toBeInTheDocument();
   });
 
   it("calls onLearnMore when learn more button is clicked", () => {
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={mockCourseResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     const learnMoreButton = screen.getByText("Conoce más");
@@ -294,7 +305,7 @@ describe.skip("ProgramCard", () => {
   });
 
   it("works without optional callbacks", () => {
-    render(<ProgramCardAny result={mockCourseResult} />);
+    renderWithProviders(<ProgramCardAny result={mockCourseResult} />);
 
     expect(screen.getByText("React Fundamentals")).toBeInTheDocument();
     expect(
@@ -303,12 +314,12 @@ describe.skip("ProgramCard", () => {
   });
 
   it("displays correct badge colors for different types", () => {
-    const { rerender } = render(
+    const { rerender } = renderWithProviders(
       <ProgramCardAny
         result={mockCourseResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     const courseBadge = screen.getByText("Curso");
@@ -320,11 +331,17 @@ describe.skip("ProgramCard", () => {
     };
 
     rerender(
-      <ProgramCardAny
-        result={especializacionResult}
-        onFavorite={mockOnFavorite}
-        onLearnMore={mockOnLearnMore}
-      />,
+      <Provider store={createMockStore()}>
+        <BrowserRouter>
+          <FavoritesProvider>
+            <ProgramCardAny
+              result={especializacionResult}
+              onFavorite={mockOnFavorite}
+              onLearnMore={mockOnLearnMore}
+            />
+          </FavoritesProvider>
+        </BrowserRouter>
+      </Provider>
     );
 
     const especializacionBadges = screen.getAllByText("ESPECIALIZACION");
@@ -338,24 +355,24 @@ describe.skip("ProgramCard", () => {
       imageUrl: "",
     };
 
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={noImageResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     expect(screen.getByText("Sin imagen")).toBeInTheDocument();
   });
 
   it("handles image load error", () => {
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={mockCourseResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     const image = screen.getByAltText("React Fundamentals");
@@ -365,24 +382,24 @@ describe.skip("ProgramCard", () => {
   });
 
   it("displays credits correctly", () => {
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={mockCourseResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     expect(screen.getByText("3")).toBeInTheDocument();
   });
 
   it("displays program type as level when available", () => {
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={mockProgramResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     const especializacionElements = screen.getAllByText("ESPECIALIZACION");
@@ -390,12 +407,12 @@ describe.skip("ProgramCard", () => {
   });
 
   it('displays "General" as level when program type is null', () => {
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={mockCourseResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     expect(screen.getByText("General")).toBeInTheDocument();
@@ -407,12 +424,12 @@ describe.skip("ProgramCard", () => {
       tags: "",
     };
 
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={noTagsResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     expect(screen.queryByText("React")).not.toBeInTheDocument();
@@ -424,16 +441,172 @@ describe.skip("ProgramCard", () => {
       tags: " React , JavaScript , Frontend ",
     };
 
-    render(
+    renderWithProviders(
       <ProgramCardAny
         result={spacedTagsResult}
         onFavorite={mockOnFavorite}
         onLearnMore={mockOnLearnMore}
-      />,
+      />
     );
 
     expect(screen.getByText("React")).toBeInTheDocument();
     expect(screen.getByText("JavaScript")).toBeInTheDocument();
     expect(screen.getByText("Frontend")).toBeInTheDocument();
+  });
+
+  // Tests for badge color branches
+  it("displays MAESTRIA badge with correct color", () => {
+    const maestriaResult = {
+      ...mockProgramResult,
+      programType: "MAESTRIA",
+    };
+
+    renderWithProviders(
+      <ProgramCardAny
+        result={maestriaResult}
+        onFavorite={mockOnFavorite}
+        onLearnMore={mockOnLearnMore}
+      />
+    );
+
+    const badge = screen.getAllByText("MAESTRIA")[0];
+    expect(badge).toHaveClass("bg-[#5454E9]");
+  });
+
+  it("displays DOCTORADO badge with correct color", () => {
+    const doctoradoResult = {
+      ...mockProgramResult,
+      programType: "DOCTORADO",
+    };
+
+    renderWithProviders(
+      <ProgramCardAny
+        result={doctoradoResult}
+        onFavorite={mockOnFavorite}
+        onLearnMore={mockOnLearnMore}
+      />
+    );
+
+    const badge = screen.getAllByText("DOCTORADO")[0];
+    expect(badge).toHaveClass("bg-[#5454E9]");
+  });
+
+  it("displays CERTIFICACION badge with correct color", () => {
+    const certificacionResult = {
+      ...mockProgramResult,
+      programType: "CERTIFICACION",
+    };
+
+    renderWithProviders(
+      <ProgramCardAny
+        result={certificacionResult}
+        onFavorite={mockOnFavorite}
+        onLearnMore={mockOnLearnMore}
+      />
+    );
+
+    const badge = screen.getAllByText("CERTIFICACION")[0];
+    expect(badge).toHaveClass("bg-[#E9683B]");
+  });
+
+  it("displays default badge color for unknown program type", () => {
+    const unknownTypeResult = {
+      ...mockProgramResult,
+      programType: "UNKNOWN_TYPE",
+    };
+
+    renderWithProviders(
+      <ProgramCardAny
+        result={unknownTypeResult}
+        onFavorite={mockOnFavorite}
+        onLearnMore={mockOnLearnMore}
+      />
+    );
+
+    const badge = screen.getAllByText("UNKNOWN_TYPE")[0];
+    expect(badge).toHaveClass("bg-[#88898C]");
+  });
+
+  // Tests for modality color default case
+  it("displays default modality color for unknown modality", () => {
+    const unknownModalityResult = {
+      ...mockProgramResult,
+      modality: "ONLINE",
+    };
+
+    renderWithProviders(
+      <ProgramCardAny
+        result={unknownModalityResult}
+        onFavorite={mockOnFavorite}
+        onLearnMore={mockOnLearnMore}
+      />
+    );
+
+    const modalityBadge = screen.getByText("ONLINE");
+    expect(modalityBadge).toHaveClass("bg-gray-100");
+    expect(modalityBadge).toHaveClass("text-gray-800");
+  });
+
+  // Tests for modality text default case
+  it("displays default modality text for unknown modality", () => {
+    const unknownModalityResult = {
+      ...mockProgramResult,
+      modality: "REMOTE",
+    };
+
+    renderWithProviders(
+      <ProgramCardAny
+        result={unknownModalityResult}
+        onFavorite={mockOnFavorite}
+        onLearnMore={mockOnLearnMore}
+      />
+    );
+
+    expect(screen.getByText("REMOTE")).toBeInTheDocument();
+  });
+
+  // Tests for handleFavoriteClick error handling
+  it("handles error when toggling favorite for authenticated user", async () => {
+    const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    renderWithProviders(
+      <ProgramCardAny
+        result={mockProgramResult}
+        onFavorite={mockOnFavorite}
+        onLearnMore={mockOnLearnMore}
+      />,
+      true // authenticated
+    );
+
+    const favoriteButton = screen.getByLabelText("Agregar a favoritos");
+    fireEvent.click(favoriteButton);
+
+    await waitFor(() => {
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        "Error al actualizar favorito:",
+        expect.any(Error)
+      );
+    });
+
+    consoleErrorSpy.mockRestore();
+  });
+
+  // Tests for unauthenticated user flow with pending favorites
+  it("saves pending favorite and shows AuthModal for unauthenticated user", async () => {
+    renderWithProviders(
+      <ProgramCardAny
+        result={mockProgramResult}
+        onFavorite={mockOnFavorite}
+        onLearnMore={mockOnLearnMore}
+      />,
+      false // unauthenticated
+    );
+
+    const favoriteButton = screen.getByLabelText("Agregar a favoritos");
+    fireEvent.click(favoriteButton);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Inicia sesión para guardar/)).toBeInTheDocument();
+    });
   });
 });

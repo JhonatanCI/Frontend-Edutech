@@ -92,6 +92,19 @@ describe("Favorites Service", () => {
       });
       expect(result.success).toBe(true);
     });
+
+    it("should handle add favorite error", async () => {
+      const mockError = new Error("Failed to add favorite");
+      (API.post as Mock).mockRejectedValue(mockError);
+
+      await expect(
+        favoritesService.addFavorite(
+          1,
+          "123e4567-e89b-12d3-a456-426614174000",
+          "PROGRAM"
+        )
+      ).rejects.toThrow("Failed to add favorite");
+    });
   });
 
   describe("removeFavorite", () => {
@@ -119,6 +132,19 @@ describe("Favorites Service", () => {
         },
       });
       expect(result.success).toBe(true);
+    });
+
+    it("should handle remove favorite error", async () => {
+      const mockError = new Error("Failed to remove favorite");
+      (API.delete as Mock).mockRejectedValue(mockError);
+
+      await expect(
+        favoritesService.removeFavorite(
+          1,
+          "123e4567-e89b-12d3-a456-426614174000",
+          "COURSE"
+        )
+      ).rejects.toThrow("Failed to remove favorite");
     });
   });
 
@@ -150,6 +176,15 @@ describe("Favorites Service", () => {
       expect(result).toEqual(mockFavorites);
       expect(result).toHaveLength(1);
     });
+
+    it("should handle get user favorites error", async () => {
+      const mockError = new Error("Failed to fetch favorites");
+      (API.get as Mock).mockRejectedValue(mockError);
+
+      await expect(
+        favoritesService.getUserFavorites(1)
+      ).rejects.toThrow("Failed to fetch favorites");
+    });
   });
 
   describe("getUserProgramFavorites", () => {
@@ -179,6 +214,15 @@ describe("Favorites Service", () => {
       expect(API.get).toHaveBeenCalledWith("/favorites/user/1/programs");
       expect(result).toEqual(mockPrograms);
     });
+
+    it("should handle get program favorites error", async () => {
+      const mockError = new Error("Failed to fetch program favorites");
+      (API.get as Mock).mockRejectedValue(mockError);
+
+      await expect(
+        favoritesService.getUserProgramFavorites(1)
+      ).rejects.toThrow("Failed to fetch program favorites");
+    });
   });
 
   describe("getUserCourseFavorites", () => {
@@ -207,6 +251,15 @@ describe("Favorites Service", () => {
 
       expect(API.get).toHaveBeenCalledWith("/favorites/user/1/courses");
       expect(result).toEqual(mockCourses);
+    });
+
+    it("should handle get course favorites error", async () => {
+      const mockError = new Error("Failed to fetch course favorites");
+      (API.get as Mock).mockRejectedValue(mockError);
+
+      await expect(
+        favoritesService.getUserCourseFavorites(1)
+      ).rejects.toThrow("Failed to fetch course favorites");
     });
   });
 
@@ -241,6 +294,19 @@ describe("Favorites Service", () => {
 
       expect(result).toBe(false);
     });
+
+    it("should handle check favorite error", async () => {
+      const mockError = new Error("Failed to check favorite");
+      (API.get as Mock).mockRejectedValue(mockError);
+
+      await expect(
+        favoritesService.checkFavorite(
+          1,
+          "123e4567-e89b-12d3-a456-426614174000",
+          "PROGRAM"
+        )
+      ).rejects.toThrow("Failed to check favorite");
+    });
   });
 
   describe("countUserFavorites", () => {
@@ -253,6 +319,15 @@ describe("Favorites Service", () => {
 
       expect(API.get).toHaveBeenCalledWith("/favorites/user/1/count");
       expect(result).toBe(5);
+    });
+
+    it("should handle count favorites error", async () => {
+      const mockError = new Error("Failed to count favorites");
+      (API.get as Mock).mockRejectedValue(mockError);
+
+      await expect(
+        favoritesService.countUserFavorites(1)
+      ).rejects.toThrow("Failed to count favorites");
     });
   });
 });

@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
 import SearchResultsGrid from "../SearchResultsGrid";
 import { SearchResult } from "../../../types/search.types";
@@ -28,7 +29,13 @@ const createMockStore = () => {
 
 const renderWithProviders = (component: React.ReactElement) => {
   const store = createMockStore();
-  return render(<Provider store={store}>{component}</Provider>);
+  return render(
+    <Provider store={store}>
+      <BrowserRouter>
+        {component}
+      </BrowserRouter>
+    </Provider>
+  );
 };
 
 const mockResults: SearchResult[] = [
