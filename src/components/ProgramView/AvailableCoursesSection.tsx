@@ -55,7 +55,7 @@ const AvailableCoursesSection: React.FC<AvailableCoursesSectionProps> = ({
         </div>
       </div>
 
-      <div className="flex w-full justify-between gap-32">
+      <div className="flex w-full justify-between gap-8 wrap">
         <ProgramCoursesSection
           programCourses={programCourses}
           semesters={semesters}

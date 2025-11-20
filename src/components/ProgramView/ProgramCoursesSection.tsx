@@ -15,7 +15,7 @@ const ProgramCoursesSection: React.FC<ProgramCoursesSectionProps> = ({
   const semesterArray = [...Array(semesters).keys()];
 
   return (
-    <div className="pt-12 w-3/5">
+    <div className="pt-12 w-30/5">
       {semesterArray.map((semesterIndex) => (
         <ProgramSemester
           key={semesterIndex}

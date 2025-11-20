@@ -27,13 +27,13 @@ const TalentDevSection: React.FC = () => {
     description: item.description,
     itemType: "COURSE" as const,
     programType: null,
-    tags: "", // Los cursos/microlearnings no tienen tags en el modelo actual
-    modality: "VIRTUAL" as const, // Valor por defecto
-    duration: 0,
+    tags: (item as Course).academicWorlds?.join(", ") || "",
+    modality: (item.modality?.toUpperCase() || "VIRTUAL") as "VIRTUAL" | "PRESENCIAL" | "HIBRIDO",
+    duration: item.hours || 0,
     durationUnit: "HOURS" as const,
-    credits: 0,
-    price: 0,
-    imageUrl: "", // Courses y MicroLearnings no tienen imagen en el modelo
+    credits: (item as Course).credits || 0,
+    price: item.price || 0,
+    imageUrl: "",
     degreeTitle: null,
   });
 
@@ -48,18 +48,14 @@ const TalentDevSection: React.FC = () => {
     itemType: "PROGRAM" as const,
     programType: programType as "ESPECIALIZACION" | "CERTIFICACION" | "DOCTORADO" | "MAESTRIA",
     tags: program.tags || "",
-    modality: (program.modality || "VIRTUAL") as "VIRTUAL" | "PRESENCIAL" | "HIBRIDO",
+    modality: (program.modality?.toUpperCase() || "VIRTUAL") as "VIRTUAL" | "PRESENCIAL" | "HIBRIDO",
     duration: program.semesters || 0,
     durationUnit: "SEMESTERS" as const,
     credits: program.credits || 0,
-    price: 0,
-    imageUrl: program.image || "", // Usar el campo image del programa
+    price: program.price || 0,
+    imageUrl: program.image || "",
     degreeTitle: program.degreeTitle || null,
   });
-
-  const handleFavorite = (id: string) => {
-    console.log("Toggle favorite for:", id);
-  };
 
   const handleLearnMore = (_id: string, itemType: string, name: string) => {
     if (itemType === "COURSE") {
@@ -81,7 +77,6 @@ const TalentDevSection: React.FC = () => {
           <ProgramCard
             key={item.id}
             result={searchResult}
-            onFavorite={handleFavorite}
             onLearnMore={handleLearnMore}
           />
         );
@@ -98,7 +93,6 @@ const TalentDevSection: React.FC = () => {
           <ProgramCard
             key={micro.id}
             result={searchResult}
-            onFavorite={handleFavorite}
             onLearnMore={handleLearnMore}
           />
         );
@@ -112,7 +106,6 @@ const TalentDevSection: React.FC = () => {
           <ProgramCard
             key={course.id}
             result={searchResult}
-            onFavorite={handleFavorite}
             onLearnMore={handleLearnMore}
           />
         );
@@ -125,7 +118,6 @@ const TalentDevSection: React.FC = () => {
           <ProgramCard
             key={certification.id}
             result={searchResult}
-            onFavorite={handleFavorite}
             onLearnMore={handleLearnMore}
           />
         );
@@ -139,7 +131,6 @@ const TalentDevSection: React.FC = () => {
           <ProgramCard
             key={specialization.id}
             result={searchResult}
-            onFavorite={handleFavorite}
             onLearnMore={handleLearnMore}
           />
         );
@@ -153,7 +144,6 @@ const TalentDevSection: React.FC = () => {
           <ProgramCard
             key={master.id}
             result={searchResult}
-            onFavorite={handleFavorite}
             onLearnMore={handleLearnMore}
           />
         );
@@ -167,7 +157,6 @@ const TalentDevSection: React.FC = () => {
           <ProgramCard
             key={phd.id}
             result={searchResult}
-            onFavorite={handleFavorite}
             onLearnMore={handleLearnMore}
           />
         );

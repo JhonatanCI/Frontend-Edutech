@@ -15,6 +15,8 @@ export type MicroLearning = {
   description: string;
   modality: string;
   type: string;
+  price: number;
+  hours: number;
 };
 
 export type Course = {
@@ -29,6 +31,8 @@ export type Course = {
   terminalObjectives: string;
   academicWorlds: string[];
   learningResults: string[];
+  price: number;
+  hours: number;
 };
 
 export type Program = {
@@ -43,6 +47,7 @@ export type Program = {
   image: string;
   credits: number;
   categories: string[];
+  price: number;
 };
 
 export type World = {
