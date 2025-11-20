@@ -5,6 +5,8 @@ interface User {
   id: string;
   username: string;
   email: string;
+  phone?: string; 
+  city?: string;  
 }
 
 interface AuthState {
@@ -44,7 +46,6 @@ const authSlice = createSlice({
       state.token = action.payload.token;
       state.error = null;
       
-      // Guardar en localStorage
       localStorage.setItem("token", action.payload.token);
       localStorage.setItem("user", JSON.stringify(action.payload.user));
     },
@@ -55,6 +56,30 @@ const authSlice = createSlice({
       state.token = null;
       state.error = action.payload;
     },
+    setCredentials: (
+      state,
+      action: PayloadAction<{ user: User; token: string }>
+    ) => {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      state.isAuthenticated = true;
+      state.loading = false;
+      state.error = null;
+    
+      localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("user", JSON.stringify(action.payload.user));
+    },
+    
+   
+    updateUser: (state, action: PayloadAction<Partial<User>>) => {
+      if (state.user) {
+        
+        state.user = { ...state.user, ...action.payload };
+        
+        localStorage.setItem("user", JSON.stringify(state.user));
+      }
+    },
+
     logout: (state) => {
       state.user = null;
       state.token = null;
@@ -63,8 +88,6 @@ const authSlice = createSlice({
       state.error = null;
       state.redirectPath = null;
       state.successMessage = null;
-      
-      // Limpiar localStorage
       localStorage.removeItem("token");
       localStorage.removeItem("user");
     },
@@ -80,7 +103,6 @@ const authSlice = createSlice({
             state.user = user;
             state.isAuthenticated = true;
           } else {
-            // Token expirado, limpiar todo
             localStorage.removeItem("token");
             localStorage.removeItem("user");
             state.token = null;
@@ -88,7 +110,6 @@ const authSlice = createSlice({
             state.isAuthenticated = false;
           }
         } catch {
-          // Si hay error al parsear o validar, limpiar localStorage
           localStorage.removeItem("token");
           localStorage.removeItem("user");
           state.token = null;
@@ -122,6 +143,8 @@ export const {
   loginStart,
   loginSuccess,
   loginFailure,
+  setCredentials,
+  updateUser,
   logout,
   loadUserFromStorage,
   clearError,

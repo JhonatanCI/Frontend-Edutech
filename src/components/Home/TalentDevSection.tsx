@@ -1,12 +1,11 @@
 import React from "react";
-import CourseCard from "../Commons/CourseCard";
 import TalentSearchBar from "./TalentSearchBar";
 import TalentCycleComponent from "./TalentCycleComponent";
+import ProgramCard from "../Search/ProgramCard";
 
 import { useTalentDevContext } from "../../hooks/useTalentDevContext";
 import { Course, MicroLearning, Program } from "../../model/types";
 import { useNavigate } from "react-router-dom";
-import ProgramCard from "../Commons/ProgramCard";
 
 const TalentDevSection: React.FC = () => {
   const { state } = useTalentDevContext();
@@ -17,117 +16,162 @@ const TalentDevSection: React.FC = () => {
       <div className="w-16 h-16 border-4 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
     </div>
   );
+
+  // Función helper para convertir MicroLearning/Course al formato SearchResult
+  const mapToSearchResult = (
+    item: MicroLearning | Course,
+    _itemType: "COURSE" | "MICROLEARNING"
+  ) => ({
+    id: item.id,
+    name: item.name,
+    description: item.description,
+    itemType: "COURSE" as const,
+    programType: null,
+    tags: "", // Los cursos/microlearnings no tienen tags en el modelo actual
+    modality: "VIRTUAL" as const, // Valor por defecto
+    duration: 0,
+    durationUnit: "HOURS" as const,
+    credits: 0,
+    price: 0,
+    imageUrl: "", // Courses y MicroLearnings no tienen imagen en el modelo
+    degreeTitle: null,
+  });
+
+  // Función helper para convertir Program al formato SearchResult
+  const mapProgramToSearchResult = (
+    program: Program,
+    programType: "CERTIFICACION" | "ESPECIALIZACION" | "MAESTRIA" | "DOCTORADO"
+  ) => ({
+    id: program.id,
+    name: program.name,
+    description: program.description,
+    itemType: "PROGRAM" as const,
+    programType: programType as "ESPECIALIZACION" | "CERTIFICACION" | "DOCTORADO" | "MAESTRIA",
+    tags: program.tags || "",
+    modality: (program.modality || "VIRTUAL") as "VIRTUAL" | "PRESENCIAL" | "HIBRIDO",
+    duration: program.semesters || 0,
+    durationUnit: "SEMESTERS" as const,
+    credits: program.credits || 0,
+    price: 0,
+    imageUrl: program.image || "", // Usar el campo image del programa
+    degreeTitle: program.degreeTitle || null,
+  });
+
+  const handleFavorite = (id: string) => {
+    console.log("Toggle favorite for:", id);
+  };
+
+  const handleLearnMore = (_id: string, itemType: string, name: string) => {
+    if (itemType === "COURSE") {
+      navigateTo(`/course/${name}`);
+    } else if (itemType === "PROGRAM") {
+      navigateTo(`/program/${name}`);
+    } else if (itemType === "MICROLEARNING") {
+      navigateTo(`/microlearning/${name}`);
+    }
+  };
+
   console.log(state);
   const renderCards = () => {
     // Si hay resultados de búsqueda, renderizar esos resultados
     if (state.items && state.items.length > 0) {
-      return state.items.map((item: any) => (
-        <CourseCard
-          key={item.id}
-          title={item.name}
-          description={item.description}
-          variant={state.item <= 1 ? "small" : "large"}
-          onClick={() => navigateTo(`/program/${item.name}`)}
-        />
-      ));
+      return state.items.map((item: any) => {
+        const searchResult = mapToSearchResult(item, "COURSE");
+        return (
+          <ProgramCard
+            key={item.id}
+            result={searchResult}
+            onFavorite={handleFavorite}
+            onLearnMore={handleLearnMore}
+          />
+        );
+      });
     }
 
     // Si NO hay resultados de búsqueda, mostrar normalmente según sección
     switch (state.item) {
     case 0: {
       if (!state.microLearnings) return renderSpinner;
-      return state.microLearnings.map((micro: MicroLearning) => (
-        <CourseCard
-          key={micro.id}
-          title={micro.name}
-          description={micro.description}
-          variant="small"
-          onClick={() => navigateTo(`/microlearning/${micro.name}`)}
-        />
-      ));
+      return state.microLearnings.map((micro: MicroLearning) => {
+        const searchResult = mapToSearchResult(micro, "MICROLEARNING");
+        return (
+          <ProgramCard
+            key={micro.id}
+            result={searchResult}
+            onFavorite={handleFavorite}
+            onLearnMore={handleLearnMore}
+          />
+        );
+      });
     }
     case 1: {
       if (!state.courses) return renderSpinner;
-      return state.courses.map((course: Course) => (
-        <CourseCard
-          key={course.id}
-          title={course.name}
-          description={course.description}
-          variant="small"
-          onClick={() => navigateTo(`/course/${course.name}`)}
-        />
-      ));
+      return state.courses.map((course: Course) => {
+        const searchResult = mapToSearchResult(course, "COURSE");
+        return (
+          <ProgramCard
+            key={course.id}
+            result={searchResult}
+            onFavorite={handleFavorite}
+            onLearnMore={handleLearnMore}
+          />
+        );
+      });
     }
     case 2: {
-      return state.certifications.map((certification: Program) => (
-        <ProgramCard
-          key={certification.id}
-          title={certification.name}
-          description={certification.description}
-          categories={certification.tags?.split(",")}
-          credits={certification.credits}
-          duracion={`${certification.semesters} semestres`}
-          registroSNIES={certification.sniesCode}
-          modalidad={certification.modality}
-          tituloOtorga={certification.degreeTitle}
-          variant="medium"
-          onClick={() => navigateTo(`/program/${certification.name}`)}
-        />
-      ));
+      return state.certifications.map((certification: Program) => {
+        const searchResult = mapProgramToSearchResult(certification, "CERTIFICACION");
+        return (
+          <ProgramCard
+            key={certification.id}
+            result={searchResult}
+            onFavorite={handleFavorite}
+            onLearnMore={handleLearnMore}
+          />
+        );
+      });
     }
     case 3: {
       if (!state.specializations) return renderSpinner;
-      return state.specializations.map((specialization: Program) => (
-        <ProgramCard
-          key={specialization.id}
-          title={specialization.name}
-          description={specialization.description}
-          categories={specialization.tags?.split(",")}
-          credits={specialization.credits}
-          duracion={`${specialization.semesters} semestres`}
-          registroSNIES={specialization.sniesCode}
-          modalidad={specialization.modality}
-          tituloOtorga={specialization.degreeTitle}
-          variant="medium"
-          onClick={() => navigateTo(`/program/${specialization.name}`)}
-        />
-      ));
+      return state.specializations.map((specialization: Program) => {
+        const searchResult = mapProgramToSearchResult(specialization, "ESPECIALIZACION");
+        return (
+          <ProgramCard
+            key={specialization.id}
+            result={searchResult}
+            onFavorite={handleFavorite}
+            onLearnMore={handleLearnMore}
+          />
+        );
+      });
     }
     case 4: {
       if (!state.masters) return renderSpinner;
-      return state.masters.map((master: Program) => (
-        <ProgramCard
-          key={master.id}
-          title={master.name}
-          description={master.description}
-          categories={master.tags?.split(",")}
-          credits={master.credits}
-          duracion={`${master.semesters} semestres`}
-          registroSNIES={master.sniesCode}
-          modalidad={master.modality}
-          tituloOtorga={master.degreeTitle}
-          variant="medium"
-          onClick={() => navigateTo(`/program/${master.name}`)}
-        />
-      ));
+      return state.masters.map((master: Program) => {
+        const searchResult = mapProgramToSearchResult(master, "MAESTRIA");
+        return (
+          <ProgramCard
+            key={master.id}
+            result={searchResult}
+            onFavorite={handleFavorite}
+            onLearnMore={handleLearnMore}
+          />
+        );
+      });
     }
     case 5: {
       if (!state.phd) return renderSpinner;
-      return state.phd.map((phd: Program) => (
-        <ProgramCard
-          key={phd.id}
-          title={phd.name}
-          description={phd.description}
-          categories={phd.tags?.split(",")}
-          credits={phd.credits}
-          duracion={`${phd.semesters} semestres`}
-          registroSNIES={phd.sniesCode}
-          modalidad={phd.modality}
-          tituloOtorga={phd.degreeTitle}
-          variant="medium"
-          onClick={() => navigateTo(`/program/${phd.name}`)}
-        />
-      ));
+      return state.phd.map((phd: Program) => {
+        const searchResult = mapProgramToSearchResult(phd, "DOCTORADO");
+        return (
+          <ProgramCard
+            key={phd.id}
+            result={searchResult}
+            onFavorite={handleFavorite}
+            onLearnMore={handleLearnMore}
+          />
+        );
+      });
     }
     default: {
       return renderSpinner;

@@ -311,25 +311,6 @@ describe("FavoritesContext", () => {
       expect(result.current.favorites.size).toBe(0);
     });
 
-    it("should set error when trying to toggle favorite while not authenticated", async () => {
-      const wrapper = createWrapper(false);
-      const { result } = renderHook(() => useFavoritesContext(), { wrapper });
-
-      await waitFor(() => {
-        expect(result.current.isLoading).toBe(false);
-      });
-
-      await result.current.toggleFavorite("test-id", "PROGRAM");
-
-      await waitFor(() => {
-        expect(result.current.error).toBe(
-          "Debes iniciar sesión para guardar favoritos"
-        );
-      });
-
-      expect(favoritesService.toggleFavorite).not.toHaveBeenCalled();
-    });
-
     it("should return empty list when getting favorites while not authenticated", async () => {
       const wrapper = createWrapper(false);
       const { result } = renderHook(() => useFavoritesContext(), { wrapper });

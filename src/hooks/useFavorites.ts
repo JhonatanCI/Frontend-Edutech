@@ -2,7 +2,10 @@
 import { useState, useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import * as favoritesService from "../services/favorites";
+import {
+  toggleFavorite as toggleFavoriteAPI,
+  getUserFavorites,
+} from "../services/favorites";
 import { SearchResult } from "../types/search.types";
 
 interface UseFavoritesReturn {
@@ -14,76 +17,94 @@ interface UseFavoritesReturn {
   getFavorites: () => Promise<void>;
   getUserFavoritesList: () => Promise<SearchResult[]>;
   clearError: () => void;
+  showFirstFavoriteNotification: boolean;
+  clearNotification: () => void;
 }
 
 export const useFavorites = (): UseFavoritesReturn => {
-  const { user, isAuthenticated } = useSelector((state: RootState) => state.auth);
+  const user = useSelector((state: RootState) => state.auth.user);
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showFirstFavoriteNotification, setShowFirstFavoriteNotification] = useState(false);
 
-  const loadUserFavorites = useCallback(async () => {
+  const getFavorites = useCallback(async () => {
     if (!user?.id) return;
 
+    setIsLoading(true);
+    setError(null);
+
     try {
-      setIsLoading(true);
-      const userFavorites = await favoritesService.getUserFavorites(Number(user.id));
-      const favoriteIds = new Set(userFavorites.map((item) => item.id));
+      const favoritesList = await getUserFavorites(Number(user.id));
+      const favoriteIds = new Set(favoritesList.map((fav) => fav.id));
       setFavorites(favoriteIds);
-      setError(null);
     } catch (err) {
-      console.error("Error loading favorites:", err);
       setError("Error al cargar favoritos");
+      console.error("Error fetching favorites:", err);
     } finally {
       setIsLoading(false);
     }
   }, [user?.id]);
 
-  useEffect(() => {
-    if (isAuthenticated && user?.id) {
-      loadUserFavorites();
-    } else {
-      setFavorites(new Set());
+  const getUserFavoritesList = useCallback(async (): Promise<SearchResult[]> => {
+    if (!user?.id) return [];
+
+    try {
+      const favoritesList = await getUserFavorites(Number(user.id));
+      return favoritesList;
+    } catch (err) {
+      console.error("Error fetching favorites list:", err);
+      return [];
     }
-  }, [isAuthenticated, user?.id, loadUserFavorites]);
+  }, [user?.id]);
 
   const toggleFavorite = useCallback(
     async (itemId: string, itemType: "PROGRAM" | "COURSE") => {
-      if (!isAuthenticated || !user?.id) {
-        setError("Debes iniciar sesión para guardar favoritos");
+      if (!user?.id) {
+        setError("Debes iniciar sesión para agregar favoritos");
         return;
       }
 
-      try {
-        setIsLoading(true);
-        setError(null);
+      setError(null);
+      const wasEmpty = favorites.size === 0;
+      const wasFavorite = favorites.has(itemId);
 
-        const response = await favoritesService.toggleFavorite(
+      // Optimistic update
+      const newFavorites = new Set(favorites);
+      if (wasFavorite) {
+        newFavorites.delete(itemId);
+      } else {
+        newFavorites.add(itemId);
+      }
+      setFavorites(newFavorites);
+
+      try {
+        const response = await toggleFavoriteAPI(
           Number(user.id),
           itemId,
           itemType
         );
 
-        setFavorites((prev) => {
-          const newFavorites = new Set(prev);
-          if (response.isFavorite) {
-            newFavorites.add(itemId);
-          } else {
-            newFavorites.delete(itemId);
-          }
-          return newFavorites;
-        });
+        // Si es el primer favorito que se agrega, mostrar notificación
+        if (wasEmpty && response.isFavorite) {
+          setShowFirstFavoriteNotification(true);
+        }
 
-        console.log(response.message);
+        // Sync with server response
+        if (response.isFavorite) {
+          newFavorites.add(itemId);
+        } else {
+          newFavorites.delete(itemId);
+        }
+        setFavorites(new Set(newFavorites));
       } catch (err) {
-        console.error("Error toggling favorite:", err);
+        // Rollback on error
+        setFavorites(favorites);
         setError("Error al actualizar favorito");
-        throw err;
-      } finally {
-        setIsLoading(false);
+        console.error("Error toggling favorite:", err);
       }
     },
-    [isAuthenticated, user?.id]
+    [user?.id, favorites]
   );
 
   const isFavorite = useCallback(
@@ -93,30 +114,19 @@ export const useFavorites = (): UseFavoritesReturn => {
     [favorites]
   );
 
-  const getFavorites = useCallback(async () => {
-    await loadUserFavorites();
-  }, [loadUserFavorites]);
-
-  const getUserFavoritesList = useCallback(async (): Promise<SearchResult[]> => {
-    if (!user?.id) return [];
-
-    try {
-      setIsLoading(true);
-      const userFavorites = await favoritesService.getUserFavorites(Number(user.id));
-      setError(null);
-      return userFavorites;
-    } catch (err) {
-      console.error("Error getting favorites list:", err);
-      setError("Error al obtener lista de favoritos");
-      return [];
-    } finally {
-      setIsLoading(false);
-    }
-  }, [user?.id]);
-
   const clearError = useCallback(() => {
     setError(null);
   }, []);
+
+  const clearNotification = useCallback(() => {
+    setShowFirstFavoriteNotification(false);
+  }, []);
+
+  useEffect(() => {
+    if (user?.id) {
+      getFavorites();
+    }
+  }, [user?.id, getFavorites]);
 
   return {
     favorites,
@@ -127,5 +137,7 @@ export const useFavorites = (): UseFavoritesReturn => {
     getFavorites,
     getUserFavoritesList,
     clearError,
+    showFirstFavoriteNotification,
+    clearNotification,
   };
 };

@@ -17,7 +17,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.4.0",
     "apexcharts": "^4.1.0",
-    "axios": "^1.7.7",
+    "axios": "^1.13.2",
     "course-place": "file:",
     "fuse.js": "^7.1.0",
     "react": "^18.3.1",

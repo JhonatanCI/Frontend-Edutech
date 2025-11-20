@@ -11,6 +11,8 @@ interface FavoritesContextType {
   getFavorites: () => Promise<void>;
   getUserFavoritesList: () => Promise<SearchResult[]>;
   clearError: () => void;
+  showFirstFavoriteNotification: boolean;
+  clearNotification: () => void;
 }
 
 const FavoritesContext = createContext<FavoritesContextType | undefined>(
