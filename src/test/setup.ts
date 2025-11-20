@@ -1,14 +1,33 @@
 import "@testing-library/jest-dom";
 import { vi } from "vitest";
 
-// Mock localStorage
+// Mock localStorage con implementación funcional
+let localStorageData: { [key: string]: string } = {};
+
 const localStorageMock = {
-  getItem: vi.fn(),
-  setItem: vi.fn(),
-  removeItem: vi.fn(),
-  clear: vi.fn(),
+  getItem: vi.fn((key: string) => localStorageData[key] || null),
+  setItem: vi.fn((key: string, value: string) => {
+    localStorageData[key] = value;
+  }),
+  removeItem: vi.fn((key: string) => {
+    delete localStorageData[key];
+  }),
+  clear: vi.fn(() => {
+    localStorageData = {};
+  }),
+  get length() {
+    return Object.keys(localStorageData).length;
+  },
+  key: vi.fn((index: number) => {
+    const keys = Object.keys(localStorageData);
+    return keys[index] || null;
+  }),
 };
-global.localStorage = localStorageMock;
+
+Object.defineProperty(global, 'localStorage', {
+  value: localStorageMock,
+  writable: true,
+});
 
 // Mock window.matchMedia
 Object.defineProperty(window, "matchMedia", {

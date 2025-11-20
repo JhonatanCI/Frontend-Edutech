@@ -2,10 +2,12 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../services/auth";
-import { loginStart, loginSuccess, loginFailure } from "../../redux/authSlice";
+import { loginStart, loginSuccess, loginFailure, setFavoriteMessage } from "../../redux/authSlice";
 import { isValidToken } from "../../utils/jwt";
 import { RootState } from "../../redux/store";
 import Button from "../Commons/Button";
+import { usePendingFavorite } from "../../hooks/usePendingFavorite";
+import { addFavorite } from "../../services/favorites";
 
 interface LoginFormData {
   email: string;
@@ -16,6 +18,7 @@ const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, error } = useSelector((state: RootState) => state.auth);
+  const { getPendingFavorite, clearPendingFavorite } = usePendingFavorite();
   
   const [form, setForm] = useState<LoginFormData>({
     email: "",
@@ -52,6 +55,23 @@ const LoginForm: React.FC = () => {
           
           setSuccess(true);
           
+          const pendingFavorite = getPendingFavorite();
+          if (pendingFavorite) {
+            try {
+              await addFavorite(
+                Number(response.user.id),
+                pendingFavorite.itemId,
+                pendingFavorite.itemType
+              );
+              
+              const itemTypeText = pendingFavorite.itemType === "PROGRAM" ? "Programa" : "Curso";
+              dispatch(setFavoriteMessage(`${itemTypeText} guardado exitosamente. Puedes verlo en tus favoritos.`));
+              clearPendingFavorite();
+            } catch (favError) {
+              console.error("Error al guardar favorito:", favError);
+            }
+          }
+          
           // Redirigir al home después de 1 segundo
           setTimeout(() => {
             navigate("/");
@@ -62,8 +82,10 @@ const LoginForm: React.FC = () => {
       } else {
         dispatch(loginFailure("No se recibió token del servidor"));
       }
-    } catch (err: any) {
-      const errorMessage = err.response?.data?.message || "Credenciales incorrectas";
+    } catch (err: unknown) {
+      const errorMessage = err && typeof err === "object" && "response" in err 
+        ? (err.response as { data?: { message?: string } })?.data?.message || "Credenciales incorrectas"
+        : "Credenciales incorrectas";
       dispatch(loginFailure(errorMessage));
     }
   };
@@ -123,7 +145,9 @@ const LoginForm: React.FC = () => {
       </Button>
 
       {error && <p className="text-red-600 text-center">{error}</p>}
-      {success && <p className="text-green-600 text-center">¡Inicio de sesión exitoso! Redirigiendo...</p>}
+      {success && (
+        <p className="text-green-600 text-center font-medium">¡Inicio de sesión exitoso! Redirigiendo...</p>
+      )}
 
       <p className="text-sm text-center mt-2 text-black">
         No tengo cuenta{" "}

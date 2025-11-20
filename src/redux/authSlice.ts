@@ -13,6 +13,9 @@ interface AuthState {
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
+  redirectPath: string | null;
+  successMessage: string | null;
+  favoriteMessage: string | null;
 }
 
 const initialState: AuthState = {
@@ -21,6 +24,9 @@ const initialState: AuthState = {
   isAuthenticated: false,
   loading: false,
   error: null,
+  redirectPath: null,
+  successMessage: null,
+  favoriteMessage: null,
 };
 
 const authSlice = createSlice({
@@ -55,6 +61,8 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.loading = false;
       state.error = null;
+      state.redirectPath = null;
+      state.successMessage = null;
       
       // Limpiar localStorage
       localStorage.removeItem("token");
@@ -92,6 +100,21 @@ const authSlice = createSlice({
     clearError: (state) => {
       state.error = null;
     },
+    setRedirectPath: (state, action: PayloadAction<string | null>) => {
+      state.redirectPath = action.payload;
+    },
+    setSuccessMessage: (state, action: PayloadAction<string | null>) => {
+      state.successMessage = action.payload;
+    },
+    clearSuccessMessage: (state) => {
+      state.successMessage = null;
+    },
+    setFavoriteMessage: (state, action: PayloadAction<string | null>) => {
+      state.favoriteMessage = action.payload;
+    },
+    clearFavoriteMessage: (state) => {
+      state.favoriteMessage = null;
+    },
   },
 });
 
@@ -102,6 +125,11 @@ export const {
   logout,
   loadUserFromStorage,
   clearError,
+  setRedirectPath,
+  setSuccessMessage,
+  clearSuccessMessage,
+  setFavoriteMessage,
+  clearFavoriteMessage,
 } = authSlice.actions;
 
 export default authSlice.reducer;

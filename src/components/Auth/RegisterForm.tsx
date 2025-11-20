@@ -1,7 +1,13 @@
 // src/components/Auth/RegisterForm.tsx
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { registerUser } from "../../services/auth"; // ajusta la ruta según tu estructura
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { registerUser, loginUser } from "../../services/auth";
+import { loginSuccess, setFavoriteMessage } from "../../redux/authSlice";
+import { isValidToken } from "../../utils/jwt";
 import Button from "../Commons/Button";
+import { usePendingFavorite } from "../../hooks/usePendingFavorite";
+import { addFavorite } from "../../services/favorites";
 
 interface RegisterFormData {
   username: string;
@@ -16,6 +22,10 @@ interface FieldErrors {
 }
 
 const RegisterForm: React.FC = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { getPendingFavorite, clearPendingFavorite } = usePendingFavorite();
+  
   const [form, setForm] = useState<RegisterFormData>({
     username: "",
     email: "",
@@ -101,31 +111,31 @@ const RegisterForm: React.FC = () => {
       }
       
       switch (status) {
-        case 400:
-          return backendMessage || "Datos inválidos. Por favor verifica la información ingresada.";
+      case 400:
+        return backendMessage || "Datos inválidos. Por favor verifica la información ingresada.";
         
-        case 409:
-          if (backendMessage?.toLowerCase().includes("email")) {
-            return "Este correo electrónico ya está registrado. ¿Deseas iniciar sesión?";
-          }
-          if (backendMessage?.toLowerCase().includes("username") || 
+      case 409:
+        if (backendMessage?.toLowerCase().includes("email")) {
+          return "Este correo electrónico ya está registrado. ¿Deseas iniciar sesión?";
+        }
+        if (backendMessage?.toLowerCase().includes("username") || 
               backendMessage?.toLowerCase().includes("usuario")) {
-            return "Este nombre de usuario ya está en uso. Prueba con otro.";
-          }
-          return "El usuario ya existe en el sistema.";
+          return "Este nombre de usuario ya está en uso. Prueba con otro.";
+        }
+        return "El usuario ya existe en el sistema.";
         
-        case 422:
-          return backendMessage || "Los datos enviados no cumplen con los requisitos. Revisa todos los campos.";
+      case 422:
+        return backendMessage || "Los datos enviados no cumplen con los requisitos. Revisa todos los campos.";
         
-        case 500:
-          // Para errores 500, solo usar el mensaje del backend si es claro
-          if (backendMessage && !backendMessage.includes("java.") && backendMessage.length < 100) {
-            return backendMessage;
-          }
-          return "Error en el servidor. Por favor intenta más tarde.";
+      case 500:
+        // Para errores 500, solo usar el mensaje del backend si es claro
+        if (backendMessage && !backendMessage.includes("java.") && backendMessage.length < 100) {
+          return backendMessage;
+        }
+        return "Error en el servidor. Por favor intenta más tarde.";
         
-        default:
-          return backendMessage || "Error al registrar el usuario. Intenta nuevamente.";
+      default:
+        return backendMessage || "Error al registrar el usuario. Intenta nuevamente.";
       }
     }
     
@@ -156,13 +166,47 @@ const RegisterForm: React.FC = () => {
       console.log("✅ Registro exitoso:", response);
       setSuccess(true);
       
-      // Limpiar formulario después del éxito
-      setForm({ username: "", email: "", password: "" });
-      
-      // Opcional: redirigir después de unos segundos
-      // setTimeout(() => {
-      //   window.location.href = "/login";
-      // }, 2000);
+      try {
+        const loginResponse = await loginUser({
+          email: form.email,
+          password: form.password,
+        });
+
+        if (loginResponse.token && loginResponse.user && isValidToken(loginResponse.token)) {
+          dispatch(loginSuccess({
+            user: {
+              id: loginResponse.user.id,
+              username: loginResponse.user.username,
+              email: loginResponse.user.email,
+            },
+            token: loginResponse.token,
+          }));
+
+          const pendingFavorite = getPendingFavorite();
+          if (pendingFavorite) {
+            try {
+              await addFavorite(
+                Number(loginResponse.user.id),
+                pendingFavorite.itemId,
+                pendingFavorite.itemType
+              );
+
+              const itemTypeText = pendingFavorite.itemType === "PROGRAM" ? "Programa" : "Curso";
+              dispatch(setFavoriteMessage(`${itemTypeText} guardado exitosamente. Puedes verlo en tus favoritos.`));
+              clearPendingFavorite();
+            } catch (favError) {
+              console.error("Error al guardar favorito:", favError);
+            }
+          }
+
+          setTimeout(() => {
+            navigate("/");
+          }, 1000);
+        }
+      } catch (loginErr) {
+        console.error("Error en login automático:", loginErr);
+        setForm({ username: "", email: "", password: "" });
+      }
     } catch (err: any) {
       const errorMessage = getErrorMessage(err);
       setError(errorMessage);
@@ -202,7 +246,7 @@ const RegisterForm: React.FC = () => {
               </svg>
             </div>
             <div className="ml-3">
-              <p className="text-sm text-green-700 font-medium">¡Registro exitoso! Ya puedes iniciar sesión.</p>
+              <p className="text-sm text-green-700 font-medium">¡Registro exitoso! Redirigiendo...</p>
             </div>
           </div>
         </div>
