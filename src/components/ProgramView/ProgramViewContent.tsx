@@ -33,6 +33,7 @@ const ProgramViewContent: React.FC<ProgramViewContentProps> = ({ program }) => {
       <AvailableCoursesSection
         semesters={program.semesters}
         programLearningResult={program.programLearningResults}
+        programId={program.id}
       />
       <AchievementsSection
         programUUID={program.id}

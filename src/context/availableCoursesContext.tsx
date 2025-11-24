@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useEffect } from "react";
 import { AvailableCoursesState } from "../reducers/AvailableCoursesReducer/AvailableCoursesTypes";
 import useAvailableCourses from "../reducers/AvailableCoursesReducer/AvailableCoursesReducer";
-import { Course, ProgramCourse } from "../model/types";
+import { Course, ProgramCourse, CourseSelectionPreset } from "../model/types";
 import { getAllCourses } from "../services/academicCourses";
 
 interface AvailableCoursesProviderProps {
@@ -14,6 +14,8 @@ export type AvailableCoursesContextType = {
   swapCourse: (current: ProgramCourse, newCourse: Course) => void;
   resetCourse: (current: ProgramCourse) => void;
   initializeCourses: (name: string) => Promise<void>;
+  applyPreset: (preset: CourseSelectionPreset) => void;
+  clearPreset: () => void;
 };
 
 const AvailableCoursesContext = createContext<
@@ -30,6 +32,8 @@ const AvailableCoursesProvider = ({
     swapCourse,
     resetCourse,
     initializeCourses,
+    applyPreset,
+    clearPreset,
   } = useAvailableCourses();
 
   useEffect(() => {
@@ -53,6 +57,8 @@ const AvailableCoursesProvider = ({
         swapCourse,
         resetCourse,
         initializeCourses,
+        applyPreset,
+        clearPreset,
       }}
     >
       {children}

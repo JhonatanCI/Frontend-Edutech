@@ -138,3 +138,60 @@ export type FullProgram = {
   programLearningResults: ProgramLearningResult[];
   academicWorlds: World[];
 };
+
+// Course Selection Presets
+export type PresetCourseSelection = {
+  id: UUID;
+  presetId: UUID;
+  parentCourseId: UUID;
+  parentCourseName: string;
+  parentCourseCredits?: number;
+  selectedChildCourseId: UUID;
+  selectedChildCourseName: string;
+  selectedChildCourseCredits?: number;
+  notes?: string;
+  displayOrder?: number;
+  semester?: number;
+  sharedLearningResults?: UUID[];
+};
+
+export type CourseSelectionPreset = {
+  id: UUID;
+  name: string;
+  description: string;
+  programId: UUID;
+  programName?: string;
+  createdBy?: number;
+  createdByUsername?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  isActive: boolean;
+  isDefault?: boolean;
+  courseSelections: PresetCourseSelection[];
+  totalCourses?: number;
+};
+
+export type PresetSummary = {
+  id: UUID;
+  name: string;
+  description: string;
+  programId: UUID;
+  programName?: string;
+  createdByUsername?: string;
+  totalCourses: number;
+  isActive: boolean;
+  isDefault?: boolean;
+};
+
+export type CreatePresetRequest = {
+  name: string;
+  description: string;
+  programId: UUID;
+  courseSelections: {
+    parentCourseId: UUID;
+    selectedChildCourseId: UUID;
+    notes?: string;
+    displayOrder?: number;
+  }[];
+  isPublic?: boolean;
+};

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { HashLink as Link } from "react-router-hash-link";
-import logo from "../../assets/Icesi-EverGrow_logo.svg";
+//import logo from "../../assets/Icesi-EverGrow_logo.svg";
 import { RootState } from "../../redux/store";
 import { loadUserFromStorage, logout } from "../../redux/authSlice";
 import Button from "../Commons/Button"; 

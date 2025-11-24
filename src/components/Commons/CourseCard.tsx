@@ -6,6 +6,8 @@ interface CardProps {
   description: string;
   categories?: string[];
   credits?: number;
+  swapped?: boolean;
+  swappedFromName?: string;
   variant: "small" | "medium" | "large"; // To handle size variations
   variantStyle?: "solid" | "dashed"; // New prop for border style
   isEditable?: boolean;
@@ -17,6 +19,8 @@ const CourseCard: React.FC<CardProps> = ({
   description,
   categories,
   credits,
+  swapped,
+  swappedFromName,
   variant,
   variantStyle,
   isEditable,
@@ -81,6 +85,14 @@ const CourseCard: React.FC<CardProps> = ({
           className={`absolute ${creditsPaddingClass} text-right text-black font-regular text-xs`}
         >
           {credits} créditos
+        </div>
+      )}
+      {/* Preset badge */}
+      {swapped && (
+        <div className="absolute left-4 bottom-10">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+            Seleccionado (preset)
+          </span>
         </div>
       )}
     </div>
