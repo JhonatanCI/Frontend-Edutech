@@ -53,7 +53,7 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
   };
 
   return (
-    <div className="h-screen w-full px-16 py-8">
+    <div className="h-screen w-full px-16 py-8" data-testid="exchange-modal">
       <div className="p-6">
         <div>
           <h3 className="text-3xl font-bold text-black">Intercambiar Curso</h3>
@@ -67,6 +67,7 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
                 handleClick={handleSearch}
                 search="cursos"
                 by="Gerencia de Proyectos, Formulación de..."
+                data-testid="course-search"
               />
             </div>
           </div>
@@ -95,10 +96,11 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
                     <button
                       className="text-black font-inter font-semibold rounded border border-black bg-white transition-all duration-300 text-md py-3 px-12 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
                       onClick={close}
+                      data-testid="cancel-exchange"
                     >
                       No intercambiar
                     </button>
-                    <Button onClick={swap} disabled={!newCourse}>
+                    <Button onClick={swap} disabled={!newCourse} data-testid="confirm-exchange">
                       Confirmar intercambio
                     </Button>
                   </div>

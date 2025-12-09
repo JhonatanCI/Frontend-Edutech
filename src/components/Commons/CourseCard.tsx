@@ -46,10 +46,11 @@ const CourseCard: React.FC<CardProps> = ({
     <div
       className={`flex flex-col relative bg-white shadow-md rounded-lg border border-gray-200 ${gridClass} ${borderClass} ${heightClass} ${paddingClass} ${interactivityClasses}`}
       onClick={isEditable ? onClick : undefined}
+      data-testid="course-card"
     >
       {/* Editable Icon */}
       {isEditable && (
-        <button className="absolute -top-6 -right-6 hover:scale-125">
+        <button className="absolute -top-6 -right-6 hover:scale-125" data-testid="exchange-button">
           <img src={editIcon} alt="edit" />
         </button>
       )}
