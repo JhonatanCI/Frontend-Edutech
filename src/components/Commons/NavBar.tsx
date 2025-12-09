@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { HashLink as Link } from "react-router-hash-link";
-import logo from "../../assets/Icesi-EverGrow_logo.svg";
+//import logo from "../../assets/Icesi-EverGrow_logo.svg";
 import { RootState } from "../../redux/store";
 import { loadUserFromStorage, logout } from "../../redux/authSlice";
 import Button from "../Commons/Button"; 
@@ -84,7 +84,8 @@ const NavBar: React.FC = () => {
         <div className="flex justify-between items-center p-3">
           {/* Logo Section */}
           <div className="pl-16 flex items-center">
-            <img src={logo} alt="Logo" className="h-8 mr-4" />
+           
+            
             <div className="hidden md:flex space-x-6 pl-8">
               <Link to={"/"} smooth className="hover:text-textGray">Home</Link>
               <Link to={"/#desarrolla-tu-talento"} smooth className="custom-link hover:text-textGray">Desarrolla tu talento</Link>

@@ -15,6 +15,8 @@ export type MicroLearning = {
   description: string;
   modality: string;
   type: string;
+  price: number;
+  hours: number;
 };
 
 export type Course = {
@@ -29,6 +31,8 @@ export type Course = {
   terminalObjectives: string;
   academicWorlds: string[];
   learningResults: string[];
+  price: number;
+  hours: number;
 };
 
 export type Program = {
@@ -43,6 +47,7 @@ export type Program = {
   image: string;
   credits: number;
   categories: string[];
+  price: number;
 };
 
 export type World = {
@@ -132,4 +137,61 @@ export type FullProgram = {
   academicCompetencies: any;
   programLearningResults: ProgramLearningResult[];
   academicWorlds: World[];
+};
+
+// Course Selection Presets
+export type PresetCourseSelection = {
+  id: UUID;
+  presetId: UUID;
+  parentCourseId: UUID;
+  parentCourseName: string;
+  parentCourseCredits?: number;
+  selectedChildCourseId: UUID;
+  selectedChildCourseName: string;
+  selectedChildCourseCredits?: number;
+  notes?: string;
+  displayOrder?: number;
+  semester?: number;
+  sharedLearningResults?: UUID[];
+};
+
+export type CourseSelectionPreset = {
+  id: UUID;
+  name: string;
+  description: string;
+  programId: UUID;
+  programName?: string;
+  createdBy?: number;
+  createdByUsername?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  isActive: boolean;
+  isDefault?: boolean;
+  courseSelections: PresetCourseSelection[];
+  totalCourses?: number;
+};
+
+export type PresetSummary = {
+  id: UUID;
+  name: string;
+  description: string;
+  programId: UUID;
+  programName?: string;
+  createdByUsername?: string;
+  totalCourses: number;
+  isActive: boolean;
+  isDefault?: boolean;
+};
+
+export type CreatePresetRequest = {
+  name: string;
+  description: string;
+  programId: UUID;
+  courseSelections: {
+    parentCourseId: UUID;
+    selectedChildCourseId: UUID;
+    notes?: string;
+    displayOrder?: number;
+  }[];
+  isPublic?: boolean;
 };

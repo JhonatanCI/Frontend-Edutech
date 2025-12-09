@@ -46,6 +46,8 @@ const CourseCardModal: React.FC<CourseCardModalProps> = ({
         credits={course.credits}
         isEditable={isEditable}
         variantStyle={variantStyle}
+        swapped={!!course.swapped}
+        swappedFromName={course.originalName}
         variant={variant}
         onClick={handleClick}
       />

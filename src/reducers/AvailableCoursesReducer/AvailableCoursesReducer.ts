@@ -5,7 +5,7 @@ import { ACInitialState } from "./AvailableCoursesInitialState";
 
 import { getAllProgramCourses } from "../../services/academicCourses";
 import { toProgramCourse } from "../../mappers/programCourseMapper";
-import { Course, ProgramCourse } from "../../model/types";
+import { Course, ProgramCourse, CourseSelectionPreset } from "../../model/types";
 
 const initialState = ACInitialState;
 const reducer = availableCoursesReducer;
@@ -33,6 +33,22 @@ const useAvailableCourses = () => {
       payload: { current, newCourse: current as any },
     });
 
+  const applyPreset = (preset: CourseSelectionPreset) => {
+    // Crear un mapa de cursos disponibles para búsqueda rápida
+    const coursesMap = new Map(state.courses.map((c) => [c.id, c]));
+    
+    dispatch({
+      type: ACActionType.APPLY_PRESET,
+      payload: { preset, coursesMap },
+    });
+  };
+
+  const clearPreset = () =>
+    dispatch({
+      type: ACActionType.CLEAR_PRESET,
+      payload: null,
+    });
+
   const initializeCourses = async (name: string) => {
     try {
       const programsFetched = await getAllProgramCourses(name);
@@ -52,6 +68,8 @@ const useAvailableCourses = () => {
     setProgramCourses,
     swapCourse,
     resetCourse,
+    applyPreset,
+    clearPreset,
     initializeCourses,
   };
 };

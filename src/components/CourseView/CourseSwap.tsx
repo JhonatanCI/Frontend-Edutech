@@ -29,6 +29,7 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
         (matchedCourse) => matchedCourse.id !== course.courseId,
       );
       console.log("Cursos filtrados para swap:", filteredCourses);
+      console.log("Cursos actual:", course.courseId);
       setCoursesMatched(filteredCourses);
     }
   }, [response, course.courseId]);
@@ -47,6 +48,7 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
 
   const swap = () => {
     if (newCourse) {
+      console.log("Confirmando intercambio:\n  curso actual id:", course.courseId, "\n  curso seleccionado id:", newCourse.id);
       swapCourse(course, newCourse);
       close();
     }
@@ -88,7 +90,10 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
                         title={course.name}
                         description={course.description}
                         categories={course.learningResults}
-                        onClick={() => setNewCourse(course)}
+                        onClick={() => {
+                          console.log("Curso seleccionado para swap id:", course.id);
+                          setNewCourse(course);
+                        }}
                       />
                     ))}
                   </div>
