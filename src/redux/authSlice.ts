@@ -9,7 +9,7 @@ interface User {
   city?: string;  
 }
 
-interface AuthState {
+export interface AuthState {
   user: User | null;
   token: string | null;
   isAuthenticated: boolean;
@@ -20,7 +20,7 @@ interface AuthState {
   favoriteMessage: string | null;
 }
 
-const initialState: AuthState = {
+export const authInitialState: AuthState = {
   user: null,
   token: null,
   isAuthenticated: false,
@@ -33,7 +33,7 @@ const initialState: AuthState = {
 
 const authSlice = createSlice({
   name: "auth",
-  initialState,
+  initialState: authInitialState,
   reducers: {
     loginStart: (state) => {
       state.loading = true;

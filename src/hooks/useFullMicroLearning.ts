@@ -23,8 +23,10 @@ export const useFullMicroLearning = (name: string | undefined) => {
           description: "Una descripción x",
           modality: "VIRTUAL",
           type: "DIPLOMADO",
+          price: 0,
+          hours: 0,
         });
-        console.error("No se ha podido obtener el micro aprendizaje");
+        console.error("No se ha podido obtener el micro aprendizaje", error);
       }
     };
 

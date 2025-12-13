@@ -90,10 +90,18 @@ const CourseCard: React.FC<CardProps> = ({
       )}
       {/* Preset badge */}
       {swapped && (
-        <div className="absolute left-4 bottom-10">
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+        <div className="absolute left-4 bottom-10" data-testid="preset-badge">
+          <span
+            className="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800"
+            title={swappedFromName ? `Intercambiado desde ${swappedFromName}` : undefined}
+          >
             Seleccionado (preset)
           </span>
+          {swappedFromName && (
+            <span className="mt-1 block text-[10px] font-medium text-blue-700">
+              Desde: {swappedFromName}
+            </span>
+          )}
         </div>
       )}
     </div>

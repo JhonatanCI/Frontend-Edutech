@@ -142,7 +142,6 @@ const Profile: React.FC = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [citySearch, setCitySearch] = useState("");
   const [showCityDropdown, setShowCityDropdown] = useState(false);
-  const [emailError, setEmailError] = useState(false);
 
   useEffect(() => {
     if (!isAuthenticated) {

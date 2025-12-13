@@ -4,25 +4,27 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { useFavorites } from "../useFavorites";
 import * as favoritesService from "../../services/favorites";
-import authReducer from "../../redux/authSlice";
-import React from "react";
+import authReducer, { type AuthState } from "../../redux/authSlice";
+import type { ReactNode } from "react";
 
 vi.mock("../../services/favorites");
 
-const createMockStore = (isAuthenticated = true) => {
+const createMockStore = (isAuthenticated = true, override: Partial<AuthState> = {}) => {
+  const baseState = authReducer(undefined, { type: "@@INIT" } as any);
   return configureStore({
     reducer: {
       auth: authReducer,
     },
     preloadedState: {
       auth: {
+        ...baseState,
         user: isAuthenticated
           ? { id: "1", username: "testuser", email: "test@test.com" }
           : null,
         token: isAuthenticated ? "fake-token" : null,
         isAuthenticated,
         loading: false,
-        error: null,
+        ...override,
       },
     },
   });
@@ -30,7 +32,7 @@ const createMockStore = (isAuthenticated = true) => {
 
 const wrapper =
   (store: ReturnType<typeof createMockStore>) =>
-    ({ children }: { children: React.ReactNode }) => (
+    ({ children }: { children: ReactNode }) => (
       <Provider store={store}>{children}</Provider>
     );
 

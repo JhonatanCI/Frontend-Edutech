@@ -5,9 +5,9 @@ import { BrowserRouter } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
 import ProgramCard from "../ProgramCard";
 import { SearchResult } from "../../../types/search.types";
-import authReducer from "../../../redux/authSlice";
+import authReducer, { type AuthState } from "../../../redux/authSlice";
 import { FavoritesProvider } from "../../../context/favoritesContext";
-import React from "react";
+import type { ComponentType, ReactElement } from "react";
 
 type TestProgramCardProps = {
   result: SearchResult;
@@ -15,31 +15,33 @@ type TestProgramCardProps = {
   onLearnMore?: (id: string, itemType: string, name: string) => void;
 };
 
-const ProgramCardAny = ProgramCard as React.ComponentType<TestProgramCardProps>;
+const ProgramCardAny = ProgramCard as ComponentType<TestProgramCardProps>;
 
-const createMockStore = (isAuthenticated = false) => {
+const createMockStore = (isAuthenticated = false, override: Partial<AuthState> = {}) => {
+  const baseState = authReducer(undefined, { type: "@@INIT" } as any);
   return configureStore({
     reducer: {
       auth: authReducer,
     },
     preloadedState: {
       auth: {
-        user: isAuthenticated ? { id: 1, username: "testuser", email: "test@test.com" } : null,
+        ...baseState,
+        user: isAuthenticated ? { id: "1", username: "testuser", email: "test@test.com" } : null,
         token: isAuthenticated ? "fake-token" : null,
         isAuthenticated,
         loading: false,
-        error: null,
-        favoriteMessage: null,
+        ...override,
       },
     },
   });
 };
 
 const renderWithProviders = (
-  component: React.ReactElement,
-  isAuthenticated = false
+  component: ReactElement,
+  isAuthenticated = false,
+  override?: Partial<AuthState>,
 ) => {
-  const store = createMockStore(isAuthenticated);
+  const store = createMockStore(isAuthenticated, override ?? {});
   return render(
     <Provider store={store}>
       <BrowserRouter>
@@ -456,7 +458,7 @@ describe("ProgramCard", () => {
 
   // Tests for badge color branches
   it("displays MAESTRIA badge with correct color", () => {
-    const maestriaResult = {
+    const maestriaResult: SearchResult = {
       ...mockProgramResult,
       programType: "MAESTRIA",
     };
@@ -474,7 +476,7 @@ describe("ProgramCard", () => {
   });
 
   it("displays DOCTORADO badge with correct color", () => {
-    const doctoradoResult = {
+    const doctoradoResult: SearchResult = {
       ...mockProgramResult,
       programType: "DOCTORADO",
     };
@@ -492,7 +494,7 @@ describe("ProgramCard", () => {
   });
 
   it("displays CERTIFICACION badge with correct color", () => {
-    const certificacionResult = {
+    const certificacionResult: SearchResult = {
       ...mockProgramResult,
       programType: "CERTIFICACION",
     };
@@ -513,7 +515,7 @@ describe("ProgramCard", () => {
     const unknownTypeResult = {
       ...mockProgramResult,
       programType: "UNKNOWN_TYPE",
-    };
+    } as unknown as SearchResult;
 
     renderWithProviders(
       <ProgramCardAny
@@ -532,7 +534,7 @@ describe("ProgramCard", () => {
     const unknownModalityResult = {
       ...mockProgramResult,
       modality: "ONLINE",
-    };
+    } as unknown as SearchResult;
 
     renderWithProviders(
       <ProgramCardAny
@@ -552,7 +554,7 @@ describe("ProgramCard", () => {
     const unknownModalityResult = {
       ...mockProgramResult,
       modality: "REMOTE",
-    };
+    } as unknown as SearchResult;
 
     renderWithProviders(
       <ProgramCardAny

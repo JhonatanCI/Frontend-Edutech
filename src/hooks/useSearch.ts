@@ -23,7 +23,6 @@ export const useSearch = (): UseSearchReturn => {
   const dispatch = useDispatch();
   const {
     results,
-    allResults,
     isLoading,
     error,
     pagination,

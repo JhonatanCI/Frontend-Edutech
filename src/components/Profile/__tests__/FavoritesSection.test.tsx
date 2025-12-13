@@ -6,8 +6,8 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import FavoritesSection from "../FavoritesSection";
 import * as favoritesService from "../../../services/favorites";
-import authReducer from "../../../redux/authSlice";
-import React from "react";
+import authReducer, { type AuthState } from "../../../redux/authSlice";
+import type { ReactElement } from "react";
 
 vi.mock("../../../services/favorites");
 
@@ -20,25 +20,27 @@ vi.mock("react-router-dom", async () => {
   };
 });
 
-const createMockStore = () => {
+const createMockStore = (override: Partial<AuthState> = {}) => {
+  const baseState = authReducer(undefined, { type: "@@INIT" } as any);
   return configureStore({
     reducer: {
       auth: authReducer,
     },
     preloadedState: {
       auth: {
+        ...baseState,
         user: { id: "1", username: "testuser", email: "test@test.com" },
         token: "fake-token",
         isAuthenticated: true,
         loading: false,
-        error: null,
+        ...override,
       },
     },
   });
 };
 
-const renderWithProviders = (component: React.ReactElement) => {
-  const store = createMockStore();
+const renderWithProviders = (component: ReactElement, override?: Partial<AuthState>) => {
+  const store = createMockStore(override);
   return render(
     <Provider store={store}>
       <BrowserRouter>{component}</BrowserRouter>

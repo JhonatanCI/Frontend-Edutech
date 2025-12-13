@@ -5,30 +5,32 @@ import { BrowserRouter } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
 import SearchResultsGrid from "../SearchResultsGrid";
 import { SearchResult } from "../../../types/search.types";
-import authReducer from "../../../redux/authSlice";
-import React from "react";
+import authReducer, { type AuthState } from "../../../redux/authSlice";
+import type { ReactElement } from "react";
 
 vi.mock("../../../services/favorites");
 
-const createMockStore = () => {
+const createMockStore = (override: Partial<AuthState> = {}) => {
+  const baseState = authReducer(undefined, { type: "@@INIT" } as any);
   return configureStore({
     reducer: {
       auth: authReducer,
     },
     preloadedState: {
       auth: {
+        ...baseState,
         user: { id: "1", username: "testuser", email: "test@test.com" },
         token: "fake-token",
         isAuthenticated: true,
         loading: false,
-        error: null,
+        ...override,
       },
     },
   });
 };
 
-const renderWithProviders = (component: React.ReactElement) => {
-  const store = createMockStore();
+const renderWithProviders = (component: ReactElement, override?: Partial<AuthState>) => {
+  const store = createMockStore(override);
   return render(
     <Provider store={store}>
       <BrowserRouter>

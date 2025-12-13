@@ -7,33 +7,35 @@ import {
   useFavoritesContext,
 } from "../favoritesContext";
 import * as favoritesService from "../../services/favorites";
-import authReducer from "../../redux/authSlice";
-import React from "react";
+import authReducer, { type AuthState } from "../../redux/authSlice";
+import type { ReactNode } from "react";
 
 vi.mock("../../services/favorites");
 
-const createMockStore = (isAuthenticated = true) => {
+const createMockStore = (isAuthenticated = true, override: Partial<AuthState> = {}) => {
+  const baseState = authReducer(undefined, { type: "@@INIT" } as any);
   return configureStore({
     reducer: {
       auth: authReducer,
     },
     preloadedState: {
       auth: {
+        ...baseState,
         user: isAuthenticated
           ? { id: "1", username: "testuser", email: "test@test.com" }
           : null,
         token: isAuthenticated ? "fake-token" : null,
         isAuthenticated,
         loading: false,
-        error: null,
+        ...override,
       },
     },
   });
 };
 
-const createWrapper = (isAuthenticated = true) => {
-  const store = createMockStore(isAuthenticated);
-  return ({ children }: { children: React.ReactNode }) => (
+const createWrapper = (isAuthenticated = true, override?: Partial<AuthState>) => {
+  const store = createMockStore(isAuthenticated, override ?? {});
+  return ({ children }: { children: ReactNode }) => (
     <Provider store={store}>
       <FavoritesProvider>{children}</FavoritesProvider>
     </Provider>

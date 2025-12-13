@@ -8,6 +8,8 @@ import authReducer, {
   logout,
   loadUserFromStorage,
   clearError,
+  authInitialState,
+  type AuthState,
 } from "../authSlice";
 
 // Mock de jwt utility
@@ -19,29 +21,22 @@ import { isValidToken } from "../../utils/jwt";
 
 const mockedIsValidToken = isValidToken as unknown as ReturnType<typeof vi.fn>;
 
-interface User {
-  id: string;
-  username: string;
-  email: string;
-  phone?: string;
-  city?: string;
-}
+type User = NonNullable<AuthState["user"]>;
 
-interface AuthState {
-  user: User | null;
-  token: string | null;
-  isAuthenticated: boolean;
-  loading: boolean;
-  error: string | null;
-}
+const getInitialState = (override: Partial<AuthState> = {}): AuthState => ({
+  ...authInitialState,
+  ...override,
+});
 
-const initialState: AuthState = {
-  user: null,
-  token: null,
-  isAuthenticated: false,
-  loading: false,
-  error: null,
-};
+const getAuthenticatedState = (
+  override: Partial<AuthState> = {},
+): AuthState =>
+  getInitialState({
+    user: mockUser,
+    token: mockToken,
+    isAuthenticated: true,
+    ...override,
+  });
 
 const mockUser: User = {
   id: "1",
@@ -61,23 +56,22 @@ describe("authSlice", () => {
 
   describe("Initial State", () => {
     it("should return the initial state", () => {
-      expect(authReducer(undefined, { type: "unknown" })).toEqual(initialState);
+      expect(authReducer(undefined, { type: "unknown" })).toEqual(
+        authInitialState,
+      );
     });
   });
 
   describe("loginStart", () => {
     it("should set loading to true and clear error", () => {
-      const state = authReducer(initialState, loginStart());
+      const state = authReducer(getInitialState(), loginStart());
 
       expect(state.loading).toBe(true);
       expect(state.error).toBe(null);
     });
 
     it("should set loading to true even when there was an error", () => {
-      const stateWithError: AuthState = {
-        ...initialState,
-        error: "Previous error",
-      };
+      const stateWithError = getInitialState({ error: "Previous error" });
 
       const state = authReducer(stateWithError, loginStart());
 
@@ -89,7 +83,7 @@ describe("authSlice", () => {
   describe("loginSuccess", () => {
     it("should set user, token, and isAuthenticated to true", () => {
       const state = authReducer(
-        initialState,
+        getInitialState(),
         loginSuccess({ user: mockUser, token: mockToken })
       );
 
@@ -101,10 +95,7 @@ describe("authSlice", () => {
     });
 
     it("should clear previous error on success", () => {
-      const stateWithError: AuthState = {
-        ...initialState,
-        error: "Login failed",
-      };
+      const stateWithError = getInitialState({ error: "Login failed" });
 
       const state = authReducer(
         stateWithError,
@@ -118,7 +109,7 @@ describe("authSlice", () => {
   describe("loginFailure", () => {
     it("should set error and reset authentication state", () => {
       const errorMessage = "Invalid credentials";
-      const state = authReducer(initialState, loginFailure(errorMessage));
+      const state = authReducer(getInitialState(), loginFailure(errorMessage));
 
       expect(state.loading).toBe(false);
       expect(state.isAuthenticated).toBe(false);
@@ -128,16 +119,8 @@ describe("authSlice", () => {
     });
 
     it("should clear user data when login fails", () => {
-      const authenticatedState: AuthState = {
-        user: mockUser,
-        token: mockToken,
-        isAuthenticated: true,
-        loading: false,
-        error: null,
-      };
-
       const state = authReducer(
-        authenticatedState,
+        getAuthenticatedState(),
         loginFailure("Session expired")
       );
 
@@ -150,7 +133,7 @@ describe("authSlice", () => {
   describe("setCredentials", () => {
     it("should set user and token", () => {
       const state = authReducer(
-        initialState,
+        getInitialState(),
         setCredentials({ user: mockUser, token: mockToken })
       );
 
@@ -169,16 +152,11 @@ describe("authSlice", () => {
       };
       const oldToken = "old-token";
 
-      const stateWithOldCredentials: AuthState = {
-        user: oldUser,
-        token: oldToken,
-        isAuthenticated: true,
-        loading: false,
-        error: null,
-      };
-
       const state = authReducer(
-        stateWithOldCredentials,
+        getAuthenticatedState({
+          user: oldUser,
+          token: oldToken,
+        }),
         setCredentials({ user: mockUser, token: mockToken })
       );
 
@@ -189,20 +167,15 @@ describe("authSlice", () => {
 
   describe("updateUser", () => {
     it("should update user partially", () => {
-      const authenticatedState: AuthState = {
-        user: mockUser,
-        token: mockToken,
-        isAuthenticated: true,
-        loading: false,
-        error: null,
-      };
-
       const updates = {
         username: "newusername",
         city: "Bogotá",
       };
 
-      const state = authReducer(authenticatedState, updateUser(updates));
+      const state = authReducer(
+        getAuthenticatedState(),
+        updateUser(updates),
+      );
 
       expect(state.user).toEqual({
         ...mockUser,
@@ -212,22 +185,17 @@ describe("authSlice", () => {
     });
 
     it("should not update if user is null", () => {
-      const state = authReducer(initialState, updateUser({ username: "test" }));
+      const state = authReducer(
+        getInitialState(),
+        updateUser({ username: "test" }),
+      );
 
       expect(state.user).toBe(null);
     });
 
     it("should update only provided fields", () => {
-      const authenticatedState: AuthState = {
-        user: mockUser,
-        token: mockToken,
-        isAuthenticated: true,
-        loading: false,
-        error: null,
-      };
-
       const state = authReducer(
-        authenticatedState,
+        getAuthenticatedState(),
         updateUser({ email: "newemail@test.com" })
       );
 
@@ -240,14 +208,6 @@ describe("authSlice", () => {
     });
 
     it("should handle multiple fields update", () => {
-      const authenticatedState: AuthState = {
-        user: mockUser,
-        token: mockToken,
-        isAuthenticated: true,
-        loading: false,
-        error: null,
-      };
-
       const updates = {
         username: "updateduser",
         email: "updated@test.com",
@@ -255,7 +215,10 @@ describe("authSlice", () => {
         city: "Medellín",
       };
 
-      const state = authReducer(authenticatedState, updateUser(updates));
+      const state = authReducer(
+        getAuthenticatedState(),
+        updateUser(updates),
+      );
 
       expect(state.user).toEqual({
         id: mockUser.id,
@@ -266,26 +229,16 @@ describe("authSlice", () => {
 
   describe("logout", () => {
     it("should reset state to initial state", () => {
-      const authenticatedState: AuthState = {
-        user: mockUser,
-        token: mockToken,
-        isAuthenticated: true,
-        loading: false,
-        error: null,
-      };
+      const state = authReducer(getAuthenticatedState(), logout());
 
-      const state = authReducer(authenticatedState, logout());
-
-      expect(state).toEqual(initialState);
+      expect(state).toEqual(authInitialState);
     });
 
     it("should clear error on logout", () => {
-      const stateWithError: AuthState = {
-        ...initialState,
-        error: "Some error",
-      };
-
-      const state = authReducer(stateWithError, logout());
+      const state = authReducer(
+        getInitialState({ error: "Some error" }),
+        logout(),
+      );
 
       expect(state.error).toBe(null);
     });
@@ -298,7 +251,7 @@ describe("authSlice", () => {
       localStorage.setItem("user", JSON.stringify(mockUser));
       mockedIsValidToken.mockReturnValue(false);
 
-      const state = authReducer(initialState, loadUserFromStorage());
+      const state = authReducer(getInitialState(), loadUserFromStorage());
 
       expect(state.token).toBe(null);
       expect(state.user).toBe(null);
@@ -306,7 +259,7 @@ describe("authSlice", () => {
     });
 
     it("should not load user if no token in localStorage", () => {
-      const state = authReducer(initialState, loadUserFromStorage());
+      const state = authReducer(getInitialState(), loadUserFromStorage());
 
       expect(state.token).toBe(null);
       expect(state.user).toBe(null);
@@ -316,7 +269,7 @@ describe("authSlice", () => {
     it("should not load user if no user data in localStorage", () => {
       localStorage.setItem("token", mockToken);
 
-      const state = authReducer(initialState, loadUserFromStorage());
+      const state = authReducer(getInitialState(), loadUserFromStorage());
 
       expect(state.token).toBe(null);
       expect(state.user).toBe(null);
@@ -328,7 +281,7 @@ describe("authSlice", () => {
       localStorage.setItem("user", "invalid-json");
       mockedIsValidToken.mockReturnValue(true);
 
-      const state = authReducer(initialState, loadUserFromStorage());
+      const state = authReducer(getInitialState(), loadUserFromStorage());
 
       expect(state.token).toBe(null);
       expect(state.user).toBe(null);
@@ -339,26 +292,19 @@ describe("authSlice", () => {
 
   describe("clearError", () => {
     it("should clear error message", () => {
-      const stateWithError: AuthState = {
-        ...initialState,
-        error: "Some error message",
-      };
-
-      const state = authReducer(stateWithError, clearError());
+      const state = authReducer(
+        getInitialState({ error: "Some error message" }),
+        clearError(),
+      );
 
       expect(state.error).toBe(null);
     });
 
     it("should not affect other state properties", () => {
-      const authenticatedStateWithError: AuthState = {
-        user: mockUser,
-        token: mockToken,
-        isAuthenticated: true,
-        loading: false,
-        error: "Error message",
-      };
-
-      const state = authReducer(authenticatedStateWithError, clearError());
+      const state = authReducer(
+        getAuthenticatedState({ error: "Error message" }),
+        clearError(),
+      );
 
       expect(state.user).toEqual(mockUser);
       expect(state.token).toBe(mockToken);
@@ -370,7 +316,7 @@ describe("authSlice", () => {
 
   describe("Complex Scenarios", () => {
     it("should handle login flow: start -> success", () => {
-      let state = authReducer(initialState, loginStart());
+      let state = authReducer(getInitialState(), loginStart());
       expect(state.loading).toBe(true);
 
       state = authReducer(
@@ -383,7 +329,7 @@ describe("authSlice", () => {
     });
 
     it("should handle login flow: start -> failure", () => {
-      let state = authReducer(initialState, loginStart());
+      let state = authReducer(getInitialState(), loginStart());
       expect(state.loading).toBe(true);
 
       state = authReducer(state, loginFailure("Login failed"));
@@ -394,7 +340,7 @@ describe("authSlice", () => {
 
     it("should handle user update after login", () => {
       let state = authReducer(
-        initialState,
+        getInitialState(),
         loginSuccess({ user: mockUser, token: mockToken })
       );
 
