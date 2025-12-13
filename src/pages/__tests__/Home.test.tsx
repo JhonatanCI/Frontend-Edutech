@@ -331,7 +331,7 @@ describe('Home', () => {
         // Verificar que el modal está visible
         expect(screen.getByTestId('success-notification-modal')).toBeInTheDocument();
         // Usar getAllByText con matcher y verificar que al menos uno existe
-        const elements = screen.getAllByText((content, element) => {
+        const elements = screen.getAllByText((_, element) => {
           return element?.tagName === 'P' && (element?.textContent?.includes('Este es un mensaje muy largo') ?? false);
         });
         expect(elements.length).toBeGreaterThan(0);

@@ -3,7 +3,7 @@ import {
   AvailableCoursesAction,
   AvailableCoursesState,
 } from "./AvailableCoursesTypes";
-import { Course, ProgramCourse, CourseSelectionPreset } from "../../model/types";
+import { Course, ProgramCourse } from "../../model/types";
 
 const availableCoursesReducer = (
   state: AvailableCoursesState,
