@@ -59,11 +59,11 @@ const TalentDevSection: React.FC = () => {
 
   const handleLearnMore = (_id: string, itemType: string, name: string) => {
     if (itemType === "COURSE") {
-      navigateTo(`/course/${name}`);
+      navigateTo(`/course/${encodeURIComponent(name)}`);
     } else if (itemType === "PROGRAM") {
-      navigateTo(`/program/${name}`);
+      navigateTo(`/program/${encodeURIComponent(name)}`);
     } else if (itemType === "MICROLEARNING") {
-      navigateTo(`/microlearning/${name}`);
+      navigateTo(`/microlearning/${encodeURIComponent(name)}`);
     }
   };
 

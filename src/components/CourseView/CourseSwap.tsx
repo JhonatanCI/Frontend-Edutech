@@ -83,7 +83,7 @@ const CourseSwap: React.FC<CourseSwapProps> = ({ course, close }) => {
             {coursesMatch !== null ? (
               coursesMatch.length > 0 ? (
                 <>
-                  <div className="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] max-w-[50rem] w-full bg-white overflow-y-auto max-h-[20rem] p-2 scrollbar-blue">
+                  <div className="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] max-w-[50rem] w-full bg-white overflow-y-auto max-h-[20rem] p-2 scrollbar-blue" data-testid="compatible-courses-list">
                     {coursesMatch.map((course) => (
                       <MiniCourseCard
                         key={course.id}

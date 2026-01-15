@@ -12,7 +12,9 @@ export const getAllPrograms = async (page: number, size: number) => {
 
 export const getFullProgram = async (name: string) => {
   try {
-    const response = await API.get(`/programs/name/${name}`);
+    // Codificar el nombre correctamente para la URL
+    const encodedName = encodeURIComponent(name);
+    const response = await API.get(`/programs/name/${encodedName}`);
     return response.data;
   } catch (error) {
     throw error;

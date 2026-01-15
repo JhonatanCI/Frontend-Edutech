@@ -12,7 +12,8 @@ export const getAllCourses = async () => {
 
 export const getAllProgramCourses = async (name: string) => {
   try {
-    const response = await API.get(`/courses/program/${name}`);
+    const encodedName = encodeURIComponent(name);
+    const response = await API.get(`/courses/program/${encodedName}`);
     return response.data;
   } catch (error) {
     throw error;
@@ -21,7 +22,8 @@ export const getAllProgramCourses = async (name: string) => {
 
 export const getFullCourse = async (name: string) => {
   try {
-    const response = await API.get(`/courses/name/${name}`);
+    const encodedName = encodeURIComponent(name);
+    const response = await API.get(`/courses/name/${encodedName}`);
     return response.data;
   } catch (error) {
     throw error;

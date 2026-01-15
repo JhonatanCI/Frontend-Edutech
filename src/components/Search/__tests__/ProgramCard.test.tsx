@@ -585,7 +585,7 @@ describe("ProgramCard", () => {
 
     await waitFor(() => {
       expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "Error al actualizar favorito:",
+        "Error toggling favorite:",
         expect.any(Error)
       );
     });

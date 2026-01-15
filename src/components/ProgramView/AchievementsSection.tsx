@@ -60,7 +60,7 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({
             key={achievement.id}
             name={achievement.name}
             description={achievement.description}
-            to={`/program/${achievement.name}`}
+            to={`/program/${encodeURIComponent(achievement.name)}`}
           />
         ))}
       </div>

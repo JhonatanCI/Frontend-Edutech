@@ -85,7 +85,7 @@ const ProgramSection: React.FC = () => {
               title={program.name}
               description={program.description}
               buttonText="Saber más"
-              path={`/program/${program.name}`}
+              path={`/program/${program.id}`}
               duracion={`${program.semesters} semestres`}
               creditos={program.credits}
               registroSNIES={program.sniesCode}

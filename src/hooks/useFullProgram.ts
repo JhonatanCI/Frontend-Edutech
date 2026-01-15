@@ -16,7 +16,9 @@ export const useFullProgram = (name: string | undefined) => {
           throw new Error("El parámetro 'name' es undefined");
         }
 
-        const response: FullProgram = await getFullProgram(name);
+        // Decodificar el nombre si viene de la URL
+        const decodedName = decodeURIComponent(name);
+        const response: FullProgram = await getFullProgram(decodedName);
         const programsFetched = {
           ...response,
           image: `${import.meta.env.VITE_API_URL}${response.image}`,

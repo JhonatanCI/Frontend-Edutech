@@ -72,7 +72,7 @@ export const ProgramsScrollSection: React.FC<ProgramsScrollSectionProps> = ({
               title={program.name}
               description={program.description}
               buttonText="Saber más"
-              path={`/program/${program.name}`}
+              path={`/program/${encodeURIComponent(program.name)}`}
               // Props opcionales adicionales con valores por defecto para evitar errores de tipado
               duracion={`${program.credits || 0} créditos`}
               creditos={program.credits}

@@ -337,7 +337,7 @@ const RegisterForm: React.FC = () => {
 
       <p className="text-sm text-center mt-2 text-black">
         Ya tengo cuenta{" "}
-        <a href="/login" className="text-primaryBlue font-medium hover:underline">
+        <a href="/login" className="text-primaryBlue font-medium hover:underline" data-testid="login-link">
           iniciar sesión
         </a>
       </p>

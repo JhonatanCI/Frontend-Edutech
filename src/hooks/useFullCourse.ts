@@ -15,7 +15,9 @@ export const useFullCourse = (name: string | undefined) => {
           throw new Error("El parámetro 'name' es undefined");
         }
 
-        const response: Course = await getFullCourse(name);
+        // Decodificar el nombre si viene de la URL
+        const decodedName = decodeURIComponent(name);
+        const response: Course = await getFullCourse(decodedName);
         setCourse(response);
       } catch (error) {
         console.error(

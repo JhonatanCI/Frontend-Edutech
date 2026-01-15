@@ -14,7 +14,9 @@ export const useFullMicroLearning = (name: string | undefined) => {
           throw new Error("El parámetro 'name' es undefined");
         }
 
-        const response: MicroLearning = await getMicroLearning(name);
+        // Decodificar el nombre si viene de la URL
+        const decodedName = decodeURIComponent(name);
+        const response: MicroLearning = await getMicroLearning(decodedName);
         setMicroLearning(response);
       } catch (error) {
         setMicroLearning({

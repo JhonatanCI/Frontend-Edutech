@@ -19,6 +19,7 @@ const MiniCourseCard: React.FC<SmallCardProps> = ({
     <div
       className={`flex flex-col relative bg-white shadow-md rounded-lg border border-gray-200 col-span-1 row-span-1 h-[12rem] w-[14rem]  p-3 transition-transform hover:scale-105 cursor-pointer`}
       onClick={onClick}
+      data-testid="mini-course-card"
     >
       {/* Title */}
       <div className="flex items-center mb-2">

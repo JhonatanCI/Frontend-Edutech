@@ -32,9 +32,9 @@ const FavoritesSection: React.FC = () => {
 
   const handleLearnMore = (itemType: string, name: string) => {
     if (itemType === "COURSE") {
-      navigate(`/course/${name}`);
+      navigate(`/course/${encodeURIComponent(name)}`);
     } else if (itemType === "PROGRAM") {
-      navigate(`/program/${name}`);
+      navigate(`/program/${encodeURIComponent(name)}`);
     }
   };
 

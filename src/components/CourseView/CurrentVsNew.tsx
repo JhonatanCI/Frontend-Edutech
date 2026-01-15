@@ -12,7 +12,7 @@ interface CurrentVsNewProps {
 
 const CurrentVsNew: React.FC<CurrentVsNewProps> = ({ current, newCourse }) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col" data-testid="current-vs-new">
       <div className="flex gap-4">
         <div className="flex flex-col">
           <span className="text-black text-sm mb-2 text-center">
