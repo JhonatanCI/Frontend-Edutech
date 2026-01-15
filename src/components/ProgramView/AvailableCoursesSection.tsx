@@ -245,12 +245,12 @@ const AvailableCoursesSection: React.FC<AvailableCoursesSectionProps> = ({
       <div className="flex w-3/6 justify-between mb-8">
         <div className="flex items-center gap-4">
           <FilledLine />
-          <span className="text-sm text-black">Intercambiable Condicionado</span>
+          <span className="text-sm text-black">Curso No Intercambiable (Hijo)</span>
         </div>
 
         <div className="flex items-center gap-4">
           <DottedLine />
-          <span className="text-sm text-black">Intercambiable Flexible</span>
+          <span className="text-sm text-black">Curso Intercambiable (Padre)</span>
         </div>
       </div>
 

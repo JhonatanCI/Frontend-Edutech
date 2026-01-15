@@ -27,7 +27,10 @@ export const useFullProgram = (name: string | undefined) => {
         setProgram(programsFetched);
       } catch (error) {
         setProgram(fullProgramExample);
-        console.error("No se ha podido obtener los programas académicos");
+        console.error("❌ Error al cargar el programa:", name);
+        console.error("Nombre decodificado:", name ? decodeURIComponent(name) : "undefined");
+        console.error("Error completo:", error);
+        console.warn("⚠️ Usando programa de ejemplo en su lugar");
       } finally {
         setIsLoading(false); // Finaliza la carga
       }
